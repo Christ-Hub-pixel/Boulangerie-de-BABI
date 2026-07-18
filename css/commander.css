@@ -247,6 +247,20 @@
     border-radius: 8px;
 }
 
+.loyalty-box .btn-outline {
+    background-color: #7D7D7D;
+    color: var(--primary);
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.loyalty-box .btn-outline:hover {
+    background-color: #666666;
+    color: var(--primary);
+}
+
 .l-icon, .dz-icon {
     font-size: 2rem;
     color: var(--primary-dark);

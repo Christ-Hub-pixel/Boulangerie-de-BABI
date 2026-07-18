@@ -379,3 +379,15 @@ table {
     color: var(--primary) !important;
     border-bottom: 2px solid var(--primary);
 }
+
+
+/* Bootstrap color overrides to force Gold color */
+.text-primary, .text-gold {
+    color: var(--primary) !important;
+}
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+.border-primary {
+    border-color: var(--primary) !important;
+}

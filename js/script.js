@@ -39,4 +39,18 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Footer Animation
+    const footerObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const footerElement = document.querySelector('.footer-fade-in');
+    if (footerElement) {
+        footerObserver.observe(footerElement);
+    }
 });

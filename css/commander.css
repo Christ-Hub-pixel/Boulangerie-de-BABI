@@ -248,8 +248,8 @@
 }
 
 .loyalty-box .btn-outline {
-    background-color: #7D7D7D;
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
     border: none;
     font-weight: bold;
     border-radius: 6px;
@@ -257,13 +257,13 @@
 }
 
 .loyalty-box .btn-outline:hover {
-    background-color: #666666;
-    color: var(--primary);
+    background-color: var(--primary-dark);
+    color: var(--white);
 }
 
 .delivery-zone-box .btn-outline {
-    background-color: #7D7D7D;
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
     border: 2px solid #000000;
     font-weight: bold;
     border-radius: 6px;
@@ -271,8 +271,8 @@
 }
 
 .delivery-zone-box .btn-outline:hover {
-    background-color: #666666;
-    color: var(--primary);
+    background-color: var(--primary-dark);
+    color: var(--white);
 }
 
 .l-icon, .dz-icon {

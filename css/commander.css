@@ -595,10 +595,12 @@
     border-radius: 4px;
 }
 .mtn-money-logo {
-    width: 25px;
-    height: 15px;
-    background: #ffcc00;
-    border-radius: 10px;
+    width: 48px;
+    height: 24px;
+    background-image: url('../assets/mtn_money.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .moov-money-logo {
     width: 20px;
@@ -781,10 +783,12 @@
 }
 
 .mtn-money-logo {
-    width: 24px;
-    height: 12px;
-    background-color: #ffcc00;
-    border-radius: 6px;
+    width: 48px;
+    height: 24px;
+    background-image: url('../assets/mtn_money.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .moov-money-logo {

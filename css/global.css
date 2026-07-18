@@ -1,3 +1,9 @@
+img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 :root {
     --primary: #F4B400;
     --primary-dark: #d69e00;
@@ -56,7 +62,7 @@ h1, h2, h3, .logo-title {
 }
 
 .logo-icon {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 5vw, 2rem);
     margin-right: 10px;
 }
 
@@ -67,13 +73,13 @@ h1, h2, h3, .logo-title {
 }
 
 .logo-title {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
     font-weight: 700;
 }
 
 .logo-subtitle {
     font-family: 'Great Vibes', cursive;
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
     margin-top: -5px;
 }
 
@@ -106,7 +112,7 @@ h1, h2, h3, .logo-title {
 
 .cart {
     color: var(--white);
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 2vw, 1.2rem);
     position: relative;
     text-decoration: none;
     margin-right: 20px; /* Espace supplémentaire garanti */
@@ -130,7 +136,10 @@ h1, h2, h3, .logo-title {
     text-decoration: none;
     cursor: pointer;
     border: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
 }
 
 .btn-primary {
@@ -157,7 +166,7 @@ h1, h2, h3, .logo-title {
 /* Section Title */
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
     color: var(--dark);
     margin: 50px 0 30px;
 }
@@ -181,7 +190,7 @@ footer {
 .footer-col h4 {
     color: var(--white);
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2vw, 1.1rem);
     margin-bottom: 20px;
 }
 
@@ -262,7 +271,7 @@ footer {
     background: none;
     border: none;
     color: var(--white);
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 3vw, 1.5rem);
     cursor: pointer;
 }
 
@@ -307,24 +316,53 @@ footer {
 
 @media (max-width: 576px) {
     .logo-title {
-        font-size: 1rem;
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
     }
     .logo-subtitle {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 2vw, 1.1rem);
     }
     .nav-actions {
         gap: 10px;
         margin-right: 10px;
     }
-    .nav-actions .btn {
+        .nav-actions .btn {
         padding: 8px 10px;
         font-size: 0;
+        min-height: 44px;
     }
     .nav-actions .btn i {
-        font-size: 1.2rem;
+        font-size: clamp(1.1rem, 2vw, 1.2rem);
         margin: 0;
     }
     .footer-grid {
         grid-template-columns: 1fr;
     }
+}
+
+
+/* Forms & Tables Responsiveness */
+form input, form textarea, form select {
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }

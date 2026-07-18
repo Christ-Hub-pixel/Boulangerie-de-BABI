@@ -60,7 +60,7 @@
 
     <!-- Hero -->
     <header class="hero">
-        <div class="hero-content">
+        <div class="container text-center hero-content position-relative z-1">
             <h2 class="hero-slogan">Le goût authentique,</h2>
             <h2 class="hero-slogan">la fraîcheur au quotidien</h2>
             <h1 class="hero-title">Boulangerie de Babi</h1>
@@ -73,42 +73,49 @@
     </header>
 
     <!-- Features -->
-    <section class="features">
-        <div class="feature-item">
+    <section class="features py-4 bg-light border-bottom">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 justify-content-center">
+            
+        <div class="col"><div class="feature-item">
             <i class="fa-solid fa-wheat-awn feature-icon"></i>
             <div>
                 <h4>Produits frais</h4>
                 <p>du jour</p>
             </div>
-        </div>
-        <div class="feature-item">
+        </div></div>
+        <div class="col"><div class="feature-item">
             <i class="fa-solid fa-leaf feature-icon"></i>
             <div>
                 <h4>Ingrédients locaux</h4>
                 <p>de qualité</p>
             </div>
-        </div>
-        <div class="feature-item">
+        </div></div>
+        <div class="col"><div class="feature-item">
             <i class="fa-solid fa-lock feature-icon"></i>
             <div>
                 <h4>Paiement mobile</h4>
                 <p>100% sécurisé</p>
             </div>
-        </div>
-        <div class="feature-item">
+        </div></div>
+        <div class="col"><div class="feature-item">
             <i class="fa-solid fa-truck-fast feature-icon"></i>
             <div>
                 <h4>Livraison rapide</h4>
                 <p>à domicile</p>
             </div>
+        </div></div>
+    
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Nos Délices -->
-    <section class="delices">
+    <section class="delices py-5">
+        <div class="container">
         <h2 class="section-title">Nos Délices</h2>
         
-        <div class="filters">
+        <div class="filters d-flex flex-wrap justify-content-center gap-2 mb-4">
             <button class="filter-btn active">TOUT</button>
             <button class="filter-btn">VIENNOISERIES</button>
             <button class="filter-btn">PÂTISSERIES</button>
@@ -185,9 +192,14 @@
         </div>
     </section>
 
+    </div>
+
     <!-- Info Cards -->
-    <section class="info-cards">
-        <div class="info-card dark">
+    <section class="info-cards my-5">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-lg-3 g-4">
+            
+        <div class="col"><div class="info-card dark h-100">
             <h3>Paiement Mobile<br>Facile & Sécurisé</h3>
             <p>Payez en toute sécurité avec MTN Mobile Money, Orange Money, Moov Money et Wave.</p>
             <div class="payment-badges">
@@ -196,19 +208,22 @@
                 <span class="badge moov">Moov</span>
                 <span class="badge wave">Wave</span>
             </div>
-        </div>
-        <div class="info-card yellow">
+        </div></div>
+        <div class="col"><div class="info-card yellow h-100">
             <h3>Livraison à Domicile<br>Rapide & Fiable</h3>
             <p>Commandez en ligne et faites vous livrer à domicile en toute sécurité.</p>
             <img src="assets/scooter_livraison.svg" alt="Scooter" class="decor-img">
-        </div>
+        </div></div>
         <div class="info-card dark">
             <h3>Bonus Fidélité<br>Gagnez & Profitez</h3>
             <p>Cumulez des points à chaque commande et bénéficiez de réductions exclusives.</p>
             <div class="points-badge">100 FCFA = 1 POINT</div>
             <img src="assets/gift_box_fidelite.svg" alt="Cadeau" class="decor-img">
         </div>
-    </section>
+    
+        </div>
+    </div>
+</section>
 
     <!-- Process Timeline -->
     <section class="process">

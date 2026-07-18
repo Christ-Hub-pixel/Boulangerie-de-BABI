@@ -764,3 +764,153 @@
 /* =========================================
    LIVRAISON PAGE STYLES
    ========================================= */
+
+
+/* PAYMENT ICONS GENERATED VIA CSS */
+
+.pc-logo {
+    width: 50px;
+    height: 50px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.orange-money-logo {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f66a06;
+    border-radius: 5px;
+}
+
+.mtn-money-logo {
+    width: 24px;
+    height: 12px;
+    background-color: #ffcc00;
+    border-radius: 6px;
+}
+
+.moov-money-logo {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #0066cc;
+    border-radius: 50%;
+}
+
+.wave-money-logo {
+    width: 24px;
+    height: 24px;
+    background-color: #1cc6f4;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wave-money-logo::after {
+    content: "w";
+    color: white;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.pc-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 24px;
+    color: #c4b5a2;
+}
+
+.payment-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.payment-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.payment-card:hover {
+    border-color: #ddd;
+}
+
+.payment-card.active {
+    border-color: #eab308;
+    background-color: #fffaf0;
+}
+
+.payment-card.active::after {
+    content: '\\f058';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #eab308;
+    position: absolute;
+    right: 20px;
+    font-size: 1.2rem;
+}
+
+.pc-content h4 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.pc-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Security block style */
+.security-block {
+    background-color: #fffaf0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    position: relative;
+}
+.security-block h4 {
+    font-size: 0.95rem;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+.security-block p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0 10px 0;
+}
+.security-block i {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.5rem;
+    color: #e6e0d5;
+}
+.security-block .networks {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+.security-block .networks .n-orange { color: #f66a06; }
+.security-block .networks .n-mtn { color: #eab308; }
+.security-block .networks .n-moov { color: #0066cc; }
+.security-block .networks .n-wave { color: #1cc6f4; }

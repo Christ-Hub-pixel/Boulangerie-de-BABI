@@ -307,18 +307,22 @@ footer {
 
 @media (max-width: 576px) {
     .logo-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     .logo-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
     .nav-actions {
         gap: 10px;
-        margin-right: 15px;
+        margin-right: 10px;
     }
     .nav-actions .btn {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+        padding: 8px 10px;
+        font-size: 0;
+    }
+    .nav-actions .btn i {
+        font-size: 1.2rem;
+        margin: 0;
     }
     .footer-grid {
         grid-template-columns: 1fr;

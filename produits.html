@@ -15,177 +15,290 @@
 </head>
 <body>
 
-            <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-2" style="background: rgba(43, 22, 12, 0.9); backdrop-filter: blur(10px);">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
+            <!-- E-commerce Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top py-2" style="background: rgba(43, 22, 12, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div class="container align-items-center">
+            <!-- Toggler for Mobile Sidebar -->
+            <button class="navbar-toggler border-0 px-1 me-2 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                <i class="fa-solid fa-bars fs-2"></i>
+            </button>
+
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-4" href="index.html">
                 <i class="fa-solid fa-wheat-awn text-primary fs-2 me-2"></i>
                 <div class="d-flex flex-column lh-1">
-                    <span class="fw-bold text-white" style="font-size: clamp(1.2rem, 3vw, 1.6rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
-                    <span class="text-primary" style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
+                    <span class="fw-bold text-white" style="font-size: clamp(1rem, 2.5vw, 1.4rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
+                    <span class="text-primary" style="font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
                 </div>
             </a>
             
-            <div class="d-flex align-items-center d-lg-none gap-3 ms-auto me-3">
-                <a href="checkout.html" class="position-relative text-white text-decoration-none">
-                    <i class="fa-solid fa-cart-shopping fs-4"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7em;">3</span>
-                </a>
+            <!-- Search Bar (Desktop) -->
+            <div class="d-none d-lg-flex flex-grow-1 mx-4">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0"><i class="fa-solid fa-search text-muted"></i></span>
+                    <input type="text" class="form-control border-0 shadow-none py-2" placeholder="Cherchez un produit, une pâtisserie...">
+                    <button class="btn btn-primary px-4 fw-bold">CHERCHER</button>
+                </div>
             </div>
 
-            <button class="navbar-toggler border-0 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars fs-2 text-white"></i>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold text-center mt-3 mt-lg-0" style="font-family: 'Inter', sans-serif;">
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="index.html">ACCUEIL</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="apropos.html">À PROPOS</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="produits.html">PRODUITS <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.8em"></i></a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="checkout.html">COMMANDER</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="fidelite.html">FIDÉLITÉ</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="contact.html">CONTACT</a></li>
-                </ul>
+            <!-- Icons (Desktop & Mobile) -->
+            <div class="d-flex align-items-center gap-3 gap-lg-4">
+                <a href="connexion.html" class="text-white text-decoration-none d-flex align-items-center gap-2">
+                    <i class="fa-regular fa-user fs-4"></i>
+                    <div class="d-none d-lg-flex flex-column lh-1">
+                        <span style="font-size: 0.75rem; color: #ccc;">Bonjour, Connectez-vous</span>
+                        <span class="fw-bold" style="font-size: 0.9rem;">Mon Compte <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
+                    </div>
+                </a>
                 
-                <div class="d-flex align-items-center justify-content-center gap-3 mt-3 mt-lg-0">
-                    <a href="checkout.html" class="position-relative text-white text-decoration-none d-none d-lg-block">
-                        <i class="fa-solid fa-cart-shopping fs-5"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7em;">3</span>
-                    </a>
-                    <a href="connexion.html" class="btn btn-primary fw-bold text-dark d-flex align-items-center justify-content-center gap-2 px-4 py-2"><i class="fa-regular fa-user"></i> <span class="d-none d-sm-inline">MON COMPTE</span></a>
-                </div>
+                <a href="apropos.html" class="text-white text-decoration-none d-none d-lg-flex align-items-center gap-2">
+                    <i class="fa-regular fa-circle-question fs-4"></i>
+                    <div class="d-flex flex-column lh-1">
+                        <span class="fw-bold mt-2" style="font-size: 0.9rem;">Aide <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
+                    </div>
+                </a>
+
+                <a href="checkout.html" class="position-relative text-white text-decoration-none d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping fs-4"></i>
+                    <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger ms-2 mt-1" style="font-size: 0.6em;">3</span>
+                    <span class="d-none d-lg-block fw-bold mt-1">Panier</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Search Bar (Mobile) -->
+        <div class="container d-lg-none mt-2 pb-1">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-0 py-1"><i class="fa-solid fa-search text-muted"></i></span>
+                <input type="text" class="form-control border-0 shadow-none py-1" placeholder="Cherchez un produit...">
             </div>
         </div>
     </nav>
-
-    <!-- Page Header Hero -->
-    <header class="products-hero" style="background-image: linear-gradient(rgba(43, 22, 12, 0.7), rgba(43, 22, 12, 0.7)), url('assets/hero_bakery.png');">
-        <div class="products-hero-content">
-            <h1 class="page-title">Nos Produits</h1>
-            <h2 class="page-subtitle highlight">Fraîcheur, qualité et plaisir</h2>
-            <p class="page-desc">
-                Découvrez tous nos pains, viennoiseries, pâtisseries<br>
-                et boissons préparés chaque jour avec amour.
-            </p>
-            <div class="breadcrumb" style="position: static; margin-top: 20px;">
-                <a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a> > <span>Produits</span>
-            </div>
+    
+    <!-- Offcanvas Mobile Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header bg-dark text-white">
+            <h5 class="offcanvas-title"><i class="fa-solid fa-wheat-awn text-primary"></i> Boulangerie de Babi</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
-    </header>
-
-    <!-- Avantages Banner -->
-    <div class="features-bar">
-        <div class="fb-container">
-            <div class="feature-item">
-                <i class="fa-solid fa-wheat-awn"></i>
-                <div>
-                    <strong>Produits frais</strong><br>chaque jour
-                </div>
-            </div>
-            <div class="feature-item">
-                <i class="fa-solid fa-leaf"></i>
-                <div>
-                    <strong>Ingrédients locaux</strong><br>de qualité
-                </div>
-            </div>
-            <div class="feature-item">
-                <i class="fa-solid fa-lock"></i>
-                <div>
-                    <strong>Paiement mobile</strong><br>100% sécurisé
-                </div>
-            </div>
-            <div class="feature-item">
-                <i class="fa-solid fa-truck-fast"></i>
-                <div>
-                    <strong>Livraison rapide</strong><br>à domicile
-                </div>
+        <div class="offcanvas-body p-0">
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action fw-bold"><i class="fa-solid fa-house me-2"></i> Accueil</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-bread-slice me-2"></i> Pains</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-cookie me-2"></i> Viennoiseries</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-cake-candles me-2"></i> Pâtisseries</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-mug-hot me-2"></i> Boissons</a>
+                <a href="fidelite.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-gift me-2"></i> Fidélité</a>
+                <a href="contact.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-envelope me-2"></i> Contact</a>
             </div>
         </div>
     </div>
 
-    <!-- Shop Content -->
-    <div class="shop-container">
-        <!-- Sidebar -->
-        <aside class="shop-sidebar">
-            <div class="sidebar-widget search-widget">
-                <h4>Rechercher un produit</h4>
-                <form action="#" class="search-box">
-                    <input type="text" placeholder="Rechercher...">
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i> Valider</button>
-                </form>
-            </div>
-
-            <div class="sidebar-widget categories-widget">
-                <h4>Catégories</h4>
-                <ul>
-                    <li class="active"><a href="#"><i class="fa-solid fa-circle" style="font-size: 8px; color: var(--primary);"></i> Tous les produits</a></li>
-                    <li><a href="#"><i class="fa-solid fa-bread-slice"></i> Pains <span class="count">(12)</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-cookie-bite"></i> Viennoiseries <span class="count">(15)</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-cake-candles"></i> Pâtisseries <span class="count">(18)</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-glass-water"></i> Jus naturels <span class="count">(8)</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-mug-hot"></i> Boissons <span class="count">(6)</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-ice-cream"></i> Glaces <span class="count">(7)</span></a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-widget filters-widget">
-                <h4>Filtres</h4>
+        <div class="bg-white py-2 shadow-sm" style="margin-top: 100px;">
+        <div class="container fs-sm text-muted">
+            <a href="index.html" class="text-decoration-none text-dark hover-primary"><i class="fa-solid fa-house"></i> Accueil</a> 
+            <i class="fa-solid fa-chevron-right mx-2" style="font-size:0.7em;"></i> <span>Produits</span>
+        </div>
+    </div>
+    
+    <div class="container my-4">
+        <div class="row g-3">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="bg-white rounded shadow-sm p-3 mb-3">
+                    <h6 class="fw-bold border-bottom pb-2 mb-3">Catégories</h6>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="c1" checked>
+                        <label class="form-check-label fs-sm" for="c1">Tous les produits</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="c2">
+                        <label class="form-check-label fs-sm" for="c2">Pains</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="c3">
+                        <label class="form-check-label fs-sm" for="c3">Viennoiseries</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="c4">
+                        <label class="form-check-label fs-sm" for="c4">Pâtisseries</label>
+                    </div>
+                </div>
                 
-                <div class="filter-group">
-                    <label>Prix</label>
-                    <input type="range" min="0" max="5000" value="5000" class="price-slider">
-                    <div class="price-range">
-                        <span>0 FCFA</span>
-                        <span>5 000 FCFA</span>
+                <div class="bg-white rounded shadow-sm p-3 mb-3">
+                    <h6 class="fw-bold border-bottom pb-2 mb-3">Prix (FCFA)</h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="number" class="form-control form-control-sm" placeholder="Min" value="0">
+                        <span>-</span>
+                        <input type="number" class="form-control form-control-sm" placeholder="Max" value="5000">
+                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i></button>
                     </div>
                 </div>
-
-                <div class="filter-group">
-                    <label>Disponibilité</label>
-                    <div class="checkbox-list">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" checked>
-                            <span class="checkmark"></span>
-                            Disponible <span class="count">(56)</span>
+                
+                <div class="bg-white rounded shadow-sm p-3">
+                    <h6 class="fw-bold border-bottom pb-2 mb-3">Avis</h6>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="rating" id="r4" checked>
+                        <label class="form-check-label fs-sm text-primary" for="r4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> & plus
                         </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            Bientôt disponible <span class="count">(5)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            Rupture de stock <span class="count">(2)</span>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="rating" id="r3">
+                        <label class="form-check-label fs-sm text-primary" for="r3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> & plus
                         </label>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-12 col-lg-9">
 
-                <div class="filter-group">
-                    <label>Trier par</label>
-                    <select class="custom-select">
-                        <option>Popularité</option>
+    
+    </div>
+
+    
+
+        <!-- Product Grid Area -->
+        
+                <div class="bg-white rounded shadow-sm p-3 mb-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold">Tous les Produits <span class="text-muted fs-sm fw-normal">(120 résultats)</span></h5>
+                    <select class="form-select w-auto fs-sm shadow-none border">
+                        <option>Pertinence</option>
                         <option>Prix croissant</option>
                         <option>Prix décroissant</option>
                         <option>Nouveautés</option>
                     </select>
                 </div>
+                
+                <div class="bg-white rounded shadow-sm p-3">
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+                        <!-- Product 1 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-20%</span>
+                                    <img src="assets/product_baguette.png" class="card-img-top" alt="Baguette">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Baguette Tradition</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">400 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">500 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <img src="assets/product_croissant.png" class="card-img-top" alt="Croissant">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Croissant Pur Beurre</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">850 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
 
-                <button class="btn btn-outline reset-filters-btn"><i class="fa-solid fa-rotate-left"></i> RÉINITIALISER LES FILTRES</button>
-            </div>
-        </aside>
-
-        <!-- Product Grid Area -->
-        <div class="shop-main">
-            <div class="shop-header">
-                <h3>Tous nos produits (63)</h3>
-                <div class="header-sort">
-                    Trier par : 
-                    <select class="custom-select">
-                        <option>Popularité</option>
-                    </select>
+                        <!-- Product 3 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-10%</span>
+                                    <img src="assets/product_entremet.png" class="card-img-top" alt="Entremet">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Entremet Chocolat Caramel</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">2700 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">3000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-25%</span>
+                                    <img src="assets/product_pain_choc.png" class="card-img-top" alt="Pain Choco">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Pain au Chocolat</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">750 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">1000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-30%</span>
+                                    <img src="assets/product_brioche.png" class="card-img-top" alt="Brioche">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Brioche Tressée</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">1400 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">2000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+</div></div></div>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
                 <!-- Product 1 -->

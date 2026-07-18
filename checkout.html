@@ -15,48 +15,84 @@
 </head>
 <body class="bg-gray-light">
 
-            <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-2" style="background: rgba(43, 22, 12, 0.9); backdrop-filter: blur(10px);">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
+            <!-- E-commerce Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top py-2" style="background: rgba(43, 22, 12, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div class="container align-items-center">
+            <!-- Toggler for Mobile Sidebar -->
+            <button class="navbar-toggler border-0 px-1 me-2 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                <i class="fa-solid fa-bars fs-2"></i>
+            </button>
+
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-4" href="index.html">
                 <i class="fa-solid fa-wheat-awn text-primary fs-2 me-2"></i>
                 <div class="d-flex flex-column lh-1">
-                    <span class="fw-bold text-white" style="font-size: clamp(1.2rem, 3vw, 1.6rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
-                    <span class="text-primary" style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
+                    <span class="fw-bold text-white" style="font-size: clamp(1rem, 2.5vw, 1.4rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
+                    <span class="text-primary" style="font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
                 </div>
             </a>
             
-            <div class="d-flex align-items-center d-lg-none gap-3 ms-auto me-3">
-                <a href="checkout.html" class="position-relative text-white text-decoration-none">
-                    <i class="fa-solid fa-cart-shopping fs-4"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7em;">3</span>
-                </a>
+            <!-- Search Bar (Desktop) -->
+            <div class="d-none d-lg-flex flex-grow-1 mx-4">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0"><i class="fa-solid fa-search text-muted"></i></span>
+                    <input type="text" class="form-control border-0 shadow-none py-2" placeholder="Cherchez un produit, une pâtisserie...">
+                    <button class="btn btn-primary px-4 fw-bold">CHERCHER</button>
+                </div>
             </div>
 
-            <button class="navbar-toggler border-0 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars fs-2 text-white"></i>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold text-center mt-3 mt-lg-0" style="font-family: 'Inter', sans-serif;">
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="index.html">ACCUEIL</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="apropos.html">À PROPOS</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="produits.html">PRODUITS <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.8em"></i></a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="checkout.html">COMMANDER</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="fidelite.html">FIDÉLITÉ</a></li>
-                    <li class="nav-item"><a class="nav-link text-white px-3" href="contact.html">CONTACT</a></li>
-                </ul>
+            <!-- Icons (Desktop & Mobile) -->
+            <div class="d-flex align-items-center gap-3 gap-lg-4">
+                <a href="connexion.html" class="text-white text-decoration-none d-flex align-items-center gap-2">
+                    <i class="fa-regular fa-user fs-4"></i>
+                    <div class="d-none d-lg-flex flex-column lh-1">
+                        <span style="font-size: 0.75rem; color: #ccc;">Bonjour, Connectez-vous</span>
+                        <span class="fw-bold" style="font-size: 0.9rem;">Mon Compte <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
+                    </div>
+                </a>
                 
-                <div class="d-flex align-items-center justify-content-center gap-3 mt-3 mt-lg-0">
-                    <a href="checkout.html" class="position-relative text-white text-decoration-none d-none d-lg-block">
-                        <i class="fa-solid fa-cart-shopping fs-5"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7em;">3</span>
-                    </a>
-                    <a href="connexion.html" class="btn btn-primary fw-bold text-dark d-flex align-items-center justify-content-center gap-2 px-4 py-2"><i class="fa-regular fa-user"></i> <span class="d-none d-sm-inline">MON COMPTE</span></a>
-                </div>
+                <a href="apropos.html" class="text-white text-decoration-none d-none d-lg-flex align-items-center gap-2">
+                    <i class="fa-regular fa-circle-question fs-4"></i>
+                    <div class="d-flex flex-column lh-1">
+                        <span class="fw-bold mt-2" style="font-size: 0.9rem;">Aide <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
+                    </div>
+                </a>
+
+                <a href="checkout.html" class="position-relative text-white text-decoration-none d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping fs-4"></i>
+                    <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger ms-2 mt-1" style="font-size: 0.6em;">3</span>
+                    <span class="d-none d-lg-block fw-bold mt-1">Panier</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Search Bar (Mobile) -->
+        <div class="container d-lg-none mt-2 pb-1">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-0 py-1"><i class="fa-solid fa-search text-muted"></i></span>
+                <input type="text" class="form-control border-0 shadow-none py-1" placeholder="Cherchez un produit...">
             </div>
         </div>
     </nav>
+    
+    <!-- Offcanvas Mobile Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header bg-dark text-white">
+            <h5 class="offcanvas-title"><i class="fa-solid fa-wheat-awn text-primary"></i> Boulangerie de Babi</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action fw-bold"><i class="fa-solid fa-house me-2"></i> Accueil</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-bread-slice me-2"></i> Pains</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-cookie me-2"></i> Viennoiseries</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-cake-candles me-2"></i> Pâtisseries</a>
+                <a href="produits.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-mug-hot me-2"></i> Boissons</a>
+                <a href="fidelite.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-gift me-2"></i> Fidélité</a>
+                <a href="contact.html" class="list-group-item list-group-item-action"><i class="fa-solid fa-envelope me-2"></i> Contact</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Page Header Hero -->
     <header class="checkout-hero" style="background-image: linear-gradient(rgba(43, 22, 12, 0.7), rgba(43, 22, 12, 0.7)), url('assets/hero_bakery.png');">

@@ -100,7 +100,7 @@
                     </div>
                     
                     <!-- Item 1 -->
-                    <div class="p-3 border-bottom d-flex flex-column flex-md-row gap-3">
+                    <div class="p-3 border-bottom d-flex flex-column flex-md-row gap-3 cart-item">
                         <img src="assets/product_baguette.png" class="rounded border" style="width: 100px; height: 100px; object-fit: cover;" alt="Baguette">
                         <div class="flex-grow-1">
                             <h6 class="fw-bold mb-1">Baguette Tradition</h6>
@@ -108,7 +108,7 @@
                             <span class="text-success fs-sm"><i class="fa-solid fa-check"></i> En stock</span>
                         </div>
                         <div class="text-md-end d-flex flex-column justify-content-between">
-                            <div class="fs-5 fw-bold text-dark mb-2">400 FCFA</div>
+                            <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="400">400 FCFA</div>
                             <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
                                 <button class="btn btn-sm btn-outline-danger border-0 hover-primary px-2"><i class="fa-solid fa-trash-can"></i> Retirer</button>
                                 <div class="d-flex align-items-center border rounded">
@@ -121,7 +121,7 @@
                     </div>
 
                     <!-- Item 2 -->
-                    <div class="p-3 d-flex flex-column flex-md-row gap-3">
+                    <div class="p-3 d-flex flex-column flex-md-row gap-3 cart-item">
                         <img src="assets/product_croissant.png" class="rounded border" style="width: 100px; height: 100px; object-fit: cover;" alt="Croissant">
                         <div class="flex-grow-1">
                             <h6 class="fw-bold mb-1">Croissant Pur Beurre</h6>
@@ -129,7 +129,7 @@
                             <span class="text-success fs-sm"><i class="fa-solid fa-check"></i> En stock</span>
                         </div>
                         <div class="text-md-end d-flex flex-column justify-content-between">
-                            <div class="fs-5 fw-bold text-dark mb-2">850 FCFA</div>
+                            <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="850">850 FCFA</div>
                             <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
                                 <button class="btn btn-sm btn-outline-danger border-0 hover-primary px-2"><i class="fa-solid fa-trash-can"></i> Retirer</button>
                                 <div class="d-flex align-items-center border rounded">
@@ -148,7 +148,7 @@
                 <div class="bg-white rounded shadow-sm p-3 sticky-top" style="top: 120px;">
                     <h6 class="fw-bold border-bottom pb-2 mb-3">RÉSUMÉ DU PANIER</h6>
                     <div class="d-flex justify-content-between mb-3">
-                        <span>Sous-total</span>
+                        <span class="subtotal-label">Sous-total</span>
                         <span class="fw-bold fs-5 total-val">1650 FCFA</span>
                     </div>
                     <p class="text-muted" style="font-size: 0.75rem;">Les frais de livraison seront calculés à l'étape suivante.</p>
@@ -164,9 +164,50 @@
             let current = parseInt(qtySpan.innerText);
             if(current + change >= 1) {
                 qtySpan.innerText = current + change;
-                // In a real app, we would recalculate totals here
+                recalculateCart();
             }
         }
+
+        function recalculateCart() {
+            let items = document.querySelectorAll('.cart-item');
+            let total = 0;
+            let count = 0;
+            items.forEach(item => {
+                let qty = parseInt(item.querySelector('.qty-val').innerText);
+                let price = parseInt(item.querySelector('.item-price').getAttribute('data-price'));
+                total += qty * price;
+                count += qty;
+            });
+            
+            // Update total
+            let totalVal = document.querySelector('.total-val');
+            if (totalVal) totalVal.innerText = total + ' FCFA';
+            
+            // Update counts
+            let cartHeader = document.querySelector('h4.mb-0.fw-bold');
+            if (cartHeader) cartHeader.innerText = `Panier (${count})`;
+            
+            let subtotalLabel = document.querySelector('.subtotal-label');
+            if (subtotalLabel) subtotalLabel.innerText = `Sous-total (${count} articles)`;
+            
+            let badge = document.querySelector('.badge.bg-danger');
+            if (badge) badge.innerText = count;
+        }
+
+        // Add remove functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.btn-outline-danger').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let item = this.closest('.cart-item');
+                    if (item) {
+                        item.remove();
+                        recalculateCart();
+                    }
+                });
+            });
+            // Initial calculation
+            recalculateCart();
+        });
     </script>
 
 <!-- Footer -->

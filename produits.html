@@ -152,13 +152,17 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Main Content -->
             <div class="col-12 col-lg-9">
 
-                <!-- Sort bar -->
+
+
+
+        <!-- Product Grid Area -->
+        
                 <div class="bg-white rounded shadow-sm p-3 mb-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold">Tous les Produits <span class="text-muted fs-sm fw-normal">(21 produits)</span></h5>
+                    <h5 class="mb-0 fw-bold">Tous les Produits <span class="text-muted fs-sm fw-normal">(120 résultats)</span></h5>
                     <select class="form-select w-auto fs-sm shadow-none border">
                         <option>Pertinence</option>
                         <option>Prix croissant</option>
@@ -166,9 +170,409 @@
                         <option>Nouveautés</option>
                     </select>
                 </div>
-
-                <!-- Product Grid -->
                 
+                <div class="bg-white rounded shadow-sm p-3">
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+                        <!-- Product 1 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-20%</span>
+                                    <img src="assets/product_baguette.png" class="card-img-top" alt="Baguette">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Baguette Tradition</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">400 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">500 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark add-to-cart-btn" data-name="Baguette Tradition" data-price="400" data-image="assets/product_baguette.png"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <img src="assets/product_croissant.png" class="card-img-top" alt="Croissant">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Croissant Pur Beurre</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">850 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark add-to-cart-btn" data-name="Croissant Pur Beurre" data-price="850" data-image="assets/product_croissant.png"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-10%</span>
+                                    <img src="assets/product_entremet.png" class="card-img-top" alt="Entremet">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Entremet Chocolat Caramel</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">2700 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">3000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark add-to-cart-btn" data-name="Entremet Chocolat" data-price="2700" data-image="assets/product_entremet.png"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-25%</span>
+                                    <img src="assets/product_pain_choc.png" class="card-img-top" alt="Pain Choco">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Pain au Chocolat</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">750 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">1000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark add-to-cart-btn" data-name="Pain au Chocolat" data-price="750" data-image="assets/product_pain_choc.png"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="col">
+                            <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">-30%</span>
+                                    <img src="assets/product_brioche.png" class="card-img-top" alt="Brioche">
+                                </div>
+                                <div class="card-body p-3 d-flex flex-column">
+                                    <h6 class="card-title fs-sm mb-1">Brioche Tressée</h6>
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
+                                        <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
+                                    </div>
+                                    <div class="d-flex flex-column mb-2 mt-auto">
+                                        <span class="fw-bold fs-5 text-dark">1400 FCFA</span>
+                                        <span class="text-muted text-decoration-line-through fs-sm">2000 FCFA</span>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark add-to-cart-btn" data-name="Brioche Tressée" data-price="1400" data-image="assets/product_brioche.png"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div></div></div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
+                <!-- Product 1 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <div class="product-badge">PRODUIT DU JOUR</div>
+                    <img loading="lazy" src="assets/product_baguette.png" alt="Baguette Tradition">
+                    <div class="product-info">
+                        <h4>Baguette Tradition</h4>
+                        <div class="price">400 FCFA</div>
+                        <p class="product-desc">Pain croustillant à l'extérieur et moelleux à l'intérieur.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(120)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 2 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_croissant.png" alt="Croissant au beurre">
+                    <div class="product-info">
+                        <h4>Croissant au beurre</h4>
+                        <div class="price">500 FCFA</div>
+                        <p class="product-desc">Croissant pur beurre doré et feuilleté.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 <span>(98)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 3 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_chocolat.png" alt="Pain au chocolat">
+                    <div class="product-info">
+                        <h4>Pain au chocolat</h4>
+                        <div class="price">600 FCFA</div>
+                        <p class="product-desc">Feuilleté au beurre avec chocolat fondant.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.7 <span>(86)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 4 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_complet.png" alt="Pain complet">
+                    <div class="product-info">
+                        <h4>Pain complet</h4>
+                        <div class="price">700 FCFA</div>
+                        <p class="product-desc">Riche en fibres et en goût pour votre bien-être.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.6 <span>(64)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 5 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_batard.png" alt="Batard">
+                    <div class="product-info">
+                        <h4>Batard</h4>
+                        <div class="price">600 FCFA</div>
+                        <p class="product-desc">Pain français à mie alvéolée et croûte dorée.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.6 <span>(52)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 6 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_pain_mie.png" alt="Pain de mie">
+                    <div class="product-info">
+                        <h4>Pain de mie</h4>
+                        <div class="price">800 FCFA</div>
+                        <p class="product-desc">Moelleux et parfait pour vos petits-déjeuners.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(110)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 7 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_tarte_fraises.png" alt="Tarte aux fraises">
+                    <div class="product-info">
+                        <h4>Tarte aux fraises</h4>
+                        <div class="price">3 500 FCFA</div>
+                        <p class="product-desc">Délicate tarte aux fraises et crème pâtissière.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 <span>(74)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 8 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_foret_noire.png" alt="Forêt Noire">
+                    <div class="product-info">
+                        <h4>Forêt Noire</h4>
+                        <div class="price">3 500 FCFA</div>
+                        <p class="product-desc">Gâteau chocolat, cerises et chantilly.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(63)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 9 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <div class="product-badge badge-green">NOUVEAU</div>
+                    <img loading="lazy" src="assets/product_eclair_chocolat.png" alt="Éclair au chocolat">
+                    <div class="product-info">
+                        <h4>Éclair au chocolat</h4>
+                        <div class="price">800 FCFA</div>
+                        <p class="product-desc">Pâte à choux garnie de crème au chocolat.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.7 <span>(90)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 10 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_mille_feuille.png" alt="Mille-feuille">
+                    <div class="product-info">
+                        <h4>Mille-feuille</h4>
+                        <div class="price">2 500 FCFA</div>
+                        <p class="product-desc">Feuilleté croustillant et crème onctueuse.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(66)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 11 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_jus_ananas.png" alt="Jus d'Ananas">
+                    <div class="product-info">
+                        <h4>Jus d'Ananas</h4>
+                        <div class="price">1 000 FCFA</div>
+                        <p class="product-desc">100% naturel et sans conservateur.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.6 <span>(44)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 12 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_jus_orange.png" alt="Jus d'Orange">
+                    <div class="product-info">
+                        <h4>Jus d'Orange</h4>
+                        <div class="price">1 000 FCFA</div>
+                        <p class="product-desc">Fraîchement pressé chaque matin.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(71)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 13 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_jus_bissap.png" alt="Jus de Bissap">
+                    <div class="product-info">
+                        <h4>Jus de Bissap</h4>
+                        <div class="price">1 000 FCFA</div>
+                        <p class="product-desc">Fait maison, frais et naturel.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.6 <span>(35)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 14 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_cafe_expresso.png" alt="Café Expresso">
+                    <div class="product-info">
+                        <h4>Café Expresso</h4>
+                        <div class="price">800 FCFA</div>
+                        <p class="product-desc">Café pur Arabica de qualité.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.7 <span>(29)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 15 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_cappuccino.png" alt="Cappuccino">
+                    <div class="product-info">
+                        <h4>Cappuccino</h4>
+                        <div class="price">1 200 FCFA</div>
+                        <p class="product-desc">Café crémeux avec mousse de lait.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 <span>(41)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+                <!-- Product 16 -->
+                <div class="col">
+<div class="product-card h-100">
+                    <img loading="lazy" src="assets/product_glace.png" alt="Glace Chocolat">
+                    <div class="product-info">
+                        <h4>Glace Chocolat</h4>
+                        <div class="price">1 500 FCFA</div>
+                        <p class="product-desc">Glace artisanale au chocolat intense.</p>
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.6 <span>(39)</span></div>
+                        <button class="btn-add">AJOUTER <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+</div> <!-- col -->
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <span class="page-dots">...</span>
+                <a href="#" class="page-link">6</a>
+                <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <!-- Bottom Banners -->
+            <div class="shop-bottom-banners">
+                <div class="promo-banner" style="background-image: linear-gradient(rgba(43, 22, 12, 0.9), rgba(43, 22, 12, 0.8)), url('assets/product_baguette.png');">
+                    <div class="promo-content">
+                        <div class="promo-badge"><i class="fa-solid fa-bread-slice"></i> Pain du jour</div>
+                        <h3>Baguette Tradition</h3>
+                        <div class="promo-pricing">
+                            <span class="new-price">400 FCFA</span>
+                            <span class="old-price">500 FCFA</span>
+                        </div>
+                    </div>
+                    <div class="promo-timer">
+                        <div class="timer-label">Fin de l'offre dans</div>
+                        <div class="countdown">
+                            <div class="time-box"><span>06</span>Heures</div><span class="colon">:</span>
+                            <div class="time-box"><span>45</span>Minutes</div><span class="colon">:</span>
+                            <div class="time-box"><span>32</span>Secondes</div>
+                        </div>
+                    </div>
+                    <img loading="lazy" src="assets/product_baguette.png" class="promo-bg-img" alt="Baguette">
+                </div>
+
+                <div class="help-banner">
+                    <div class="help-icon"><i class="fa-regular fa-comment-dots"></i></div>
+                    <div class="help-content">
+                        <h3>Vous ne trouvez pas<br>ce que vous cherchez ?</h3>
+                        <p>Contactez-nous sur WhatsApp, nous sommes là pour vous aider.</p>
+                        <a href="#" class="btn btn-dark"><i class="fa-brands fa-whatsapp"></i> DISCUTER SUR WHATSAPP</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Pre-Footer Reassurance Banner -->
     <div class="reassurance-banner">
@@ -254,7 +658,6 @@
             </div>
         </div>
     </footer>
-
 
 <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

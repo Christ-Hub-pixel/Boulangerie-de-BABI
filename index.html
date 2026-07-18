@@ -59,11 +59,38 @@
                     </div>
                 </a>
 
-                <a href="cart.html" class="position-relative text-white text-decoration-none d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping fs-4"></i>
-                    <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger ms-2 mt-1" style="font-size: 0.6em;">0</span>
-                    <span class="d-none d-lg-block fw-bold mt-1">Panier</span>
-                </a>
+                <!-- Cart Dropdown -->
+                <div class="dropdown">
+                    <a href="cart.html" class="position-relative text-white text-decoration-none d-flex align-items-center gap-2" id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.preventDefault();" style="cursor:pointer;">
+                        <div class="cart-icon-wrapper position-relative d-flex align-items-center justify-content-center" style="width:42px;height:42px;background:rgba(244,180,0,0.15);border-radius:12px;border:1.5px solid rgba(244,180,0,0.3);transition:all 0.2s;">
+                            <i class="fa-solid fa-cart-shopping fs-5 text-primary"></i>
+                            <span class="position-absolute badge rounded-pill bg-danger cart-badge" style="font-size:0.6rem;top:-6px;right:-6px;min-width:18px;height:18px;display:none;padding:3px 5px;">0</span>
+                        </div>
+                        <div class="d-none d-lg-flex flex-column lh-1">
+                            <span style="font-size:0.72rem;color:#ccc;">Mon panier</span>
+                            <span class="fw-bold text-primary" style="font-size:0.88rem;">Panier <i class="fa-solid fa-chevron-down ms-1" style="font-size:0.65rem;"></i></span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-0" style="width:320px;margin-top:12px;border-radius:12px;overflow:hidden;">
+                        <div class="p-3" style="background:#2b160c;">
+                            <h6 class="text-white mb-0 fw-bold"><i class="fa-solid fa-cart-shopping me-2 text-primary"></i>Mon Panier</h6>
+                        </div>
+                        <div class="p-3" id="cartDropdownBody">
+                            <div class="text-center py-3" id="cartEmptyMsg">
+                                <i class="fa-solid fa-bag-shopping text-muted" style="font-size:2.5rem;"></i>
+                                <p class="text-muted mt-2 mb-0">Votre panier est vide</p>
+                                <a href="produits.html" class="btn btn-sm btn-primary text-dark fw-bold mt-2">Voir les produits</a>
+                            </div>
+                        </div>
+                        <div class="px-3 pb-3" id="cartDropdownFooter" style="display:none;">
+                            <div class="d-flex justify-content-between fw-bold border-top pt-2 mb-2">
+                                <span>Total</span>
+                                <span class="text-primary" id="dropdownTotal">0 FCFA</span>
+                            </div>
+                            <a href="cart.html" class="btn btn-primary w-100 fw-bold text-dark"><i class="fa-solid fa-arrow-right me-1"></i>Voir mon panier</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -372,116 +399,117 @@
                 <h4 class="mb-4 fw-bold">Recommandé pour vous</h4>
                 
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
-                    <!-- Product Card -->
+
+                    <!-- Product Card 1 -->
                     <div class="col">
-                        <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
-                            <div class="position-relative">
-                                <img src="assets/product_baguette.png" class="card-img-top" alt="Baguette">
+                        <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="assets/product_baguette.png" class="card-img-top product-img" alt="Baguette Tradition" style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
+                                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger" title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i class="fa-regular fa-heart"></i></button>
                             </div>
-                            <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="card-title fs-sm mb-1">Baguette Tradition</h6>
-                                <div class="mb-2">
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
-                                    <span class="text-muted ms-1" style="font-size:0.7rem;">(124)</span>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Baguette Tradition</h6>
+                                <div class="d-flex align-items-center gap-1 mb-2">
+                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span class="text-muted">★</span></span>
+                                    <span class="text-muted" style="font-size:0.7rem;">(124)</span>
                                 </div>
-                                <span class="fw-bold fs-5 text-dark mt-auto mb-2">500 FCFA</span>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                <div class="d-flex align-items-baseline gap-2 mb-2">
+                                    <span class="fw-bold text-dark" style="font-size:1rem;">500 <small>FCFA</small></span>
+                                    <span class="text-muted text-decoration-line-through" style="font-size:0.75rem;">625 FCFA</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn" style="font-size:0.78rem;"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product Card -->
+
+                    <!-- Product Card 2 -->
                     <div class="col">
-                        <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
-                            <div class="position-relative">
-                                <img src="assets/product_croissant.png" class="card-img-top" alt="Croissant">
+                        <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="assets/product_croissant.png" class="card-img-top product-img" alt="Croissant Pur Beurre" style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
+                                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger" title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i class="fa-regular fa-heart"></i></button>
                             </div>
-                            <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="card-title fs-sm mb-1">Croissant Pur Beurre</h6>
-                                <div class="mb-2">
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <span class="text-muted ms-1" style="font-size:0.7rem;">(89)</span>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Croissant Pur Beurre</h6>
+                                <div class="d-flex align-items-center gap-1 mb-2">
+                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span class="text-muted">★</span></span>
+                                    <span class="text-muted" style="font-size:0.7rem;">(89)</span>
                                 </div>
-                                <span class="fw-bold fs-5 text-dark mt-auto mb-2">1000 FCFA</span>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                <div class="d-flex align-items-baseline gap-2 mb-2">
+                                    <span class="fw-bold text-dark" style="font-size:1rem;">850 <small>FCFA</small></span>
+                                    <span class="text-muted text-decoration-line-through" style="font-size:0.75rem;">1 000 FCFA</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn" style="font-size:0.78rem;"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product Card -->
+
+                    <!-- Product Card 3 -->
                     <div class="col">
-                        <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
-                            <div class="position-relative">
-                                <img src="assets/product_pain_choc.png" class="card-img-top" alt="Pain Choco">
+                        <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <span class="badge position-absolute top-0 start-0 m-2" style="background:#e74c3c;font-size:0.7rem;">-15%</span>
+                                <img src="assets/product_pain_choc.png" class="card-img-top product-img" alt="Pain au Chocolat" style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
+                                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger" title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i class="fa-regular fa-heart"></i></button>
                             </div>
-                            <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="card-title fs-sm mb-1">Pain au Chocolat</h6>
-                                <div class="mb-2">
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <span class="text-muted ms-1" style="font-size:0.7rem;">(210)</span>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Pain au Chocolat</h6>
+                                <div class="d-flex align-items-center gap-1 mb-2">
+                                    <span class="text-warning" style="font-size:0.65rem;">★★★★★</span>
+                                    <span class="text-muted" style="font-size:0.7rem;">(210)</span>
                                 </div>
-                                <span class="fw-bold fs-5 text-dark mt-auto mb-2">1000 FCFA</span>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                <div class="d-flex align-items-baseline gap-2 mb-2">
+                                    <span class="fw-bold text-dark" style="font-size:1rem;">850 <small>FCFA</small></span>
+                                    <span class="text-muted text-decoration-line-through" style="font-size:0.75rem;">1 000 FCFA</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn" style="font-size:0.78rem;"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product Card -->
+
+                    <!-- Product Card 4 -->
                     <div class="col">
-                        <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
-                            <div class="position-relative">
-                                <span class="badge bg-primary text-dark position-absolute top-0 start-0 m-2">NOUVEAU</span>
-                                <img src="assets/product_entremet.png" class="card-img-top" alt="Entremet">
+                        <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <span class="badge position-absolute top-0 start-0 m-2" style="background:#f4b400;color:#2b160c;font-size:0.7rem;">NOUVEAU</span>
+                                <img src="assets/product_entremet.png" class="card-img-top product-img" alt="Entremet Caramel" style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
+                                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger" title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i class="fa-regular fa-heart"></i></button>
                             </div>
-                            <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="card-title fs-sm mb-1">Entremet Caramel</h6>
-                                <div class="mb-2">
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star-half-stroke text-primary" style="font-size:0.7rem;"></i>
-                                    <span class="text-muted ms-1" style="font-size:0.7rem;">(45)</span>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Entremet Caramel</h6>
+                                <div class="d-flex align-items-center gap-1 mb-2">
+                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span class="text-muted">★</span></span>
+                                    <span class="text-muted" style="font-size:0.7rem;">(45)</span>
                                 </div>
-                                <span class="fw-bold fs-5 text-dark mt-auto mb-2">3500 FCFA</span>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                <div class="d-flex align-items-baseline gap-2 mb-2">
+                                    <span class="fw-bold text-dark" style="font-size:1rem;">3 500 <small>FCFA</small></span>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn" style="font-size:0.78rem;"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product Card -->
+
+                    <!-- Product Card 5 -->
                     <div class="col">
-                        <div class="card product-card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
-                            <div class="position-relative">
-                                <img src="assets/product_brioche.png" class="card-img-top" alt="Brioche">
+                        <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="assets/product_brioche.png" class="card-img-top product-img" alt="Brioche Tressée" style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
+                                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger" title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i class="fa-regular fa-heart"></i></button>
                             </div>
-                            <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="card-title fs-sm mb-1">Brioche Tressée</h6>
-                                <div class="mb-2">
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-solid fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <i class="fa-regular fa-star text-primary" style="font-size:0.7rem;"></i>
-                                    <span class="text-muted ms-1" style="font-size:0.7rem;">(62)</span>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Brioche Tressée</h6>
+                                <div class="d-flex align-items-center gap-1 mb-2">
+                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span class="text-muted">★</span></span>
+                                    <span class="text-muted" style="font-size:0.7rem;">(62)</span>
                                 </div>
-                                <span class="fw-bold fs-5 text-dark mt-auto mb-2">2000 FCFA</span>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark">AJOUTER</button>
+                                <div class="d-flex align-items-baseline gap-2 mb-2">
+                                    <span class="fw-bold text-dark" style="font-size:1rem;">2 000 <small>FCFA</small></span>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn" style="font-size:0.78rem;"><i class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 
                 <div class="text-center mt-4">

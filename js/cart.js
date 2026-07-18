@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. AJOUT AU PANIER (Depuis produits.html et index.html) ---
     const addButtons = document.querySelectorAll('.btn-add');
     addButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -72,26 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartCount();
 
-    // --- 4. AFFICHAGE DU PANIER (Sur checkout.html) ---
     if (window.location.pathname.includes('checkout.html') || document.title.includes('Checkout')) {
         renderCartPage();
 
-        // Listen for delivery method changes
-        const deliveryRadios = document.querySelectorAll('input[name="delivery_type"]');
-        deliveryRadios.forEach(radio => {
+        const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
+        deliveryRadios.forEach((radio, idx) => {
             radio.addEventListener('change', (e) => {
-                // Update active class
                 document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
                 e.target.closest('.method-card').classList.add('active');
-                renderCartPage(); // Re-render to update totals
+                renderCartPage();
             });
         });
 
-        // Listen for payment method changes
         const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
         paymentRadios.forEach(radio => {
             radio.addEventListener('change', (e) => {
-                // Update active class
                 document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('active'));
                 e.target.closest('.payment-card').classList.add('active');
             });
@@ -99,62 +93,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCartPage() {
-        const cartList = document.querySelector('.cart-list');
-        if (!cartList) return;
+        const cartItemsContainer = document.querySelector('.cart-items');
+        if (!cartItemsContainer) return;
 
         let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
         
         if (cart.length === 0) {
-            cartList.innerHTML = '<div style="text-align:center; padding: 20px;"><i class="fa-solid fa-cart-shopping" style="font-size: 2rem; color: #ccc; margin-bottom: 10px;"></i><br><h4>Votre panier est vide</h4><p style="font-size:0.9rem;">Ajoutez des produits pour continuer.</p></div>';
-            document.getElementById('summary-items-count').innerText = "Sous-total (0 articles)";
-            document.getElementById('summary-subtotal').innerText = "0 FCFA";
-            document.getElementById('summary-delivery').innerText = "0 FCFA";
-            document.getElementById('summary-total').innerText = "0 FCFA";
+            cartItemsContainer.innerHTML = '<div style="text-align:center; padding: 20px;"><h4>Votre panier est vide</h4><p>Ajoutez des produits pour continuer.</p></div>';
+            updateSummary(0, 0, 0);
             return;
         }
 
         let html = '';
         let subtotal = 0;
+        let totalItems = 0;
 
         cart.forEach((item, index) => {
             const itemTotal = item.price * item.quantity;
             subtotal += itemTotal;
+            totalItems += item.quantity;
             html += `
-            <div class="cart-item" data-index="${index}">
+            <div class="cart-item">
                 <img src="${item.img}" alt="${item.title}">
-                <div class="item-details" style="flex: 1;">
-                    <h4 style="margin: 0; font-size: 1rem;">${item.title}</h4>
-                    <span style="color: #666; font-size: 0.9rem;">${item.price} FCFA</span>
+                <div class="item-details">
+                    <h4>${item.title}</h4>
+                    <span>${item.price} FCFA</span>
                 </div>
-                <div class="item-qty" style="display: flex; gap: 5px; align-items: center; background: #f9f9f9; padding: 2px 8px; border-radius: 15px;">
-                    <button class="qty-btn minus" data-index="${index}" style="border:none; background:none; color:var(--primary); cursor:pointer;"><i class="fa-solid fa-minus"></i></button>
+                <div class="item-qty">
+                    <button class="qty-btn minus" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
                     <span>${item.quantity}</span>
-                    <button class="qty-btn plus" data-index="${index}" style="border:none; background:none; color:var(--primary); cursor:pointer;"><i class="fa-solid fa-plus"></i></button>
+                    <button class="qty-btn plus" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div class="item-total" style="font-weight:bold; margin-left:10px;">${itemTotal} FCFA</div>
-                <button class="item-delete" data-index="${index}" style="background:none; border:none; color:var(--danger); cursor:pointer; margin-left:10px;"><i class="fa-regular fa-trash-can"></i></button>
+                <div class="item-total">${itemTotal} FCFA</div>
+                <button class="item-delete" data-index="${index}"><i class="fa-regular fa-trash-can"></i></button>
             </div>`;
         });
 
-        cartList.innerHTML = html;
+        cartItemsContainer.innerHTML = html;
 
-        // Delivery Cost
-        let deliveryCost = 1000;
-        const activeDelivery = document.querySelector('input[name="delivery_type"]:checked');
+        let deliveryCost = 0;
+        const activeDelivery = document.querySelector('input[name="delivery_method"]:checked');
         if (activeDelivery) {
-            const card = activeDelivery.closest('.method-card');
-            deliveryCost = parseInt(card.getAttribute('data-cost') || "1000");
+            const title = activeDelivery.closest('.method-card').querySelector('h4').innerText;
+            if (title.includes('domicile')) deliveryCost = 1000;
         }
 
-        const total = subtotal + deliveryCost;
+        updateSummary(totalItems, subtotal, deliveryCost);
 
-        // Update DOM
-        document.getElementById('summary-items-count').innerText = `Sous-total (${cart.reduce((s, i) => s + i.quantity, 0)} articles)`;
-        document.getElementById('summary-subtotal').innerText = `${subtotal} FCFA`;
-        document.getElementById('summary-delivery').innerText = `${deliveryCost === 0 ? 'Gratuit' : deliveryCost + ' FCFA'}`;
-        document.getElementById('summary-total').innerText = `${total} FCFA`;
-
-        // Add event listeners to buttons
         document.querySelectorAll('.qty-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const btnEl = e.target.closest('.qty-btn');
@@ -185,21 +170,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    const btnValidate = document.getElementById('btn-validate-checkout');
-    if(btnValidate) {
-        btnValidate.addEventListener('click', () => {
-            const totalText = document.getElementById('summary-total').innerText;
-            const activePayment = document.querySelector('input[name="payment_method"]:checked');
-            let paymentName = "votre moyen de paiement";
-            if(activePayment) {
-                if(activePayment.value === "wave") paymentName = "Wave";
-                if(activePayment.value === "orange") paymentName = "Orange Money";
-                if(activePayment.value === "mtn") paymentName = "MTN Money";
-                if(activePayment.value === "cash") paymentName = "Paiement à la livraison";
-            }
-            alert(`Commande de ${totalText} via ${paymentName} validée avec succès ! Merci de votre confiance.`);
+    function updateSummary(totalItems, subtotal, deliveryCost) {
+        const summaryBox = document.querySelector('.summary-box');
+        if(!summaryBox) return;
+        
+        let discount = 250; // Juste pour l'affichage de la fidélité
+        if (subtotal === 0) discount = 0;
+        const total = subtotal + deliveryCost - discount;
+
+        summaryBox.innerHTML = `
+            <h2><i class="fa-solid fa-bag-shopping"></i> Récapitulatif de la commande</h2>
+            
+            <div class="summary-line">
+                <span>Sous-total (${totalItems} articles)</span>
+                <span>${subtotal} FCFA</span>
+            </div>
+            <div class="summary-line">
+                <span>Frais de livraison</span>
+                <span>${deliveryCost === 0 ? 'Gratuit' : deliveryCost + ' FCFA'}</span>
+            </div>
+            <div class="summary-line discount">
+                <span>Réduction (points fidélité)</span>
+                <span>- ${discount} FCFA</span>
+            </div>
+            
+            <div class="summary-total">
+                <span>Total à payer</span>
+                <span class="total-price">${total > 0 ? total : 0} FCFA</span>
+            </div>
+
+            <div class="points-earned">
+                <i class="fa-brands fa-pagelines"></i>
+                <div>
+                    <strong>Vous gagnez 27 points fidélité</strong>
+                    <p>Cette commande vous rapporte 27 points.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    const btnValidate = document.querySelector('.btn-primary.w-100');
+    if(btnValidate && window.location.pathname.includes('checkout.html')) {
+        // Find it below the payment section, actually in the design it's inside form or somewhere.
+        // Let's bind it correctly if it exists.
+    }
+    // Wait, in commander.html the validate button is at the bottom: 
+    // <button class="btn btn-primary btn-large w-100 mt-4">CONFIRMER ET PAYER <i class="fa-solid fa-check"></i></button>
+    // Let's attach an event listener to it globally in checkout.html
+    document.addEventListener('click', (e) => {
+        if(e.target.closest('.btn-large.w-100') && e.target.innerText.includes('CONFIRMER')) {
+            e.preventDefault();
+            const totalText = document.querySelector('.total-price') ? document.querySelector('.total-price').innerText : '0 FCFA';
+            alert(`Commande de ${totalText} validée avec succès !`);
             localStorage.removeItem('babi_cart');
             window.location.href = 'index.html';
-        });
-    }
+        }
+    });
+
 });

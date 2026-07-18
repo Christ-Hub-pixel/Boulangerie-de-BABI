@@ -1,0 +1,7 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="50" height="50" rx="10" fill="#FF6600"/>
+    <!-- Fleche vers le haut-droit -->
+    <path d="M10 25 l 10 -10 v 5 h 5 v -10 h -10 v 5 l -10 10 z" fill="white" transform="translate(4, 5)"/>
+    <!-- Fleche vers le bas-gauche -->
+    <path d="M40 25 l -10 10 v -5 h -5 v 10 h 10 v -5 l 10 -10 z" fill="white" transform="translate(-4, -5)"/>
+</svg>

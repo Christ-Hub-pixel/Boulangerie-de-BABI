@@ -553,15 +553,7 @@
     opacity: 0;
 }
 
-.payment-card.active::after {
-    content: "\f058";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    right: 20px;
-    color: var(--primary);
-    font-size: 1.2rem;
-}
+
 
 .pc-logo {
     width: 40px;
@@ -596,10 +588,11 @@
 
 /* Logos Mobile Money (CSS Drawing) */
 .orange-money-logo {
-    width: 20px;
-    height: 20px;
-    border: 4px solid #f16e00;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/orange_money.svg');
+    background-size: cover;
+    border-radius: 4px;
 }
 .mtn-money-logo {
     width: 25px;
@@ -780,10 +773,11 @@
 }
 
 .orange-money-logo {
-    width: 20px;
-    height: 20px;
-    border: 3px solid #f66a06;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/orange_money.svg');
+    background-size: cover;
+    border-radius: 4px;
 }
 
 .mtn-money-logo {
@@ -857,15 +851,7 @@
     background-color: #fffaf0;
 }
 
-.payment-card.active::after {
-    content: '\\f058';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    color: #eab308;
-    position: absolute;
-    right: 20px;
-    font-size: 1.2rem;
-}
+
 
 .pc-content h4 {
     margin: 0 0 5px 0;

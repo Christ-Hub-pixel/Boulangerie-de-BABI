@@ -1,0 +1,63 @@
+[
+    {
+        "id": "1",
+        "name": "Baguette Tradition",
+        "price": 400,
+        "description": "Pain croustillant à l'extérieur et moelleux à l'intérieur.",
+        "image": "assets/product_baguette.png",
+        "rating": 4.8,
+        "reviews": 120,
+        "category": "Pain",
+        "badge": "PRODUIT DU JOUR"
+    },
+    {
+        "id": "2",
+        "name": "Croissant au beurre",
+        "price": 500,
+        "description": "Croissant pur beurre doré et feuilleté.",
+        "image": "assets/product_croissant.png",
+        "rating": 4.9,
+        "reviews": 98,
+        "category": "Viennoiserie"
+    },
+    {
+        "id": "3",
+        "name": "Pain au chocolat",
+        "price": 600,
+        "description": "Feuilleté au beurre avec chocolat fondant.",
+        "image": "assets/product_chocolat.png",
+        "rating": 4.7,
+        "reviews": 86,
+        "category": "Viennoiserie"
+    },
+    {
+        "id": "4",
+        "name": "Pain complet",
+        "price": 700,
+        "description": "Riche en fibres et en goût pour votre bien-être.",
+        "image": "assets/product_complet.png",
+        "rating": 4.6,
+        "reviews": 64,
+        "category": "Pain"
+    },
+    {
+        "id": "5",
+        "name": "Batard",
+        "price": 600,
+        "description": "Pain français à mie alvéolée et croûte dorée.",
+        "image": "assets/product_batard.png",
+        "rating": 4.6,
+        "reviews": 52,
+        "category": "Pain"
+    },
+    {
+        "id": "6",
+        "name": "Pain de mie",
+        "price": 800,
+        "description": "Moelleux et parfait pour vos petits-déjeuners.",
+        "image": "assets/product_pain_mie.png",
+        "rating": 4.8,
+        "reviews": 110,
+        "category": "Pain"
+    }
+]

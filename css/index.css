@@ -38,12 +38,6 @@
 /* Features */
 .features {
     background: var(--light);
-    display: flex;
-    justify-content: center;
-    padding: 30px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 3cm;
     border-bottom: 1px solid #eee;
 }
 
@@ -78,16 +72,11 @@
 
 /* Nos Délices */
 .delices {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    /* container class handles layout */
 }
 
 .filters {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 40px;
+    /* managed by d-flex flex-wrap utility classes */
 }
 
 .filter-btn {
@@ -163,12 +152,7 @@
 
 /* Info Cards */
 .info-cards {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    /* managed by Bootstrap container */
 }
 
 .info-card {
@@ -331,17 +315,6 @@
 
 /* Responsive Index */
 @media (max-width: 992px) {
-    .features {
-        gap: 1.5cm;
-        padding: 20px;
-    }
-    .info-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .process-steps {
-        flex-direction: column;
-        align-items: center;
-    }
     .step {
         width: 100%;
         max-width: 400px;
@@ -360,15 +333,6 @@
     .hero-slogan {
         font-size: 1.5rem;
     }
-    .features {
-        flex-direction: column;
-        gap: 20px;
-        align-items: flex-start;
-    }
-    .info-cards {
-        grid-template-columns: 1fr;
-    }
-    
 }
 
 @media (max-width: 576px) {
@@ -397,5 +361,4 @@
     .hero-buttons .btn-outline {
         background-color: rgba(43, 22, 12, 0.8);
     }
-    
 }

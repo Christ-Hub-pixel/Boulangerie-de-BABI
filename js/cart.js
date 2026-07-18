@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const addButtons = document.querySelectorAll('.btn-add');
     addButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // Animation du bouton
             const originalText = btn.innerHTML;
             btn.innerHTML = 'AJOUTÉ <i class="fa-solid fa-check"></i>';
             btn.style.backgroundColor = 'var(--success)';
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.style.color = '';
             }, 1500);
 
-            // Récupérer les infos du produit depuis le DOM
             const card = e.target.closest('.product-card');
             if (card) {
                 const title = card.querySelector('h4').innerText;
@@ -37,12 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         localStorage.setItem('babi_cart', JSON.stringify(cart));
         updateCartCount();
-        
-        // Petite notification flottante
         showNotification(product.title + " a été ajouté au panier !");
     }
 
-    // --- 2. NOTIFICATION ---
     function showNotification(msg) {
         let notif = document.createElement('div');
         notif.style.position = 'fixed';
@@ -65,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- 3. MISE À JOUR DU COMPTEUR (Dans l'en-tête) ---
     function updateCartCount() {
         let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
         const count = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -78,21 +72,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartCount();
 
-    // --- 4. AFFICHAGE DU PANIER (Sur commander.html) ---
-    if (window.location.pathname.includes('commander.html') || document.title.includes('Commander')) {
+    // --- 4. AFFICHAGE DU PANIER (Sur checkout.html) ---
+    if (window.location.pathname.includes('checkout.html') || document.title.includes('Checkout')) {
         renderCartPage();
+
+        // Listen for delivery method changes
+        const deliveryRadios = document.querySelectorAll('input[name="delivery_type"]');
+        deliveryRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Update active class
+                document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+                e.target.closest('.method-card').classList.add('active');
+                renderCartPage(); // Re-render to update totals
+            });
+        });
+
+        // Listen for payment method changes
+        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Update active class
+                document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('active'));
+                e.target.closest('.payment-card').classList.add('active');
+            });
+        });
     }
 
     function renderCartPage() {
         const cartList = document.querySelector('.cart-list');
-        const summaryBox = document.querySelector('.summary-box');
-        if (!cartList || !summaryBox) return;
+        if (!cartList) return;
 
         let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
         
         if (cart.length === 0) {
-            cartList.innerHTML = '<div style="text-align:center; padding: 40px;"><i class="fa-solid fa-cart-shopping" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i><br><h3>Votre panier est vide</h3><p>Retournez à la boutique pour ajouter des produits.</p><br><a href="produits.html" class="btn btn-primary">Voir les produits</a></div>';
-            summaryBox.style.display = 'none';
+            cartList.innerHTML = '<div style="text-align:center; padding: 20px;"><i class="fa-solid fa-cart-shopping" style="font-size: 2rem; color: #ccc; margin-bottom: 10px;"></i><br><h4>Votre panier est vide</h4><p style="font-size:0.9rem;">Ajoutez des produits pour continuer.</p></div>';
+            document.getElementById('summary-items-count').innerText = "Sous-total (0 articles)";
+            document.getElementById('summary-subtotal').innerText = "0 FCFA";
+            document.getElementById('summary-delivery').innerText = "0 FCFA";
+            document.getElementById('summary-total').innerText = "0 FCFA";
             return;
         }
 
@@ -105,62 +122,39 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `
             <div class="cart-item" data-index="${index}">
                 <img src="${item.img}" alt="${item.title}">
-                <div class="item-details">
-                    <h4>${item.title}</h4>
-                    <span>${item.price} FCFA</span>
+                <div class="item-details" style="flex: 1;">
+                    <h4 style="margin: 0; font-size: 1rem;">${item.title}</h4>
+                    <span style="color: #666; font-size: 0.9rem;">${item.price} FCFA</span>
                 </div>
-                <div class="item-qty">
-                    <button class="qty-btn minus" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
+                <div class="item-qty" style="display: flex; gap: 5px; align-items: center; background: #f9f9f9; padding: 2px 8px; border-radius: 15px;">
+                    <button class="qty-btn minus" data-index="${index}" style="border:none; background:none; color:var(--primary); cursor:pointer;"><i class="fa-solid fa-minus"></i></button>
                     <span>${item.quantity}</span>
-                    <button class="qty-btn plus" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
+                    <button class="qty-btn plus" data-index="${index}" style="border:none; background:none; color:var(--primary); cursor:pointer;"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div class="item-total">${itemTotal} FCFA</div>
-                <button class="item-delete" data-index="${index}"><i class="fa-regular fa-trash-can"></i></button>
+                <div class="item-total" style="font-weight:bold; margin-left:10px;">${itemTotal} FCFA</div>
+                <button class="item-delete" data-index="${index}" style="background:none; border:none; color:var(--danger); cursor:pointer; margin-left:10px;"><i class="fa-regular fa-trash-can"></i></button>
             </div>`;
         });
 
         cartList.innerHTML = html;
-        summaryBox.style.display = 'block';
 
-        // Update Totals
-        const delivery = 500;
-        const discount = 0; // 0 for now
-        const total = subtotal + delivery - discount;
+        // Delivery Cost
+        let deliveryCost = 1000;
+        const activeDelivery = document.querySelector('input[name="delivery_type"]:checked');
+        if (activeDelivery) {
+            const card = activeDelivery.closest('.method-card');
+            deliveryCost = parseInt(card.getAttribute('data-cost') || "1000");
+        }
 
-        summaryBox.innerHTML = `
-            <h2><i class="fa-solid fa-bag-shopping"></i> Récapitulatif de la commande</h2>
-            <div class="summary-line">
-                <span>Sous-total (${cart.reduce((s, i) => s + i.quantity, 0)} articles)</span>
-                <span>${subtotal} FCFA</span>
-            </div>
-            <div class="summary-line">
-                <span>Frais de livraison</span>
-                <span>${delivery} FCFA</span>
-            </div>
-            <div class="summary-total">
-                <span>TOTAL</span>
-                <span class="total-amount">${total} FCFA</span>
-            </div>
-            
-            <div class="payment-methods" style="margin-top: 20px;">
-                <h4>Mode de paiement</h4>
-                <label class="custom-radio">
-                    <input type="radio" name="payment" checked>
-                    <span class="radiomark"></span>
-                    À la livraison (Espèces)
-                </label>
-                <label class="custom-radio">
-                    <input type="radio" name="payment">
-                    <span class="radiomark"></span>
-                    Mobile Money
-                </label>
-            </div>
+        const total = subtotal + deliveryCost;
 
-            <button class="btn btn-primary w-100" id="btn-validate-order" style="margin-top:20px;">VALIDER LA COMMANDE</button>
-            <p class="secure-text" style="text-align:center; margin-top:10px; font-size:0.9em; color:#666;"><i class="fa-solid fa-lock"></i> Paiement 100% sécurisé</p>
-        `;
+        // Update DOM
+        document.getElementById('summary-items-count').innerText = `Sous-total (${cart.reduce((s, i) => s + i.quantity, 0)} articles)`;
+        document.getElementById('summary-subtotal').innerText = `${subtotal} FCFA`;
+        document.getElementById('summary-delivery').innerText = `${deliveryCost === 0 ? 'Gratuit' : deliveryCost + ' FCFA'}`;
+        document.getElementById('summary-total').innerText = `${total} FCFA`;
 
-        // Add event listeners to + / - / delete buttons
+        // Add event listeners to buttons
         document.querySelectorAll('.qty-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const btnEl = e.target.closest('.qty-btn');
@@ -189,15 +183,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCartCount();
             });
         });
-
-        const btnValidate = document.getElementById('btn-validate-order');
-        if(btnValidate) {
-            btnValidate.addEventListener('click', () => {
-                const totalText = document.querySelector('.total-amount').innerText;
-                alert("Félicitations ! Votre commande de " + totalText + " a bien été enregistrée. Nous vous contacterons bientôt.");
-                localStorage.removeItem('babi_cart');
-                window.location.href = 'index.html';
-            });
-        }
+    }
+    
+    const btnValidate = document.getElementById('btn-validate-checkout');
+    if(btnValidate) {
+        btnValidate.addEventListener('click', () => {
+            const totalText = document.getElementById('summary-total').innerText;
+            const activePayment = document.querySelector('input[name="payment_method"]:checked');
+            let paymentName = "votre moyen de paiement";
+            if(activePayment) {
+                if(activePayment.value === "wave") paymentName = "Wave";
+                if(activePayment.value === "orange") paymentName = "Orange Money";
+                if(activePayment.value === "mtn") paymentName = "MTN Money";
+                if(activePayment.value === "cash") paymentName = "Paiement à la livraison";
+            }
+            alert(`Commande de ${totalText} via ${paymentName} validée avec succès ! Merci de votre confiance.`);
+            localStorage.removeItem('babi_cart');
+            window.location.href = 'index.html';
+        });
     }
 });

@@ -611,22 +611,14 @@
     background-position: center;
 }
 .wave-money-logo {
-    width: 25px;
-    height: 25px;
-    background: #1cd0fd;
-    border-radius: 5px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
+    width: 32px;
+    height: 32px;
+    background-image: url('../assets/wave_money.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-.wave-money-logo::after {
-    content: "W";
-}
+
 
 .secure-payment-info {
     display: flex;
@@ -803,23 +795,14 @@
 }
 
 .wave-money-logo {
-    width: 24px;
-    height: 24px;
-    background-color: #1cc6f4;
-    border-radius: 5px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-image: url('../assets/wave_money.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-.wave-money-logo::after {
-    content: "w";
-    color: white;
-    font-weight: 900;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1;
-}
+
 
 .pc-icon {
     width: 50px;

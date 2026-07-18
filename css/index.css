@@ -1,365 +1,60 @@
-/* Hero */
-.hero {
-    background: linear-gradient(rgba(43, 22, 12, 0.7), rgba(43, 22, 12, 0.7)), url('../assets/hero_bakery.png') center/cover;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--white);
-    padding: 80px 20px 40px;
-}
-
-.hero-slogan {
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(1.8rem, 5vw, 2.2rem);
-}
-
-.hero-title {
-    font-family: 'Great Vibes', cursive;
-    color: var(--primary);
-    font-size: clamp(3.5rem, 10vw, 5.5rem);
-    margin: 10px 0 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.hero-desc {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-/* Features */
-.features {
-    background: var(--light);
-    border-bottom: 1px solid #eee;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.feature-icon {
-    font-size: 1.5rem;
-    color: var(--dark);
-    border: 1px solid var(--dark);
-    border-radius: 50%;
-    width: 50px; height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.feature-item h4 {
-    font-family: 'Inter', sans-serif;
-    color: var(--dark);
-    font-size: 1rem;
-}
-
-.feature-item p {
-    font-size: 0.85rem;
-    color: #666;
-}
-
-
-/* Nos Délices */
-.delices {
-    /* container class handles layout */
-}
-
-.filters {
-    /* managed by d-flex flex-wrap utility classes */
-}
-
-.filter-btn {
-    background: #f1f1f1;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #555;
-    cursor: pointer;
-}
-
-.filter-btn.active, .filter-btn:hover {
-    background: var(--primary);
-    color: var(--dark);
-}
-
-
-
-.product-card {
-    background: var(--white);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    transition: transform 0.3s;
-}
-
-.product-card:hover { transform: translateY(-5px); }
-
-.product-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background: #e0e0e0;
-}
-
-.product-info {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.product-info h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: var(--dark);
-    margin-bottom: 5px;
-}
-
-.price {
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.btn-add {
-    background: var(--primary);
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: 600;
-    margin-top: auto;
-    cursor: pointer;
-}
-
-.text-center { text-align: center; }
-.mt-4 { margin-top: 40px; }
-
-/* Info Cards */
-.info-cards {
-    /* managed by Bootstrap container */
-}
-
-.info-card {
-    padding: 30px;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card.dark {
-    background: var(--dark);
-    color: var(--white);
-}
-
-.info-card.yellow {
-    background: var(--primary);
-    color: var(--dark);
-}
-
-.info-card h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-}
-
-.info-card.dark h3 { color: var(--primary); }
-
-.info-card p {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    position: relative; z-index: 2;
-    max-width: 70%;
-}
-
-.payment-badges {
-    display: flex;
-    gap: 10px;
-}
-
-.badge {
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-.badge.mtn { background: var(--primary); color: var(--dark); }
-.badge.orange { background: #f16e00; color: var(--white); }
-.badge.moov { background: #0066cc; color: var(--white); }
-.badge.wave { background: #1dc4e9; color: var(--white); }
-
-.points-badge {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid var(--primary);
-    padding: 5px 15px;
-    border-radius: 5px;
-    display: inline-block;
-    color: var(--primary);
-    font-weight: bold;
-}
-
-.decor-img {
-    position: absolute;
-    right: -10px; bottom: -10px;
-    height: 150px;
-    z-index: 1;
-}
-
 /* =========================================
-   PROCESS TIMELINE (Comment ça marche)
+   INDEX PAGE - JUMIA E-COMMERCE STYLE
    ========================================= */
-.process {
-    background: var(--light);
-    padding: 80px 0;
+
+body {
+    background-color: #f5f5f5; /* Jumia uses a light gray background for the body */
 }
 
-.timeline-container {
-    padding-top: 20px;
+/* Jumia Hero */
+.jumia-hero {
+    background-color: transparent;
 }
 
-.timeline-line {
-    position: absolute;
-    top: -15px; /* Déplacé au-dessus des icônes */
-    left: 12.5%;
-    right: 12.5%;
-    height: 3px;
-    background: linear-gradient(to right, transparent, var(--primary) 10%, var(--primary) 90%, transparent);
-    z-index: 1;
-    opacity: 0.5;
+/* Hero Categories Sidebar */
+.hover-primary:hover {
+    background-color: rgba(244, 180, 0, 0.1);
+    color: var(--primary) !important;
 }
 
-.process-steps {
-    position: relative;
-    z-index: 2;
+/* Scrollbar Hide for horizontal scrolling elements */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.step {
-    padding: 0 15px;
-    transition: transform 0.3s ease;
+/* Quick Categories */
+.quick-categories .category-item:hover .category-icon {
+    background-color: var(--primary-light) !important;
+    border-color: var(--primary) !important;
+}
+.quick-categories .category-icon {
+    transition: all 0.2s ease-in-out;
 }
 
-.step:hover {
-    transform: translateY(-10px);
+/* Flash Sales (Ventes Chaudes) */
+.flash-sales .card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.step-icon-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
+/* Recommended Products (Nos Délices) */
+.delices .card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
 }
 
-.step-icon {
-    width: 80px; 
-    height: 80px;
-    min-width: 80px; 
-    min-height: 80px;
-    background: #FDF1D5;
-    border: 3px solid #fff;
-    color: var(--primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.step-badge {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    background: var(--primary);
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
-.step h4 {
-    color: var(--dark); 
-    font-size: 1.5rem; /* 24px */
-    font-weight: 700;
-    margin-bottom: 10px; 
-}
-
-.step p { 
-    font-size: 1rem; /* 16px */
-    color: #666; 
-    line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-    .step {
-        margin-bottom: 40px;
-    }
-}
-
-/* Responsive Index */
+/* Responsive Overrides */
 @media (max-width: 992px) {
-    .step {
-        width: 100%;
-        max-width: 400px;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    .timeline-line {
-        display: none;
+    .jumia-hero {
+        margin-top: 130px !important; /* Account for double-deck navbar on mobile */
     }
 }
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3.5rem;
-    }
-    .hero-slogan {
-        font-size: 1.5rem;
-    }
-}
-
 @media (max-width: 576px) {
-    .hero-title {
-        font-size: clamp(1.8rem, 5vw, 2.2rem);
-    }
-    .hero-desc {
-        font-size: 0.95rem;
-        padding: 0 10px;
-    }
-    .hero-desc br {
-        display: none;
-    }
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        gap: 15px;
-    }
-    .hero-buttons .btn {
-        width: 100%;
-        margin-bottom: 0;
-    }
-    .hero-buttons .btn-outline {
-        background-color: rgba(43, 22, 12, 0.8);
+    .jumia-hero {
+        margin-top: 120px !important; 
     }
 }

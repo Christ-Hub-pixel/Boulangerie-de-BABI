@@ -391,3 +391,7 @@ table {
 .border-primary {
     border-color: var(--primary) !important;
 }
+
+/* Utilities */
+.fs-sm { font-size: 0.875rem !important; }
+.hover-primary { transition: all 0.2s; }

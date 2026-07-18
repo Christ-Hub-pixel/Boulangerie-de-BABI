@@ -1,7 +1,5 @@
-<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="50" height="50" rx="10" fill="#FF6600"/>
-    <!-- Fleche vers le haut-droit -->
-    <path d="M10 25 l 10 -10 v 5 h 5 v -10 h -10 v 5 l -10 10 z" fill="white" transform="translate(4, 5)"/>
-    <!-- Fleche vers le bas-gauche -->
-    <path d="M40 25 l -10 10 v -5 h -5 v 10 h 10 v -5 l 10 -10 z" fill="white" transform="translate(-4, -5)"/>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" rx="40" fill="#FF6600"/>
+  <path d="M 95 175 L 175 175 L 175 255 M 85 265 L 175 175" stroke="white" stroke-width="45" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M 305 225 L 225 225 L 225 145 M 315 135 L 225 225" stroke="white" stroke-width="45" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>

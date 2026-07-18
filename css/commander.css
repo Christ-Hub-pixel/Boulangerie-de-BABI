@@ -261,6 +261,20 @@
     color: var(--primary);
 }
 
+.delivery-zone-box .btn-outline {
+    background-color: #7D7D7D;
+    color: var(--primary);
+    border: 2px solid #000000;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.delivery-zone-box .btn-outline:hover {
+    background-color: #666666;
+    color: var(--primary);
+}
+
 .l-icon, .dz-icon {
     font-size: 2rem;
     color: var(--primary-dark);

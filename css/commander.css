@@ -1,14 +1,13 @@
 /* Hero & Progress */
 .checkout-hero {
-    height: 35vh;
-    min-height: 250px;
+    min-height: 35vh;
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: var(--white);
-    padding: 0 5%;
+    padding: 80px 5% 60px;
     position: relative;
     margin-top: 70px;
 }
@@ -19,7 +18,7 @@
 }
 
 .checkout-hero .page-title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
     font-family: 'Playfair Display', serif;
     margin-bottom: 10px;
 }

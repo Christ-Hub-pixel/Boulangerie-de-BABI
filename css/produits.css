@@ -1,13 +1,12 @@
 /* Hero */
 .products-hero {
-    height: 40vh;
-    min-height: 300px;
+    min-height: 40vh;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     color: var(--white);
-    padding: 0 5%;
+    padding: 80px 5% 40px;
     margin-top: 70px;
 }
 
@@ -16,13 +15,13 @@
 }
 
 .products-hero .page-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 6vw, 3rem);
     margin-bottom: 5px;
     font-family: 'Playfair Display', serif;
 }
 
 .products-hero .page-subtitle {
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
     margin-bottom: 15px;
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -33,6 +32,7 @@
     font-size: 1.1rem;
     line-height: 1.5;
     color: #eee;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 /* Features Bar */

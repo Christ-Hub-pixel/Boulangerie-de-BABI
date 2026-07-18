@@ -1,12 +1,13 @@
 /* Hero */
 .hero {
     background: linear-gradient(rgba(43, 22, 12, 0.7), rgba(43, 22, 12, 0.7)), url('../assets/hero_bakery.png') center/cover;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--white);
+    padding: 80px 20px 40px;
 }
 
 .hero-slogan {

@@ -95,51 +95,23 @@
         <div class="row g-4">
             <!-- Left Column: Cart Items -->
             <div class="col-lg-9">
-                <div class="bg-white rounded shadow-sm">
-                    <div class="border-bottom p-3">
-                        <h4 class="mb-0 fw-bold">Panier (2)</h4>
+                <div class="bg-white rounded shadow-sm" id="cartContainer">
+                    <div class="border-bottom p-3 d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 fw-bold" id="cartTitle">Panier</h4>
+                        <button class="btn btn-sm btn-outline-danger border-0" id="clearCartBtn" onclick="clearCart()" style="display:none;font-size:0.8rem;">
+                            <i class="fa-solid fa-trash me-1"></i>Vider le panier
+                        </button>
                     </div>
-                    
-                    <!-- Item 1 -->
-                    <div class="p-3 border-bottom d-flex flex-column flex-md-row gap-3 cart-item">
-                        <img src="assets/product_baguette.png" class="rounded border" style="width: 100px; height: 100px; object-fit: cover;" alt="Baguette">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-1">Baguette Tradition</h6>
-                            <p class="text-muted fs-sm mb-2">Vendeur: <span class="text-primary">Boulangerie de Babi</span></p>
-                            <span class="text-success fs-sm"><i class="fa-solid fa-check"></i> En stock</span>
-                        </div>
-                        <div class="text-md-end d-flex flex-column justify-content-between">
-                            <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="400">400 FCFA</div>
-                            <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
-                                <button class="btn btn-sm btn-outline-danger border-0 hover-primary px-2"><i class="fa-solid fa-trash-can"></i> Retirer</button>
-                                <div class="d-flex align-items-center border rounded">
-                                    <button class="btn btn-sm btn-light border-0 px-2 fw-bold" onclick="updateQty(this, -1)">-</button>
-                                    <span class="px-3 fw-bold qty-val">2</span>
-                                    <button class="btn btn-sm btn-light border-0 px-2 fw-bold text-primary" onclick="updateQty(this, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="p-3 d-flex flex-column flex-md-row gap-3 cart-item">
-                        <img src="assets/product_croissant.png" class="rounded border" style="width: 100px; height: 100px; object-fit: cover;" alt="Croissant">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-1">Croissant Pur Beurre</h6>
-                            <p class="text-muted fs-sm mb-2">Vendeur: <span class="text-primary">Boulangerie de Babi</span></p>
-                            <span class="text-success fs-sm"><i class="fa-solid fa-check"></i> En stock</span>
-                        </div>
-                        <div class="text-md-end d-flex flex-column justify-content-between">
-                            <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="850">850 FCFA</div>
-                            <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
-                                <button class="btn btn-sm btn-outline-danger border-0 hover-primary px-2"><i class="fa-solid fa-trash-can"></i> Retirer</button>
-                                <div class="d-flex align-items-center border rounded">
-                                    <button class="btn btn-sm btn-light border-0 px-2 fw-bold" onclick="updateQty(this, -1)">-</button>
-                                    <span class="px-3 fw-bold qty-val">1</span>
-                                    <button class="btn btn-sm btn-light border-0 px-2 fw-bold text-primary" onclick="updateQty(this, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Items rendered dynamically here -->
+                    <div id="cartItemsList"></div>
+                    <!-- Empty state -->
+                    <div id="cartEmptyState" class="text-center py-5" style="display:none;">
+                        <i class="fa-solid fa-bag-shopping text-muted" style="font-size:4rem;"></i>
+                        <h5 class="mt-3 text-muted">Votre panier est vide</h5>
+                        <p class="text-muted">Ajoutez des délicieux produits depuis notre catalogue !</p>
+                        <a href="produits.html" class="btn btn-primary fw-bold text-dark px-4">
+                            <i class="fa-solid fa-bread-slice me-2"></i>Voir les produits
+                        </a>
                     </div>
                 </div>
             </div>
@@ -148,68 +120,129 @@
             <div class="col-lg-3">
                 <div class="bg-white rounded shadow-sm p-3 sticky-top" style="top: 120px;">
                     <h6 class="fw-bold border-bottom pb-2 mb-3">RÉSUMÉ DU PANIER</h6>
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex justify-content-between mb-2 fs-sm">
                         <span class="subtotal-label">Sous-total</span>
-                        <span class="fw-bold fs-5 total-val">1650 FCFA</span>
+                        <span class="fw-bold total-val">0 FCFA</span>
                     </div>
-                    <p class="text-muted" style="font-size: 0.75rem;">Les frais de livraison seront calculés à l'étape suivante.</p>
-                    <a href="checkout.html" class="btn btn-primary w-100 fw-bold btn-pulse text-dark py-2 shadow-sm">PASSER LA COMMANDE</a>
+                    <div class="d-flex justify-content-between mb-3 fs-sm text-muted">
+                        <span>Livraison</span>
+                        <span>Calculée à l'étape suivante</span>
+                    </div>
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Total</span>
+                        <span class="fw-bold fs-5 text-primary grand-total-val">0 FCFA</span>
+                    </div>
+                    <a href="checkout.html" class="btn btn-primary w-100 fw-bold btn-pulse text-dark py-2 shadow-sm" id="checkoutBtn">PASSER LA COMMANDE</a>
+                    <a href="produits.html" class="btn btn-outline-secondary w-100 mt-2" style="font-size:0.8rem;">← Continuer mes achats</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Cart Page Script -->
     <script>
-        function updateQty(btn, change) {
-            let qtySpan = btn.parentElement.querySelector('.qty-val');
-            let current = parseInt(qtySpan.innerText);
-            if(current + change >= 1) {
-                qtySpan.innerText = current + change;
-                recalculateCart();
+    // All cart logic is in js/cart_actions.js — here we just render the page
+
+    function renderCartPage() {
+        const items = getCartItems();
+        const listEl = document.getElementById('cartItemsList');
+        const emptyEl = document.getElementById('cartEmptyState');
+        const titleEl = document.getElementById('cartTitle');
+        const clearBtn = document.getElementById('clearCartBtn');
+        const totalValEl = document.querySelector('.total-val');
+        const grandTotalEl = document.querySelector('.grand-total-val');
+        const subtotalLbl = document.querySelector('.subtotal-label');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        if (!listEl) return;
+
+        listEl.innerHTML = '';
+
+        if (items.length === 0) {
+            emptyEl.style.display = '';
+            clearBtn.style.display = 'none';
+            titleEl.innerText = 'Panier';
+            if (totalValEl) totalValEl.innerText = '0 FCFA';
+            if (grandTotalEl) grandTotalEl.innerText = '0 FCFA';
+            if (subtotalLbl) subtotalLbl.innerText = 'Sous-total';
+            if (checkoutBtn) {
+                checkoutBtn.style.opacity = '0.5';
+                checkoutBtn.style.pointerEvents = 'none';
             }
+            return;
         }
 
-        function recalculateCart() {
-            let items = document.querySelectorAll('.cart-item');
-            let total = 0;
-            let count = 0;
-            items.forEach(item => {
-                let qty = parseInt(item.querySelector('.qty-val').innerText);
-                let price = parseInt(item.querySelector('.item-price').getAttribute('data-price'));
-                total += qty * price;
-                count += qty;
-            });
-            
-            // Update total
-            let totalVal = document.querySelector('.total-val');
-            if (totalVal) totalVal.innerText = total + ' FCFA';
-            
-            // Update counts
-            let cartHeader = document.querySelector('h4.mb-0.fw-bold');
-            if (cartHeader) cartHeader.innerText = `Panier (${count})`;
-            
-            let subtotalLabel = document.querySelector('.subtotal-label');
-            if (subtotalLabel) subtotalLabel.innerText = `Sous-total (${count} articles)`;
-            
-            let badge = document.querySelector('.badge.bg-danger');
-            if (badge) badge.innerText = count;
+        emptyEl.style.display = 'none';
+        clearBtn.style.display = '';
+        if (checkoutBtn) {
+            checkoutBtn.style.opacity = '';
+            checkoutBtn.style.pointerEvents = '';
         }
 
-        // Add remove functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.btn-outline-danger').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    let item = this.closest('.cart-item');
-                    if (item) {
-                        item.remove();
-                        recalculateCart();
-                    }
-                });
-            });
-            // Initial calculation
-            recalculateCart();
+        const totalCount = items.reduce((s, i) => s + i.qty, 0);
+        const totalPrice = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+        titleEl.innerText = `Panier (${totalCount} article${totalCount > 1 ? 's' : ''})`;
+        if (subtotalLbl) subtotalLbl.innerText = `Sous-total (${totalCount} article${totalCount > 1 ? 's' : ''})`;
+        if (totalValEl) totalValEl.innerText = totalPrice.toLocaleString() + ' FCFA';
+        if (grandTotalEl) grandTotalEl.innerText = totalPrice.toLocaleString() + ' FCFA';
+
+        items.forEach((item, idx) => {
+            const isLast = idx === items.length - 1;
+            const el = document.createElement('div');
+            el.className = `p-3 d-flex flex-column flex-md-row gap-3 cart-item${isLast ? '' : ' border-bottom'}`;
+            el.dataset.productId = item.id;
+            el.innerHTML = `
+                <img src="${item.image}" class="rounded border" style="width:100px;height:100px;object-fit:cover;flex-shrink:0;" alt="${item.name}" onerror="this.src='assets/product_baguette.png'">
+                <div class="flex-grow-1">
+                    <h6 class="fw-bold mb-1">${item.name}</h6>
+                    <p class="text-muted mb-1" style="font-size:0.8rem;">Vendeur: <span class="text-primary">Boulangerie de Babi</span></p>
+                    <span class="text-success" style="font-size:0.8rem;"><i class="fa-solid fa-check"></i> En stock</span>
+                    <div class="text-muted mt-1" style="font-size:0.77rem;">Prix unitaire: ${item.price.toLocaleString()} FCFA</div>
+                </div>
+                <div class="text-md-end d-flex flex-column justify-content-between">
+                    <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="${item.price}">${(item.price * item.qty).toLocaleString()} FCFA</div>
+                    <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
+                        <button class="btn btn-sm btn-outline-danger border-0 px-2" onclick="cartPageRemove('${item.id}')">
+                            <i class="fa-solid fa-trash-can"></i> Retirer
+                        </button>
+                        <div class="d-flex align-items-center border rounded">
+                            <button class="btn btn-sm btn-light border-0 px-3 fw-bold" onclick="cartPageUpdateQty('${item.id}', ${item.qty - 1})">-</button>
+                            <span class="px-3 fw-bold qty-val">${item.qty}</span>
+                            <button class="btn btn-sm btn-light border-0 px-3 fw-bold text-primary" onclick="cartPageUpdateQty('${item.id}', ${item.qty + 1})">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            listEl.appendChild(el);
         });
+    }
+
+    function cartPageRemove(productId) {
+        removeFromCart(productId);
+        updateAllBadges();
+        renderCartPage();
+    }
+
+    function cartPageUpdateQty(productId, newQty) {
+        updateQtyInCart(productId, newQty);
+        updateAllBadges();
+        renderCartPage();
+    }
+
+    function clearCart() {
+        localStorage.removeItem('babi_cart_items');
+        updateAllBadges();
+        renderCartPage();
+    }
+
+    // Wait for cart_actions.js to load, then render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCartPage();
+    });
     </script>
+
 
 <!-- Footer -->
     <footer>

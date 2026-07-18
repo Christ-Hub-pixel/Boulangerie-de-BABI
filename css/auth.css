@@ -3,25 +3,9 @@
    LOGIN PAGE STYLES (Wrapper & Container)
    ========================================= */
 
-.login-wrapper {
-    background: #fdfaf2;
-    min-height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 5%;
-    margin-top: 70px;
-}
 
-.login-container {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
+
+
 
 /* Left Side */
 .login-left {
@@ -387,9 +371,7 @@
 
 /* Responsive */
 @media (max-width: 992px) {
-    .login-container {
-        flex-direction: column;
-    }
+    
     .login-left, .login-right {
         padding: 40px 30px;
     }

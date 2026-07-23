@@ -68,6 +68,9 @@
                         <span class="fw-bold mt-2" style="font-size: 0.9rem;">Aide <i
                                 class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
                     </div>
+                <a href="#" class="btn btn-warning btn-sm fw-bold d-none d-xl-flex align-items-center gap-2 rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#downloadAppModal" style="background-color: #fb923c; border: none; color: #2b160c;">
+                    <i class="fa-solid fa-mobile-screen-button fs-5"></i>
+                    <span>Télécharger l'App</span>
                 </a>
 
                 <!-- Cart Dropdown -->
@@ -147,6 +150,8 @@
                         class="fa-solid fa-gift me-2"></i> Fidélité</a>
                 <a href="contact.html" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-envelope me-2"></i> Contact</a>
+                <a href="#" class="list-group-item list-group-item-action bg-warning text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#downloadAppModal"><i
+                        class="fa-solid fa-mobile-screen-button me-2"></i> Télécharger l'App Mobile</a>
             </div>
         </div>
     </div>
@@ -698,6 +703,86 @@
             </div>
         </div>
     </section>
+
+    <!-- Mobile App Download Banner Section -->
+    <section class="py-5 text-white" style="background: linear-gradient(135deg, #2b160c 0%, #4a2717 100%); position: relative; overflow: hidden;">
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <span class="badge px-3 py-2 rounded-pill mb-3" style="background: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid #fb923c;">
+                        <i class="fa-solid fa-mobile-screen me-1"></i> Application Mobile Officielle
+                    </span>
+                    <h2 class="display-6 fw-bold mb-3">Téléchargez l'App <span style="color: #fb923c;">Boulangerie de BABI</span></h2>
+                    <p class="lead mb-4 text-light" style="opacity: 0.9;">Commandez vos pains, pâtisseries et jus frais 2x plus vite, suivez votre livreur en temps réel sur la carte et cumulez des points de fidélité à chaque commande !</p>
+                    
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-3">
+                        <button class="btn btn-warning btn-lg fw-bold rounded-pill px-4 shadow-lg d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#downloadAppModal" style="background: #fb923c; border: none; color: #2b160c;">
+                            <i class="fa-solid fa-download fs-4"></i>
+                            <div class="text-start lh-1">
+                                <small class="d-block" style="font-size: 0.7rem; font-weight: 500;">TÉLÉCHARGER</small>
+                                <span>L'Application Mobile</span>
+                            </div>
+                        </button>
+                        
+                        <div class="d-flex gap-2">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal" class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
+                                <i class="fa-brands fa-google-play fs-4"></i>
+                                <span class="small fw-bold">Google Play</span>
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal" class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
+                                <i class="fa-brands fa-apple fs-4"></i>
+                                <span class="small fw-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <img src="assets/scooter_livraison.png" alt="App Mobile" class="img-fluid rounded-4 shadow-lg" style="max-height: 280px; object-fit: contain; transform: perspective(1000px) rotateY(-5deg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Download App -->
+    <div class="modal fade" id="downloadAppModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-0 text-white" style="background: #2b160c;">
+                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-mobile-screen-button text-warning"></i> Application Mobile BABI
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <img src="assets/logo.png" alt="Logo" class="mb-3 rounded-3" style="height: 70px;">
+                    <h5 class="fw-bold mb-2">Boulangerie de BABI sur votre Téléphone</h5>
+                    <p class="text-muted small mb-4">Choisissez votre plateforme ci-dessous pour installer l'application officielle et profiter de vos réductions immédiates.</p>
+
+                    <div class="d-grid gap-3">
+                        <a href="assets/processed_products/IMG20260722121307.jpg" download="BoulangerieBabi.apk" class="btn btn-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
+                            <i class="fa-brands fa-android fs-2 text-success"></i>
+                            <div class="text-start">
+                                <div class="fw-bold">Télécharger pour Android (.APK)</div>
+                                <small class="text-muted">Installation directe & Google Play</small>
+                            </div>
+                        </a>
+
+                        <a href="#" onclick="alert('L\'application iOS sera bientôt disponible sur l\'App Store d\'Apple !')" class="btn btn-outline-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
+                            <i class="fa-brands fa-apple fs-2 text-dark"></i>
+                            <div class="text-start">
+                                <div class="fw-bold">Télécharger pour iPhone (iOS)</div>
+                                <small class="text-muted">Disponible sur l'App Store</small>
+                            </div>
+                        </a>
+
+                        <button onclick="window.location.href='index.html'" class="btn btn-light border rounded-3 p-2 small text-muted">
+                            <i class="fa-solid fa-globe me-1"></i> Continuer sur la version Web Mobile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>

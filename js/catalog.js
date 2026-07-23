@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (discountMatch) {
                     const discount = parseInt(discountMatch[1]);
                     const originalPrice = Math.round(product.price / (1 - (discount/100)));
-                    oldPriceHTML = `<span class="text-muted text-decoration-line-through ms-1" style="font-size:0.8rem;">${originalPrice} FCFA</span>`;
+                    // oldPriceHTML = `<span class="text-muted text-decoration-line-through ms-1" style="font-size:0.8rem;">${originalPrice} FCFA</span>`;
                 }
             }
 

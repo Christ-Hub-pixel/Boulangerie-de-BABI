@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Boulangerie de BABI</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+
+    <!-- Premium Fonts & WOW Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="css/wow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body.dark-mode { background-color: #121212 !important; color: #e0e0e0 !important; }
+        body.dark-mode .bg-white { background-color: #1e1e1e !important; }
+        body.dark-mode .card, body.dark-mode .sidebar { background-color: #1e1e1e !important; border-color: #333 !important; }
+        body.dark-mode .text-dark { color: #e0e0e0 !important; }
+        body.dark-mode table { color: #e0e0e0 !important; }
+        body.dark-mode .table-hover tbody tr:hover { color: #e0e0e0 !important; background-color: #2c2c2c !important; }
+        body.dark-mode .text-muted { color: #aaa !important; }
+    </style>
+    </head>
+
+<body>
+
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-wheat-awn" style="color: #fb923c;"></i> Babi Admin
+            </div>
+            <ul class="admin-menu">
+                <li><a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> Vue d'ensemble</a></li>
+                <li><a href="#"><i class="fa-solid fa-bag-shopping"></i> Commandes <span style="background:#e11d48;color:white;border-radius:10px;padding:2px 6px;font-size:0.7rem;margin-left:auto;">1</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-bread-slice"></i> Produits</a></li>
+                <li><a href="#"><i class="fa-solid fa-users"></i> Clients</a></li>
+                <li><a href="#"><i class="fa-solid fa-motorcycle"></i> Livreurs</a></li>
+                <li style="margin-top: 50px;"><a href="index.html" style="color: #64748b;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Quitter (Retour au site)</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Chercher une commande, un client...">
+                </div>
+                <div class="d-flex" style="display: flex; align-items: center; gap: 20px;">
+                    <div style="position: relative; cursor: pointer; color: #64748b;">
+                        <i class="fa-solid fa-bell fs-5"></i>
+                        <span style="position: absolute; top: -5px; right: -5px; background: #e11d48; color: white; width: 15px; height: 15px; border-radius: 50%; font-size: 0.6rem; display: flex; align-items: center; justify-content: center;">2</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; border-left: 1px solid #e2e8f0; padding-left: 20px;">
+                        <img src="https://ui-avatars.com/api/?name=Admin+Babi&background=4f46e5&color=fff" alt="Admin" style="width: 35px; border-radius: 50%;">
+                        <div style="font-size: 0.85rem;">
+                            <div style="font-weight: 600; color: #1e293b;">Gérant Principal</div>
+                            <div style="color: #94a3b8;">Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <h2 style="margin-top: 0; color: #1e293b; font-weight: 700; margin-bottom: 20px;">Vue d'ensemble</h2>
+                
+                <!-- Stats Row -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="stat-card">
+                        <div class="stat-icon primary"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-details">
+                            <span>Chiffre d'Affaires (Aujourd'hui)</span>
+                            <h3>45,500 FCFA</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning"><i class="fa-solid fa-box"></i></div>
+                        <div class="stat-details">
+                            <span>Commandes en cours</span>
+                            <h3 id="stat-orders-count">4</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success"><i class="fa-solid fa-check-double"></i></div>
+                        <div class="stat-details">
+                            <span>Commandes Livrées</span>
+                            <h3>12</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Orders Table -->
+                
+                <!-- Visual Statistics (Point 4) -->
+                <div class="row mb-4 mt-4">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm border-0 rounded-4 p-3 h-100">
+                            <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-primary me-2"></i> Évolution des Revenus (7 Jours)</h5>
+                            <canvas id="revenueChart" height="100"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 rounded-4 p-3 h-100">
+                            <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie text-warning me-2"></i> Répartition des Ventes</h5>
+                            <canvas id="categoryChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="orders-table-wrapper">
+                    <div class="orders-table-header">
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #1e293b;">Commandes en Direct</h3>
+                        <button class="btn-action" style="background: white; border: 1px solid #e2e8f0;"><i class="fa-solid fa-filter"></i> Filtrer</button>
+                    </div>
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Livraison / Paiement</th>
+                                <th>Articles</th>
+                                <th>Total</th>
+                                <th>Statut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
+            if(tab === 'catalog') {
+                document.getElementById('catalog-section').style.display = 'block';
+                loadAdminCatalog();
+            } else {
+                document.getElementById('orders-section').style.display = 'block';
+            }
+        }
+        
+        async function loadAdminCatalog() {
+            try {
+                const res = await fetch('/api/products');
+                const products = await res.json();
+                const tbody = document.getElementById('catalog-table-body');
+                tbody.innerHTML = products.map(p => `
+                    <tr>
+                        <td class="fw-bold">#${p.id}</td>
+                        <td><img src="${p.image}" width="40" height="40" class="rounded" style="object-fit:cover;"></td>
+                        <td class="fw-bold">${p.nom}</td>
+                        <td><span class="badge bg-secondary">${p.categorie}</span></td>
+                        <td class="fw-bold text-primary">${p.prix}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger shadow-sm" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch(e) { console.error(e); }
+        }
+        
+        async function addProduct() {
+            const nom = document.getElementById('new-prod-name').value;
+            const prix = parseInt(document.getElementById('new-prod-price').value);
+            const categorie = document.getElementById('new-prod-cat').value;
+            const image = document.getElementById('new-prod-image').value || "https://images.unsplash.com/photo-1597079910443-60c43fc4f729?auto=format&fit=crop&w=400&q=80";
+            
+            try {
+                await fetch('/api/products', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({nom, prix, categorie, image})
+                });
+                
+                // Hide modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+                if(modal) modal.hide();
+                
+                // Reload
+                loadAdminCatalog();
+                
+                // Clear fields
+                document.getElementById('new-prod-name').value = '';
+                document.getElementById('new-prod-price').value = '';
+                document.getElementById('new-prod-image').value = '';
+                
+            } catch (e) { console.error(e); }
+        }
+        
+        async function deleteProduct(id) {
+            if(!confirm("Supprimer ce produit ?")) return;
+            try {
+                await fetch(`/api/products/${id}`, { method: 'DELETE' });
+                loadAdminCatalog();
+            } catch (e) { console.error(e); }
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctxRev = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctxRev, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                    datasets: [{
+                        label: 'Revenus (FCFA)',
+                        data: [12000, 19000, 15000, 25000, 22000, 30000, 45500],
+                        borderColor: '#fb923c',
+                        backgroundColor: 'rgba(251, 146, 60, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+            
+            const ctxCat = document.getElementById('categoryChart').getContext('2d');
+            new Chart(ctxCat, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pains', 'Viennoiseries', 'Gâteaux', 'Jus'],
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: ['#e11d48', '#fb923c', '#3b82f6', '#22c55e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        });
+    </script>
+
+</body>
+</html>

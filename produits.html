@@ -26,10 +26,10 @@
 
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-4" href="index.html">
-                <i class="fa-solid fa-wheat-awn text-primary fs-2 me-2"></i>
+                <img src="assets/logo.png" alt="Logo" style="height: 45px; border-radius: 8px; margin-right: 10px;">
                 <div class="d-flex flex-column lh-1">
-                    <span class="fw-bold text-white" style="font-size: clamp(1rem, 2.5vw, 1.4rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
-                    <span class="text-primary" style="font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
+                    <span class="fw-bold text-white" style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
+                    <span class="text-primary" style="font-size: clamp(1.2rem, 3.5vw, 1.5rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
                 </div>
             </a>
             
@@ -109,20 +109,36 @@
                 <div class="bg-white rounded shadow-sm p-3 mb-3">
                     <h6 class="fw-bold border-bottom pb-2 mb-3">Catégories</h6>
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="c1" checked>
+                        <input class="form-check-input" type="radio" name="catFilter" value="" id="c1" onchange="filterCat('')" checked>
                         <label class="form-check-label fs-sm" for="c1">Tous les produits</label>
                     </div>
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="c2">
+                        <input class="form-check-input" type="radio" name="catFilter" value="pain" id="c2" onchange="filterCat('pain')">
                         <label class="form-check-label fs-sm" for="c2">Pains</label>
                     </div>
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="c3">
+                        <input class="form-check-input" type="radio" name="catFilter" value="viennoiserie" id="c3" onchange="filterCat('viennoiserie')">
                         <label class="form-check-label fs-sm" for="c3">Viennoiseries</label>
                     </div>
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="c4">
+                        <input class="form-check-input" type="radio" name="catFilter" value="patisserie" id="c4" onchange="filterCat('patisserie')">
                         <label class="form-check-label fs-sm" for="c4">Pâtisseries</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="catFilter" value="cafe" id="c5" onchange="filterCat('cafe')">
+                        <label class="form-check-label fs-sm" for="c5">Cafés</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="catFilter" value="jus" id="c6" onchange="filterCat('jus')">
+                        <label class="form-check-label fs-sm" for="c6">Jus</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="catFilter" value="glace" id="c7" onchange="filterCat('glace')">
+                        <label class="form-check-label fs-sm" for="c7">Glaces</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="catFilter" value="boisson" id="c8" onchange="filterCat('boisson')">
+                        <label class="form-check-label fs-sm" for="c8">Boissons</label>
                     </div>
                 </div>
                 
@@ -252,12 +268,13 @@
         <div class="container footer-fade-in">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4">
                 <div class="col footer-col">
-                    <div class="logo">
-                        <div class="logo-text">
-                            <span class="logo-title">Boulangerie</span>
-                            <span class="logo-subtitle">de Babi</span>
+                    <div class="logo mb-3 d-flex align-items-center">
+                            <img src="assets/logo.png" alt="Logo" style="height: 70px; border-radius: 12px; margin-right: 15px;">
+                            <div class="d-flex flex-column lh-1">
+                                <span class="fw-bold text-white" style="font-size: 1.5rem; font-family: 'Inter', sans-serif;">Boulangerie</span>
+                                <span class="text-primary" style="font-size: 1.8rem; font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
+                            </div>
                         </div>
-                    </div>
                     <p class="footer-desc">Le goût authentique, la fraîcheur au quotidien. Pains, viennoiseries, pâtisseries et boissons. Faits avec amour et passion.</p>
                     <div class="social-icons">
                         <a href="#" class="facebook"><i class="fa-brands fa-facebook-f"></i></a>

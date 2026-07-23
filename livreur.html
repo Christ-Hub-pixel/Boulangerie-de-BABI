@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GPS Livreur - BABI</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Leaflet & Routing CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%; font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc; overflow: hidden; /* Prevent pull-to-refresh on mobile */
+        }
+        
+        /* Map Container (Top Half) */
+        #map-container {
+            height: 55vh;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        #map { height: 100%; width: 100%; }
+
+        /* Panel Container (Bottom Half) */
+        .bottom-panel {
+            height: 45vh;
+            background: white;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            overflow-y: auto;
+            transform: translateY(-20px); /* Overlap map slightly */
+        }
+
+        /* Drag Handle indicator */
+        .drag-handle {
+            width: 40px; height: 5px; background: #e2e8f0;
+            border-radius: 5px; margin: 0 auto 15px auto;
+        }
+
+        .order-info-box {
+            background: #f1f5f9;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn-call {
+            background: #22c55e;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 12px;
+        }
+        .btn-call:hover { background: #16a34a; color: white; }
+
+        .btn-validate {
+            background: #fb923c;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 12px;
+        }
+        
+        .code-input {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+        .code-input:focus { border-color: #fb923c; box-shadow: none; }
+
+        /* Hide routing text instructions (we only want the line) */
+        .leaflet-routing-container { display: none !important; }
+        
+        /* Custom GPS locate button */
+        .gps-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 15px;
+            background: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+            cursor: pointer;
+            color: #3b82f6;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MAP -->
+    <div id="map-container">
+        <div id="map"></div>
+        <div class="gps-btn" onclick="centerOnDriver()"><i class="fa-solid fa-location-crosshairs"></i></div>
+    </div>
+
+    <!-- BOTTOM PANEL -->
+    <div class="bottom-panel">
+        <div class="drag-handle"></div>
+        
+        <!-- Setup Phase -->
+        <div id="setup-section">
+            <h4 class="fw-bold mb-3">Démarrer une course</h4>
+            <input type="text" id="orderId" class="form-control form-control-lg mb-3" placeholder="ID Commande (ex: 1)" required>
+            <button class="btn btn-dark w-100 btn-lg rounded-4" onclick="loadOrder()">
+                <i class="fa-solid fa-motorcycle"></i> Lancer le Guidage
+            </button>
+            <div id="setup-error" class="text-danger mt-2 fw-bold text-center" style="display:none;"></div>
+        </div>
+
+        <!-- Active Order Phase -->
+        <div id="active-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0">Livraison <span class="text-primary">#<span id="display-id"></span></span></h4>
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill"><i class="fa-solid fa-clock"></i> <span id="time-est">12 min</span></span>
+            </div>
+            
+            <div class="order-info-box">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fa-solid fa-user text-muted me-3 fs-4"></i>
+                    <div>
+                        <div class="fw-bold fs-5" id="client-name">Koffi</div>
+                        <div class="text-muted small" id="client-address">Cocody Angré</div>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <a href="tel:+22500000000" id="call-btn" class="btn btn-call w-100 d-block text-decoration-none">
+                    <i class="fa-solid fa-phone"></i> Appeler le client
+                </a>
+            </div>
+
+            <div class="mt-4">
+                <label class="fw-bold mb-2">Validation de la livraison</label>
+                <input type="text" id="confirm-code" class="form-control code-input mb-3" placeholder="----" maxlength="4">
+                <button class="btn btn-validate w-100" onclick="validateDelivery()">
+                    <i class="fa-solid fa-check-circle"></i> Confirmer la remise
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    
+    <script>
+        // Constants & State
+        const BAKERY_COORDS = [5.3772845, -3.9272566];
+        let driverCoords = [5.378000, -3.925000]; // Default slightly away from bakery
+        let map, driverMarker, bakeryMarker, routingControl;
+        let watchId;
+        let currentOrderId = null;
+        let expectedCode = "0000";
+
+        // Icons
+        const motoIcon = L.divIcon({
+            html: '<div style="background:#2563eb; color:white; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:3px solid white; box-shadow:0 4px 6px rgba(0,0,0,0.3); font-size:18px;"><i class="fa-solid fa-motorcycle"></i></div>',
+            className: '', iconSize: [40, 40], iconAnchor: [20, 20]
+        });
+        
+        const bakeryIcon = L.divIcon({
+            html: '<div style="background:#fb923c; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white; box-shadow:0 4px 6px rgba(0,0,0,0.3); font-size:14px;"><i class="fa-solid fa-wheat-awn"></i></div>',
+            className: '', iconSize: [30, 30], iconAnchor: [15, 15]
+        });
+
+        const flagIcon = L.divIcon({
+            html: '<div style="background:#22c55e; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid white; box-shadow:0 4px 6px rgba(0,0,0,0.3); font-size:14px;"><i class="fa-solid fa-flag-checkered"></i></div>',
+            className: '', iconSize: [30, 30], iconAnchor: [15, 30]
+        });
+
+        // Initialize Map
+        document.addEventListener('DOMContentLoaded', () => {
+            map = L.map('map', { zoomControl: false }).setView(BAKERY_COORDS, 15);
+            
+            // Premium Dark/Muted TileLayer (CartoDB Positron) for Uber-like feel
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '©OpenStreetMap, ©CartoDB'
+            }).addTo(map);
+
+            // Add Bakery Marker
+            bakeryMarker = L.marker(BAKERY_COORDS, {icon: bakeryIcon}).addTo(map)
+                .bindPopup("<b>Boulangerie de BABI</b><br>Point de départ");
+
+            // Setup Driver Marker
+            driverMarker = L.marker(driverCoords, {icon: motoIcon}).addTo(map);
+
+            // Start GPS tracking
+            startGPS();
+        });
+
+        function startGPS() {
+            if ("geolocation" in navigator) {
+                watchId = navigator.geolocation.watchPosition(
+                    position => {
+                        driverCoords = [position.coords.latitude, position.coords.longitude];
+                        driverMarker.setLatLng(driverCoords);
+                        // Optional: if no routing active, center on driver
+                        if(!routingControl) map.panTo(driverCoords);
+                    },
+                    error => {
+                        console.warn("GPS non disponible, utilisation de la position simulée.");
+                    },
+                    { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+                );
+            }
+        }
+
+        function centerOnDriver() {
+            map.setView(driverCoords, 16);
+        }
+
+        async function loadOrder() {
+            const idInput = document.getElementById('orderId').value;
+            const errEl = document.getElementById('setup-error');
+            if(!idInput) return;
+
+            errEl.style.display = 'none';
+            try {
+                // Fetch order
+                const res = await fetch(`/api/orders`);
+                const orders = await res.json();
+                const order = orders.find(o => o.id == idInput);
+
+                if(!order) {
+                    errEl.innerText = "Commande introuvable.";
+                    errEl.style.display = 'block';
+                    return;
+                }
+
+                currentOrderId = order.id;
+                // Generate a pseudo-random confirmation code based on phone (last 4 digits)
+                const phoneStr = order.phone.replace(/\D/g, '');
+                expectedCode = phoneStr.length >= 4 ? phoneStr.slice(-4) : "1234";
+
+                // Update UI
+                document.getElementById('display-id').innerText = order.id;
+                document.getElementById('client-name').innerText = order.customer_name;
+                document.getElementById('client-address').innerText = order.address;
+                document.getElementById('call-btn').href = "tel:" + order.phone;
+                
+                document.getElementById('setup-section').style.display = 'none';
+                document.getElementById('active-section').style.display = 'block';
+
+                // Launch Routing!
+                // Simulate a destination 2-3km away from the bakery for the demo
+                const simulatedDest = [BAKERY_COORDS[0] + 0.015, BAKERY_COORDS[1] + 0.010]; 
+                
+                if(routingControl) map.removeControl(routingControl);
+                
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(driverCoords[0], driverCoords[1]),
+                        L.latLng(simulatedDest[0], simulatedDest[1])
+                    ],
+                    lineOptions: {
+                        styles: [{color: '#3b82f6', opacity: 0.8, weight: 6}]
+                    },
+                    createMarker: function(i, wp, nWps) {
+                        // Custom markers for routing endpoints
+                        if(i === 0) return null; // We already have driver marker tracking live
+                        if(i === nWps - 1) return L.marker(wp.latLng, {icon: flagIcon}).bindPopup("Destination Client");
+                        return L.marker(wp.latLng);
+                    },
+                    fitSelectedRoutes: true,
+                    showAlternatives: false,
+                    addWaypoints: false
+                }).addTo(map);
+
+                // Update status to 'en livraison'
+                await fetch(`/api/orders/${order.id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'en livraison' })
+                });
+
+            } catch (e) {
+                console.error(e);
+                errEl.innerText = "Erreur serveur.";
+                errEl.style.display = 'block';
+            }
+        }
+
+        async function validateDelivery() {
+            const input = document.getElementById('confirm-code').value;
+            const btn = document.querySelector('.btn-validate');
+            
+            if(input !== expectedCode) {
+                alert(`Code incorrect. (Pour le test, le code est les 4 derniers chiffres du tel : ${expectedCode})`);
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Validation...';
+            
+            try {
+                await fetch(`/api/orders/${currentOrderId}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'livre' })
+                });
+
+                btn.classList.replace('btn-validate', 'btn-success');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Livré avec succès !';
+                
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } catch (e) {
+                alert("Erreur réseau");
+                btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Confirmer la remise';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,64 +1,134 @@
+// JS Admin Dashboard Logic
 
-let lastOrderCount = 0;
-let globalOrders = [];
-let alarmAudio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+let allOrders = [];
+let allProducts = [];
+let allUsers = [];
+let revenueChart = null;
+let categoryChart = null;
 
-// Admin Dashboard Logic
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAdminData();
 
-// Fetch real orders from database
-async function fetchOrders() {
-    try {
-        const response = await fetch('/api/orders');
-        const orders = await response.json();
-        
-        if (lastOrderCount > 0 && orders.length > lastOrderCount) {
-            // New order arrived!
-            alarmAudio.play().catch(e => console.log("Audio play blocked by browser."));
-        }
-        lastOrderCount = orders.length;
-        
-        globalOrders = orders;
-        renderOrders(orders);
-        updateStats(orders);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des commandes:", error);
+    // Auto refresh orders every 10 seconds
+    setInterval(fetchAdminData, 10000);
+
+    // Form submit listener for adding products
+    const addProdForm = document.getElementById('add-product-form');
+    if (addProdForm) {
+        addProdForm.addEventListener('submit', handleAddProduct);
+    }
+});
+
+// Tab navigation switcher
+function showTab(tabName) {
+    document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.admin-menu a').forEach(el => el.classList.remove('active'));
+
+    const activeTab = document.getElementById(`tab-${tabName}`);
+    if (activeTab) activeTab.classList.add('active');
+
+    // Highlight active link
+    const activeLink = Array.from(document.querySelectorAll('.admin-menu a')).find(a => a.getAttribute('onclick') && a.getAttribute('onclick').includes(tabName));
+    if (activeLink) activeLink.classList.add('active');
+
+    // Update topbar title
+    const pageTitle = document.getElementById('page-title');
+    if (pageTitle) {
+        const titles = {
+            'overview': "Vue d'ensemble",
+            'orders': "Commandes en Direct",
+            'products': "Gestion du Catalogue Produits",
+            'users': "Liste des Clients Inscrits",
+            'drivers': "Suivi de la Flotte de Livreurs"
+        };
+        pageTitle.innerText = titles[tabName] || "Dashboard Admin";
     }
 }
 
-function renderOrders(ordersData) {
-    const tbody = document.getElementById('orders-table-body');
+// Fetch all required data from backend APIs
+async function fetchAdminData() {
+    await Promise.all([
+        loadStats(),
+        loadOrders(),
+        loadProducts(),
+        loadUsers()
+    ]);
+}
+
+// Load statistics and charts
+async function loadStats() {
+    try {
+        const res = await fetch('/api/stats');
+        const stats = await res.json();
+
+        document.getElementById('stat-revenue').innerText = (stats.totalRevenue || 0).toLocaleString() + ' FCFA';
+        document.getElementById('stat-new-orders').innerText = stats.newOrdersCount || 0;
+        document.getElementById('stat-pending-orders').innerText = stats.pendingOrdersCount || 0;
+        document.getElementById('stat-delivered-orders').innerText = stats.deliveredOrdersCount || 0;
+
+        const navBadge = document.getElementById('nav-orders-badge');
+        if (navBadge) {
+            if (stats.newOrdersCount > 0) {
+                navBadge.innerText = stats.newOrdersCount;
+                navBadge.style.display = 'inline-block';
+            } else {
+                navBadge.style.display = 'none';
+            }
+        }
+
+        renderCharts(stats);
+    } catch (err) {
+        console.error("Erreur stats:", err);
+    }
+}
+
+// Load orders table
+async function loadOrders() {
+    try {
+        const res = await fetch('/api/orders');
+        allOrders = await res.json();
+        renderOrdersTable(allOrders);
+    } catch (err) {
+        console.error("Erreur orders:", err);
+    }
+}
+
+function renderOrdersTable(orders) {
+    const tbody = document.getElementById('orders-tbody');
     if (!tbody) return;
-    
-    tbody.innerHTML = ordersData.map(order => `
+
+    if (orders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Aucune commande enregistrée pour le moment.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = orders.map(o => `
         <tr>
-            <td class="fw-bold">#${order.id}</td>
+            <td class="fw-bold">#${o.id}</td>
             <td>
-                <div class="fw-bold">${order.customer_name}</div>
-                <div class="text-muted small">${order.phone}</div>
+                <div class="fw-bold">${o.customer_name || 'Client Anonyme'}</div>
+                <small class="text-muted">${o.created_at ? new Date(o.created_at).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) : ''}</small>
             </td>
             <td>
-                <div>${order.address}</div>
+                <div>${o.address || 'N/A'}</div>
+                <small class="text-muted">${o.phone || ''}</small>
             </td>
+            <td><small>${o.items || 'N/A'}</small></td>
+            <td class="fw-bold text-primary">${(o.total_price || 0).toLocaleString()} FCFA</td>
+            <td><span class="badge bg-light text-dark border">${o.payment_method || 'Espèces'}</span></td>
             <td>
-                <small>${order.items}</small>
-            </td>
-            <td class="fw-bold text-primary">${order.total_price.toLocaleString()} FCFA</td>
-            <td>${order.payment_method}</td>
-            <td>
-                <span class="badge ${getStatusBadgeClass(order.status)}">${order.status}</span>
+                <span class="badge-status ${getBadgeClass(o.status)}">${o.status || 'nouveau'}</span>
             </td>
             <td>
                 <div class="dropdown">
-                    <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                        <li><a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.id}, 'nouveau')">Marquer 'Nouveau'</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.id}, 'en preparation')">Marquer 'En préparation'</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.id}, 'en livraison')">Marquer 'En livraison' (Active GPS)</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.id}, 'livre')">Marquer 'Livré'</a></li>
-                        <li><hr class="dropdown-divider"></li><li><a class="dropdown-item text-primary" href="#" onclick="printReceipt(${order.id})"><i class="fa-solid fa-print"></i> Imprimer Reçu</a></li>
-                        <li><a class="dropdown-item text-danger" href="#">Annuler la commande</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'nouveau')">🔴 Nouveau</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'en preparation')">🟠 En préparation</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'en livraison')">🔵 En livraison</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'livre')">🟢 Livré</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-primary" href="#" onclick="openReceiptModal(${o.id})"><i class="fa-solid fa-receipt me-2"></i> Voir Reçu</a></li>
                     </ul>
                 </div>
             </td>
@@ -66,175 +136,226 @@ function renderOrders(ordersData) {
     `).join('');
 }
 
-function getStatusBadgeClass(status) {
-    if(!status) return 'bg-secondary';
+function getBadgeClass(status) {
+    if (!status) return 'badge-nouveau';
     const s = status.toLowerCase();
-    if(s.includes('nouveau')) return 'bg-danger';
-    if(s.includes('livre') || s.includes('livré')) return 'bg-success';
-    if(s.includes('preparation') || s.includes('préparation')) return 'bg-warning text-dark';
-    if(s.includes('en livraison') || s.includes('livraison')) return 'bg-info text-white';
-    return 'bg-secondary';
+    if (s.includes('livre') || s.includes('livré')) return 'badge-livre';
+    if (s.includes('livraison')) return 'badge-livraison';
+    if (s.includes('prep') || s.includes('préparation')) return 'badge-preparation';
+    return 'badge-nouveau';
 }
 
-function updateStats(ordersData) {
-    // Total revenues
-    const total = ordersData.reduce((sum, o) => sum + o.total_price, 0);
-    const revEl = document.getElementById('total-revenues');
-    if(revEl) revEl.innerText = total.toLocaleString() + ' FCFA';
-    
-    // New orders count
-    const newCount = ordersData.filter(o => o.status && o.status.toLowerCase().includes('nouveau')).length;
-    const badgeEl = document.getElementById('new-orders-badge');
-    const valEl = document.getElementById('new-orders-val');
-    
-    if(badgeEl) badgeEl.innerText = newCount;
-    if(valEl) valEl.innerText = newCount;
-}
-
-async function updateOrderStatus(orderId, newStatus) {
+async function updateStatus(orderId, newStatus) {
     try {
-        const response = await fetch(`/api/orders/${orderId}/status`, {
+        await fetch(`/api/orders/${orderId}/status`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: newStatus })
         });
-        const data = await response.json();
-        if(data.success) {
-            fetchOrders(); // Refresh table
-        }
-    } catch (error) {
-        console.error("Erreur de mise à jour du statut:", error);
+        fetchAdminData();
+    } catch (err) {
+        console.error("Erreur màj statut:", err);
     }
 }
 
-// Auto-refresh every 10 seconds
-setInterval(fetchOrders, 10000);
+function filterOrdersTable() {
+    const query = document.getElementById('order-search').value.toLowerCase();
+    const status = document.getElementById('order-filter-status').value.toLowerCase();
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetchOrders();
-});
-
-
-function printReceipt(orderId) {
-    const order = globalOrders.find(o => o.id === orderId);
-    if(!order) return;
-    
-    const printWindow = window.open('', '_blank', 'width=300,height=500');
-    printWindow.document.write(`
-        <html>
-        <head>
-            <title>Reçu #${order.id}</title>
-            <style>
-                body { font-family: monospace; padding: 10px; width: 250px; margin: 0 auto; color: #000; }
-                .text-center { text-align: center; }
-                .bold { font-weight: bold; }
-                hr { border-top: 1px dashed #000; }
-            </style>
-        </head>
-        <body>
-            <h2 class="text-center mb-0">BOULANGERIE<br>DE BABI</h2>
-            <p class="text-center">Cocody Angré, Abidjan<br>Tel: +225 01 02 03 04 05</p>
-            <hr>
-            <p><strong>Commande:</strong> #${order.id}<br>
-            <strong>Date:</strong> ${new Date(order.created_at || Date.now()).toLocaleString()}<br>
-            <strong>Client:</strong> ${order.customer_name}<br>
-            <strong>Tel:</strong> ${order.phone}</p>
-            <hr>
-            <p>${order.items.split(', ').join('<br>')}</p>
-            <hr>
-            <h3 class="text-center">TOTAL: ${order.total_price.toLocaleString()} FCFA</h3>
-            <p class="text-center bold">${order.payment_method}</p>
-            <hr>
-            <p class="text-center">Merci de votre visite !</p>
-            <script>
-                window.onload = function() { window.print(); window.close(); }
-            </script>
-        </body>
-        </html>
-    `);
-    printWindow.document.close();
-}
-
-
-// Dark Mode
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('babi_dark_mode', isDark);
-    document.getElementById('darkModeBtn').innerHTML = isDark ? '<i class="fa-solid fa-sun text-warning"></i>' : '<i class="fa-solid fa-moon"></i>';
-}
-
-// Check saved dark mode on load
-document.addEventListener('DOMContentLoaded', () => {
-    if(localStorage.getItem('babi_dark_mode') === 'true') {
-        toggleDarkMode();
-    }
-    checkStockAlerts();
-});
-
-// CSV Export
-function exportCSV() {
-    if(!globalOrders || globalOrders.length === 0) return alert('Aucune commande à exporter.');
-    
-    let csvContent = "data:text/csv;charset=utf-8,ID,Client,Telephone,Prix_Total,Methode_Paiement,Statut,Date\n";
-    globalOrders.forEach(row => {
-        csvContent += `${row.id},${row.customer_name},${row.phone},${row.total_price},${row.payment_method},${row.status},${row.created_at}\n`;
+    const filtered = allOrders.filter(o => {
+        const matchesQuery = (o.customer_name && o.customer_name.toLowerCase().includes(query)) ||
+                             (o.phone && o.phone.toLowerCase().includes(query));
+        const matchesStatus = status === '' || (o.status && o.status.toLowerCase().includes(status));
+        return matchesQuery && matchesStatus;
     });
-    
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "babi_ventes.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    renderOrdersTable(filtered);
 }
 
-// Low Stock Alert
-async function checkStockAlerts() {
+// Load products catalog table
+async function loadProducts() {
     try {
         const res = await fetch('/api/products');
-        const prods = await res.json();
-        const lowStocks = prods.filter(p => p.stock !== undefined && p.stock <= 5);
-        
-        const container = document.getElementById('stockAlertContainer');
-        if(container && lowStocks.length > 0) {
-            let html = '<div class="alert alert-danger shadow-sm border-0"><h5 class="fw-bold"><i class="fa-solid fa-triangle-exclamation"></i> Alerte Stock Critique</h5><ul class="mb-0">';
-            lowStocks.forEach(p => {
-                html += `<li>${p.nom} : Plus que <strong>${p.stock}</strong> en stock !</li>`;
-            });
-            html += '</ul></div>';
-            container.innerHTML = html;
-        } else if(container) {
-            container.innerHTML = '';
-        }
-    } catch(e) {}
+        allProducts = await res.json();
+        renderProductsTable(allProducts);
+    } catch (err) {
+        console.error("Erreur produits:", err);
+    }
 }
 
-// Hook checkStockAlerts into the fetchOrders interval so it auto refreshes
-const originalFetchOrders = fetchOrders;
-fetchOrders = async function() {
-    await originalFetchOrders();
-    checkStockAlerts();
+function renderProductsTable(products) {
+    const tbody = document.getElementById('products-tbody');
+    if (!tbody) return;
+
+    if (products.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">Aucun produit dans le catalogue.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = products.map(p => `
+        <tr>
+            <td class="fw-bold">#${p.id}</td>
+            <td><img src="${p.image}" width="45" height="45" class="rounded-3" style="object-fit:cover;"></td>
+            <td class="fw-bold">${p.nom}</td>
+            <td><span class="badge bg-secondary">${p.categorie}</span></td>
+            <td class="fw-bold text-primary">${(p.prix || 0).toLocaleString()} FCFA</td>
+            <td>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+    `).join('');
 }
 
+function filterProductsTable() {
+    const query = document.getElementById('product-search').value.toLowerCase();
+    const filtered = allProducts.filter(p => p.nom.toLowerCase().includes(query) || p.categorie.toLowerCase().includes(query));
+    renderProductsTable(filtered);
+}
 
-// --- AI Logs Fetcher ---
-async function fetchAILogs() {
+async function handleAddProduct(e) {
+    e.preventDefault();
+    const nom = document.getElementById('prod-name').value;
+    const prix = parseInt(document.getElementById('prod-price').value);
+    const categorie = document.getElementById('prod-cat').value;
+    const image = document.getElementById('prod-img').value || 'assets/product_baguette.png';
+
     try {
-        const res = await fetch('/api/ai_logs');
-        const logs = await res.json();
-        const container = document.getElementById('aiLogsList');
-        if(container && logs.length > 0) {
-            let html = '';
-            logs.forEach(log => {
-                const date = new Date(log.created_at).toLocaleTimeString();
-                html += `<li class="mb-1">[${date}] ${log.message}</li>`;
-            });
-            container.innerHTML = html;
-        }
-    } catch(e) {}
+        await fetch('/api/products', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nom, prix, categorie, image })
+        });
+
+        // Hide modal
+        const modalEl = document.getElementById('addProductModal');
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.hide();
+
+        // Clear form
+        document.getElementById('add-product-form').reset();
+
+        // Reload data
+        fetchAdminData();
+    } catch (err) {
+        console.error("Erreur ajout produit:", err);
+    }
 }
 
-setInterval(fetchAILogs, 5000); // Check for AI updates every 5s
-fetchAILogs();
+async function deleteProduct(id) {
+    if (!confirm("Voulez-vous vraiment supprimer ce produit du catalogue ?")) return;
+    try {
+        await fetch(`/api/products/${id}`, { method: 'DELETE' });
+        fetchAdminData();
+    } catch (err) {
+        console.error("Erreur suppression produit:", err);
+    }
+}
+
+// Load registered users
+async function loadUsers() {
+    try {
+        const res = await fetch('/api/users');
+        allUsers = await res.json();
+
+        const tbody = document.getElementById('users-tbody');
+        if (!tbody) return;
+
+        if (allUsers.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">Aucun client inscrit pour le moment.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = allUsers.map(u => `
+            <tr>
+                <td class="fw-bold">#${u.id}</td>
+                <td class="fw-bold">${u.nom || 'Anonyme'}</td>
+                <td>${u.email || 'Non renseigné'}</td>
+                <td>${u.telephone || 'Non renseigné'}</td>
+                <td><span class="badge bg-success">Compte Actif</span></td>
+            </tr>
+        `).join('');
+    } catch (err) {
+        console.error("Erreur users:", err);
+    }
+}
+
+// Open Receipt Invoice Modal
+function openReceiptModal(orderId) {
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
+
+    const modalBody = document.getElementById('receipt-modal-body');
+    if (modalBody) {
+        modalBody.innerHTML = `
+            <div class="text-center mb-4">
+                <img src="assets/logo.png" height="50" class="mb-2">
+                <h5 class="fw-bold">Boulangerie & Pâtisserie de BABI</h5>
+                <small class="text-muted">Abidjan, Côte d'Ivoire - Tél: +225 07 00 00 00 00</small>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between fs-sm mb-2">
+                <span>Commande <strong>#${order.id}</strong></span>
+                <span>Date: ${order.created_at ? new Date(order.created_at).toLocaleDateString('fr-FR') : 'Aujourd\'hui'}</span>
+            </div>
+            <div class="mb-3 fs-sm">
+                <div><strong>Client :</strong> ${order.customer_name || 'Client'}</div>
+                <div><strong>Téléphone :</strong> ${order.phone || 'N/A'}</div>
+                <div><strong>Adresse :</strong> ${order.address || 'Livraison à domicile'}</div>
+            </div>
+            <table class="table table-sm text-start mb-3">
+                <thead><tr><th>Articles</th><th class="text-end">Montant</th></tr></thead>
+                <tbody>
+                    <tr><td>${order.items || 'Produits divers'}</td><td class="text-end fw-bold">${(order.total_price || 0).toLocaleString()} FCFA</td></tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between fw-bold fs-5 border-top pt-2">
+                <span>TOTAL :</span>
+                <span class="text-primary">${(order.total_price || 0).toLocaleString()} FCFA</span>
+            </div>
+            <div class="text-center text-muted small mt-4">Merci de votre confiance et bon appétit ! 🥖</div>
+        `;
+    }
+
+    const modalEl = document.getElementById('receiptModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+}
+
+// Render Chart.js Analytics
+function renderCharts(stats) {
+    const ctxRev = document.getElementById('revenueChart');
+    if (ctxRev && !revenueChart) {
+        revenueChart = new Chart(ctxRev, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Revenus (FCFA)',
+                    data: [15000, 25000, 18000, 32000, 28000, 45000, stats.totalRevenue || 50000],
+                    borderColor: '#2b160c',
+                    backgroundColor: 'rgba(43, 22, 12, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    }
+
+    const ctxCat = document.getElementById('categoryChart');
+    if (ctxCat && !categoryChart) {
+        categoryChart = new Chart(ctxCat, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pains', 'Viennoiseries', 'Pâtisseries', 'Boissons & Jus'],
+                datasets: [{
+                    data: [40, 25, 20, 15],
+                    backgroundColor: ['#2b160c', '#fb923c', '#e11d48', '#0284c7'],
+                    borderWidth: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+}

@@ -1,4 +1,4 @@
-// Fetch and render products dynamically with clean cards (no top placeholder blocks or emojis for items without photos)
+// Fetch and render products dynamically with clean, elegant cards
 
 const realProductImages = {
     "Chill": "assets/chill.png",
@@ -57,6 +57,17 @@ const realProductImages = {
     "Glace": "assets/glace.png",
     "Pain Marbré": "assets/marbre.png",
     "Pain de Mie": "assets/pain de mie.png"
+};
+
+const catIcons = {
+    'pain': '🥖',
+    'viennoiserie': '🥐',
+    'patisserie': '🍰',
+    'cafe': '☕',
+    'jus': '🥤',
+    'glace': '🍨',
+    'boisson': '🥤',
+    'snack': '🍕'
 };
 
 const FALLBACK_PRODUCTS = [
@@ -239,11 +250,13 @@ function renderProducts(productsList) {
             </div>
             `;
         } else {
-            // Clean, elegant card without ANY top image block or emoji placeholder
+            // Elegant compact menu card with warm cream gradient & subtle watermark icon
             return `
             <div class="col product-card-wrapper" data-category="${p.categorie}" data-name="${(p.nom || '').toLowerCase()}">
-                <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius:12px;background:#ffffff;">
-                    <div class="card-body p-3 d-flex flex-column">
+                <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden" 
+                    style="border-radius:12px; background: linear-gradient(145deg, #ffffff 0%, #fcf8f2 100%); border: 1px solid #f3ece0 !important;">
+                    <div class="card-body p-3 d-flex flex-column position-relative" style="z-index: 1;">
+                        <span class="position-absolute" style="right:12px; bottom:60px; font-size:4rem; opacity:0.06; pointer-events:none; user-select:none;">${catIcons[p.categorie] || '🥖'}</span>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="badge" style="background:#2b160c;color:#ffffff;font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
                             <button class="wishlist-btn btn btn-sm p-0 border-0 text-danger" title="Ajouter aux favoris">

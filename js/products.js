@@ -37,9 +37,6 @@ const realProductImages = {
     "Cup Cake": "assets/moka1.1.png",
     "Cake (300F)": "assets/cake.png",
     "Cake (700F)": "assets/cake1.png",
-    "Pain Cabré": "assets/marbre.png",
-    "Pain Breton": "assets/marbre1.png",
-    "Pain Délice": "assets/marbre1.1.png",
     "Pain Marbré": "assets/marbre.png",
     "Pain de Mie": "assets/pain de mie.png"
 };
@@ -200,8 +197,8 @@ function renderProducts(productsList) {
     }
     
     container.innerHTML = productsList.map(p => {
-        const hasRealImage = realProductImages[p.nom] || (p.image && p.image.includes('assets/'));
-        const imgSrc = realProductImages[p.nom] || p.image;
+        const imgSrc = realProductImages[p.nom] || (p.image && p.image !== 'null' ? p.image : null);
+        const hasRealImage = !!imgSrc;
         
         const imageHeaderHTML = hasRealImage ? `
             <div class="position-relative overflow-hidden product-img-container" style="height:160px;background:#f8fafc;">

@@ -1,4 +1,4 @@
-// Fetch and render products dynamically with clean no-broken-image fallback
+// Fetch and render products dynamically with clean cards (no brown header blocks, no fake frames)
 
 const realProductImages = {
     "Chill": "assets/chill.png",
@@ -57,17 +57,6 @@ const realProductImages = {
     "Glace": "assets/glace.png",
     "Pain Marbré": "assets/marbre.png",
     "Pain de Mie": "assets/pain de mie.png"
-};
-
-const catIcons = {
-    'pain': '🥖',
-    'viennoiserie': '🥐',
-    'patisserie': '🍰',
-    'cafe': '☕',
-    'jus': '🥤',
-    'glace': '🍨',
-    'boisson': '🥤',
-    'snack': '🍕'
 };
 
 const FALLBACK_PRODUCTS = [
@@ -230,14 +219,11 @@ function renderProducts(productsList) {
                 <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
             </div>
         ` : `
-            <div class="position-relative overflow-hidden product-img-container d-flex align-items-center justify-content-center" 
-                style="height:110px; background: linear-gradient(135deg, #2b160c 0%, #4a2818 100%);">
-                <span style="font-size:2.8rem;">${catIcons[p.categorie] || '🍞'}</span>
-                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                    title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
+            <div class="p-2 pb-0 d-flex justify-content-between align-items-center">
+                <span class="badge" style="background:rgba(251,146,60,0.15);color:#c2410c;font-size:0.68rem;font-weight:bold;">${getCatLabel(p.categorie)}</span>
+                <button class="btn btn-sm text-danger p-0 border-0" title="Ajouter aux favoris">
                     <i class="fa-regular fa-heart"></i>
                 </button>
-                <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(251,146,60,0.9);color:#2b160c;font-size:0.65rem;font-weight:bold;">${getCatLabel(p.categorie)}</span>
             </div>
         `;
 
@@ -266,17 +252,18 @@ function renderProducts(productsList) {
 }
 
 window.handleImgError = function(img, cat) {
-    const parent = img.closest('.product-img-container');
+    const parent = img.closest('.product-card-wrapper');
     if (parent) {
-        img.style.display = 'none';
-        parent.style.background = 'linear-gradient(135deg, #2b160c 0%, #4a2818 100%)';
-        parent.style.height = '110px';
-        parent.classList.add('d-flex', 'align-items-center', 'justify-content-center');
-        if (!parent.querySelector('.cat-fallback-icon')) {
-            const iconDiv = document.createElement('div');
-            iconDiv.className = 'cat-fallback-icon text-center text-white';
-            iconDiv.innerHTML = `<span style="font-size:2.8rem;">${catIcons[cat] || '🍞'}</span>`;
-            parent.appendChild(iconDiv);
+        const container = parent.querySelector('.product-img-container');
+        if (container) {
+            container.outerHTML = `
+                <div class="p-2 pb-0 d-flex justify-content-between align-items-center">
+                    <span class="badge" style="background:rgba(251,146,60,0.15);color:#c2410c;font-size:0.68rem;font-weight:bold;">${getCatLabel(cat)}</span>
+                    <button class="btn btn-sm text-danger p-0 border-0" title="Ajouter aux favoris">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+            `;
         }
     }
 }

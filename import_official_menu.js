@@ -25,37 +25,37 @@ const menuItems = [
     { nom: "Tamarin", prix: 2000, categorie: "jus", image: "assets/jus de tamari.png" },
     { nom: "Cocktail", prix: 3000, categorie: "jus", image: "assets/cocktail.png" },
     { nom: "Citron", prix: 2000, categorie: "jus", image: "assets/jus de citron.png" },
-    { nom: "Chocolat Chaud", prix: 3000, categorie: "cafe" },
+    { nom: "Chocolat Chaud", prix: 3000, categorie: "cafe", image: "assets/Chocolat Chaud.png" },
 
     // === BOULANGERIE ===
     { nom: "Baguette 150", prix: 150, categorie: "pain", image: "assets/baguette 150.png" },
-    { nom: "Baguette 200", prix: 200, categorie: "pain", image: "assets/baguette 150.png" },
+    { nom: "Baguette 200", prix: 200, categorie: "pain", image: "assets/baguette 200.png" },
     { nom: "Ficelle", prix: 500, categorie: "pain", image: "assets/baguette 150.png" },
-    { nom: "Pain Complet (Grand)", prix: 1000, categorie: "pain", image: "assets/pain complet.png" },
+    { nom: "Pain Complet (Grand)", prix: 1000, categorie: "pain", image: "assets/Pain Complet (Grand).png" },
     { nom: "Pain Complet (Petit)", prix: 500, categorie: "pain", image: "assets/pain complet 2.png" },
-    { nom: "Pain Sans Sel", prix: 150, categorie: "pain", image: "assets/baguette 150.png" },
-    { nom: "Panini", prix: 100, categorie: "snack" },
+    { nom: "Pain Sans Sel", prix: 150, categorie: "pain", image: "assets/pain sans sel.png" },
+    { nom: "Panini", prix: 100, categorie: "snack", image: "assets/Panini.png" },
     { nom: "Petit Pain (50F)", prix: 50, categorie: "pain", image: "assets/pain individuel.png" },
     { nom: "Petit Pain (100F)", prix: 100, categorie: "pain", image: "assets/pain individuel.png" },
 
     // === PIZZA ===
-    { nom: "Mini Pizza", prix: 1000, categorie: "snack" },
-    { nom: "Petit Pizza", prix: 5000, categorie: "snack" },
-    { nom: "Grande Pizza", prix: 10000, categorie: "snack" },
+    { nom: "Mini Pizza", prix: 1000, categorie: "snack", image: "assets/Pizza.png" },
+    { nom: "Petit Pizza", prix: 5000, categorie: "snack", image: "assets/Pizza.png" },
+    { nom: "Grande Pizza", prix: 10000, categorie: "snack", image: "assets/Pizza.png" },
 
     // === VIENNOISERIES ===
     { nom: "Américain", prix: 700, categorie: "viennoiserie" },
     { nom: "Biscotte", prix: 1000, categorie: "viennoiserie", image: "assets/biscottes.png" },
-    { nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie" },
-    { nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie" },
-    { nom: "Choco Suisse", prix: 800, categorie: "viennoiserie" },
+    { nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie", image: "assets/charaphe au raisin.png" },
+    { nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie", image: "assets/chausson aux pommes.png" },
+    { nom: "Choco Suisse", prix: 800, categorie: "viennoiserie", image: "assets/choco suisse.png" },
     { nom: "Cookies (l'unité)", prix: 200, categorie: "viennoiserie" },
-    { nom: "Croissant", prix: 500, categorie: "viennoiserie" },
+    { nom: "Croissant", prix: 500, categorie: "viennoiserie", image: "assets/Croissant.png" },
     { nom: "Escargots", prix: 700, categorie: "viennoiserie" },
-    { nom: "Flan", prix: 1000, categorie: "patisserie" },
+    { nom: "Flan", prix: 1000, categorie: "patisserie", image: "assets/Flan.png" },
     { nom: "Quiche", prix: 500, categorie: "snack" },
     { nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie" },
-    { nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie" },
+    { nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie", image: "assets/pain au chocolat.png" },
     { nom: "Pain au Lait", prix: 200, categorie: "viennoiserie" },
     { nom: "Pain aux Raisins", prix: 700, categorie: "viennoiserie" },
     { nom: "Pain Évêque", prix: 800, categorie: "viennoiserie" },
@@ -71,8 +71,8 @@ const menuItems = [
     { nom: "Gâteau (15 000F)", prix: 15000, categorie: "patisserie", image: "assets/Gateau1.1.png" },
     { nom: "Gâteau (20 000F)", prix: 20000, categorie: "patisserie", image: "assets/Gateau1.2.png" },
     { nom: "Gâteau (25 000F)", prix: 25000, categorie: "patisserie", image: "assets/gateau2.png" },
-    { nom: "Bûche de Noël (7000F)", prix: 7000, categorie: "patisserie", image: "assets/Gateau1.png" },
-    { nom: "Bûche de Noël (5000F)", prix: 5000, categorie: "patisserie", image: "assets/Gateau1.1.png" },
+    { nom: "Bûche de Noël (7000F)", prix: 7000, categorie: "patisserie", image: "assets/buche de noel.png" },
+    { nom: "Bûche de Noël (5000F)", prix: 5000, categorie: "patisserie", image: "assets/buche de noel.png" },
     { nom: "Moka", prix: 1500, categorie: "patisserie", image: "assets/moka1.png" },
     { nom: "Lot de Madeleines", prix: 500, categorie: "viennoiserie" },
     { nom: "Madeleine", prix: 100, categorie: "viennoiserie" },
@@ -81,11 +81,11 @@ const menuItems = [
     { nom: "Cake (700F)", prix: 700, categorie: "patisserie", image: "assets/cake1.png" },
 
     // === DESSERT ===
-    { nom: "Crêpe au Nutella", prix: 2000, categorie: "patisserie" },
-    { nom: "Crêpe à la Vanille", prix: 1500, categorie: "patisserie" },
-    { nom: "Crêpe Suzette", prix: 1500, categorie: "patisserie" },
-    { nom: "Fondant au Chocolat", prix: 1000, categorie: "patisserie" },
-    { nom: "Glace", prix: 1000, categorie: "glace" },
+    { nom: "Crêpe au Nutella", prix: 2000, categorie: "patisserie", image: "assets/crepe au nutella.png" },
+    { nom: "Crêpe à la Vanille", prix: 1500, categorie: "patisserie", image: "assets/crepe a la vanille.png" },
+    { nom: "Crêpe Suzette", prix: 1500, categorie: "patisserie", image: "assets/Crêpe Suzette.png" },
+    { nom: "Fondant au Chocolat", prix: 1000, categorie: "patisserie", image: "assets/Fondant au Chocolat.png" },
+    { nom: "Glace", prix: 1000, categorie: "glace", image: "assets/glace.png" },
 
     // === PAINS SPECIAUX ===
     { nom: "Pain Cabré", prix: 700, categorie: "pain" },
@@ -115,7 +115,7 @@ async function updateDatabase() {
                 [p.nom, p.prix, p.categorie, img]
             );
         }
-        console.log(`${menuItems.length} produits mis à jour dans SQLite (images incorrectes retirées) !`);
+        console.log(`${menuItems.length} produits mis à jour avec les Panini & Pizzas dans SQLite !`);
     } catch (err) {
         console.error("Erreur :", err);
     }

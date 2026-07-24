@@ -114,7 +114,6 @@ const FALLBACK_PRODUCTS = [
     { id: 36, nom: "Grande Pizza", prix: 10000, categorie: "snack" },
 
     // === VIENNOISERIES ===
-    { id: 37, nom: "Américain", prix: 700, categorie: "viennoiserie" },
     { id: 38, nom: "Biscotte", prix: 1000, categorie: "viennoiserie" },
     { id: 39, nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie" },
     { id: 40, nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie" },

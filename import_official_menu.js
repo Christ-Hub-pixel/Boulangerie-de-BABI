@@ -44,7 +44,6 @@ const menuItems = [
     { nom: "Grande Pizza", prix: 10000, categorie: "snack", image: "assets/Pizza.png" },
 
     // === VIENNOISERIES ===
-    { nom: "Américain", prix: 700, categorie: "viennoiserie" },
     { nom: "Biscotte", prix: 1000, categorie: "viennoiserie", image: "assets/biscottes.png" },
     { nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie", image: "assets/charaphe au raisin.png" },
     { nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie", image: "assets/chausson aux pommes.png" },

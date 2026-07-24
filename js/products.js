@@ -1,4 +1,4 @@
-// Fetch and render products dynamically with clean cards (no brown header blocks, no fake frames)
+// Fetch and render products dynamically with perfectly aligned, symmetrical cards
 
 const realProductImages = {
     "Chill": "assets/chill.png",
@@ -57,6 +57,17 @@ const realProductImages = {
     "Glace": "assets/glace.png",
     "Pain Marbré": "assets/marbre.png",
     "Pain de Mie": "assets/pain de mie.png"
+};
+
+const catIcons = {
+    'pain': '🥖',
+    'viennoiserie': '🥐',
+    'patisserie': '🍰',
+    'cafe': '☕',
+    'jus': '🥤',
+    'glace': '🍨',
+    'boisson': '🥤',
+    'snack': '🍕'
 };
 
 const FALLBACK_PRODUCTS = [
@@ -208,7 +219,7 @@ function renderProducts(productsList) {
         const hasRealImage = !!imgSrc;
         
         const imageHeaderHTML = hasRealImage ? `
-            <div class="position-relative overflow-hidden product-img-container" style="height:160px;background:#f8fafc;">
+            <div class="position-relative overflow-hidden product-img-container" style="height:160px;background:#ffffff;">
                 <img loading="lazy" src="${imgSrc}" class="card-img-top product-img" alt="${p.nom}" 
                     style="height:160px;width:100%;object-fit:cover;transition:transform 0.4s ease;"
                     onerror="handleImgError(this, '${p.categorie}')">
@@ -219,11 +230,14 @@ function renderProducts(productsList) {
                 <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
             </div>
         ` : `
-            <div class="p-2 pb-0 d-flex justify-content-between align-items-center">
-                <span class="badge" style="background:rgba(251,146,60,0.15);color:#c2410c;font-size:0.68rem;font-weight:bold;">${getCatLabel(p.categorie)}</span>
-                <button class="btn btn-sm text-danger p-0 border-0" title="Ajouter aux favoris">
+            <div class="position-relative overflow-hidden product-img-container d-flex align-items-center justify-content-center" 
+                style="height:160px; background:#faf7f2; border-bottom:1px solid #f1ece1;">
+                <span style="font-size:3.2rem; opacity:0.85;">${catIcons[p.categorie] || '🍞'}</span>
+                <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
+                    title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
                     <i class="fa-regular fa-heart"></i>
                 </button>
+                <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
             </div>
         `;
 
@@ -257,11 +271,14 @@ window.handleImgError = function(img, cat) {
         const container = parent.querySelector('.product-img-container');
         if (container) {
             container.outerHTML = `
-                <div class="p-2 pb-0 d-flex justify-content-between align-items-center">
-                    <span class="badge" style="background:rgba(251,146,60,0.15);color:#c2410c;font-size:0.68rem;font-weight:bold;">${getCatLabel(cat)}</span>
-                    <button class="btn btn-sm text-danger p-0 border-0" title="Ajouter aux favoris">
+                <div class="position-relative overflow-hidden product-img-container d-flex align-items-center justify-content-center" 
+                    style="height:160px; background:#faf7f2; border-bottom:1px solid #f1ece1;">
+                    <span style="font-size:3.2rem; opacity:0.85;">${catIcons[cat] || '🍞'}</span>
+                    <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
+                        title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
                         <i class="fa-regular fa-heart"></i>
                     </button>
+                    <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(cat)}</span>
                 </div>
             `;
         }

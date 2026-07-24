@@ -1,15 +1,17 @@
-// Fetch and render products dynamically with offline/static fallback
+// Fetch and render products dynamically with local fail-proof image fallback
 
 const defaultCategoryImages = {
-    pain: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80",
-    viennoiserie: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80",
-    patisserie: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80",
-    jus: "https://images.unsplash.com/photo-1622597467836-f38240662f53?auto=format&fit=crop&w=400&q=80",
-    boisson: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80",
-    cafe: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-    glace: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80",
-    snack: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80"
+    pain: "assets/processed_products/baguette_150.jpg",
+    viennoiserie: "assets/processed_products/biscottes.jpg",
+    patisserie: "assets/processed_products/gateau1.jpg",
+    jus: "assets/processed_products/jus_de_passion.jpg",
+    boisson: "assets/processed_products/chill.jpg",
+    cafe: "assets/processed_products/youki_moka_cafe.jpg",
+    glace: "assets/processed_products/jus_de_passion.jpg",
+    snack: "assets/processed_products/marbre.jpg"
 };
+
+const svgPlaceholder = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%232b160c'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%23fb923c'>Boulangerie de BABI</text></svg>";
 
 const FALLBACK_PRODUCTS = [
     // === BOISSONS ===
@@ -45,37 +47,37 @@ const FALLBACK_PRODUCTS = [
     { id: 28, nom: "Pain Complet (Grand)", prix: 1000, categorie: "pain", image: "assets/processed_products/pain_complet.jpg" },
     { id: 29, nom: "Pain Complet (Petit)", prix: 500, categorie: "pain", image: "assets/processed_products/pain_complet_2.jpg" },
     { id: 30, nom: "Pain Sans Sel", prix: 150, categorie: "pain", image: "assets/processed_products/baguette_150.jpg" },
-    { id: 31, nom: "Panini", prix: 100, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
+    { id: 31, nom: "Panini", prix: 100, categorie: "snack", image: "assets/processed_products/marbre.jpg" },
     { id: 32, nom: "Petit Pain (50F)", prix: 50, categorie: "pain", image: "assets/processed_products/pain_individuel.jpg" },
     { id: 33, nom: "Petit Pain (100F)", prix: 100, categorie: "pain", image: "assets/processed_products/pain_individuel.jpg" },
 
     // === PIZZA ===
-    { id: 34, nom: "Mini Pizza", prix: 1000, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
-    { id: 35, nom: "Petit Pizza", prix: 5000, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
-    { id: 36, nom: "Grande Pizza", prix: 10000, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
+    { id: 34, nom: "Mini Pizza", prix: 1000, categorie: "snack", image: "assets/processed_products/marbre1.jpg" },
+    { id: 35, nom: "Petit Pizza", prix: 5000, categorie: "snack", image: "assets/processed_products/marbre1.1.jpg" },
+    { id: 36, nom: "Grande Pizza", prix: 10000, categorie: "snack", image: "assets/processed_products/marbre.jpg" },
 
     // === VIENNOISERIES ===
-    { id: 37, nom: "Américain", prix: 700, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
+    { id: 37, nom: "Américain", prix: 700, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
     { id: 38, nom: "Biscotte", prix: 1000, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
-    { id: 39, nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 40, nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 41, nom: "Choco Suisse", prix: 800, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 42, nom: "Cookies (l'unité)", prix: 200, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 43, nom: "Croissant", prix: 500, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 44, nom: "Escargots", prix: 700, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 45, nom: "Flan", prix: 1000, categorie: "patisserie", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 46, nom: "Quiche", prix: 500, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
-    { id: 47, nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 48, nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 49, nom: "Pain au Lait", prix: 200, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 50, nom: "Pain aux Raisins", prix: 700, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 51, nom: "Pain Évêque", prix: 800, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 52, nom: "Pain Suisse", prix: 800, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 53, nom: "Palmiers", prix: 200, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 54, nom: "Star Suisse", prix: 800, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 55, nom: "Torsade", prix: 800, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 56, nom: "Croque-Monsieur", prix: 800, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
-    { id: 57, nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
+    { id: 39, nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 40, nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 41, nom: "Choco Suisse", prix: 800, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 42, nom: "Cookies (l'unité)", prix: 200, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 43, nom: "Croissant", prix: 500, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 44, nom: "Escargots", prix: 700, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 45, nom: "Flan", prix: 1000, categorie: "patisserie", image: "assets/processed_products/gateau1.jpg" },
+    { id: 46, nom: "Quiche", prix: 500, categorie: "snack", image: "assets/processed_products/marbre.jpg" },
+    { id: 47, nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 48, nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 49, nom: "Pain au Lait", prix: 200, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 50, nom: "Pain aux Raisins", prix: 700, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 51, nom: "Pain Évêque", prix: 800, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 52, nom: "Pain Suisse", prix: 800, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 53, nom: "Palmiers", prix: 200, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 54, nom: "Star Suisse", prix: 800, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 55, nom: "Torsade", prix: 800, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 56, nom: "Croque-Monsieur", prix: 800, categorie: "snack", image: "assets/processed_products/marbre1.jpg" },
+    { id: 57, nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
 
     // === GATEAU & CAKE ===
     { id: 58, nom: "Gâteau (10 000F)", prix: 10000, categorie: "patisserie", image: "assets/processed_products/gateau1.jpg" },
@@ -85,18 +87,18 @@ const FALLBACK_PRODUCTS = [
     { id: 62, nom: "Bûche de Noël (7000F)", prix: 7000, categorie: "patisserie", image: "assets/processed_products/gateau1.jpg" },
     { id: 63, nom: "Bûche de Noël (5000F)", prix: 5000, categorie: "patisserie", image: "assets/processed_products/gateau1.1.jpg" },
     { id: 64, nom: "Moka", prix: 1500, categorie: "patisserie", image: "assets/processed_products/moka1.jpg" },
-    { id: 65, nom: "Lot de Madeleines", prix: 500, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
-    { id: 66, nom: "Madeleine", prix: 100, categorie: "viennoiserie", image: "https://images.unsplash.com/photo-1555507036-ab1e4006aaeb?auto=format&fit=crop&w=400&q=80" },
+    { id: 65, nom: "Lot de Madeleines", prix: 500, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
+    { id: 66, nom: "Madeleine", prix: 100, categorie: "viennoiserie", image: "assets/processed_products/biscottes.jpg" },
     { id: 67, nom: "Cup Cake", prix: 500, categorie: "patisserie", image: "assets/processed_products/moka1.1.jpg" },
     { id: 68, nom: "Cake (300F)", prix: 300, categorie: "patisserie", image: "assets/processed_products/cake.jpg" },
     { id: 69, nom: "Cake (700F)", prix: 700, categorie: "patisserie", image: "assets/processed_products/cake1.jpg" },
 
     // === DESSERT ===
-    { id: 70, nom: "Crêpe au Nutella", prix: 2000, categorie: "patisserie", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 71, nom: "Crêpe à la Vanille", prix: 1500, categorie: "patisserie", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 72, nom: "Crêpe Suzette", prix: 1500, categorie: "patisserie", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 73, nom: "Fondant au Chocolat", prix: 1000, categorie: "patisserie", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 74, nom: "Glace", prix: 1000, categorie: "glace", image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" },
+    { id: 70, nom: "Crêpe au Nutella", prix: 2000, categorie: "patisserie", image: "assets/processed_products/moka1.jpg" },
+    { id: 71, nom: "Crêpe à la Vanille", prix: 1500, categorie: "patisserie", image: "assets/processed_products/moka1.1.jpg" },
+    { id: 72, nom: "Crêpe Suzette", prix: 1500, categorie: "patisserie", image: "assets/processed_products/moka1.2.jpg" },
+    { id: 73, nom: "Fondant au Chocolat", prix: 1000, categorie: "patisserie", image: "assets/processed_products/gateau1.jpg" },
+    { id: 74, nom: "Glace", prix: 1000, categorie: "glace", image: "assets/processed_products/jus_de_passion.jpg" },
 
     // === PAINS SPECIAUX ===
     { id: 75, nom: "Pain Cabré", prix: 700, categorie: "pain", image: "assets/processed_products/marbre.jpg" },
@@ -110,8 +112,8 @@ const FALLBACK_PRODUCTS = [
     { id: 83, nom: "Pain Viennois (500F)", prix: 500, categorie: "pain", image: "assets/processed_products/marbre.jpg" },
     { id: 84, nom: "Pain Viennois (700F)", prix: 700, categorie: "pain", image: "assets/processed_products/marbre1.jpg" },
     { id: 85, nom: "Suzette", prix: 300, categorie: "pain", image: "assets/processed_products/pain_individuel.jpg" },
-    { id: 86, nom: "Brioche à la Viande", prix: 800, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" },
-    { id: 87, nom: "Feuilleté", prix: 800, categorie: "snack", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" }
+    { id: 86, nom: "Brioche à la Viande", prix: 800, categorie: "snack", image: "assets/processed_products/marbre.jpg" },
+    { id: 87, nom: "Feuilleté", prix: 800, categorie: "snack", image: "assets/processed_products/marbre1.jpg" }
 ];
 
 let allProducts = [];
@@ -122,10 +124,10 @@ async function loadProducts() {
         if (response.ok) {
             allProducts = await response.json();
         } else {
-            throw new Error("API not available");
+            throw new Error("API status not ok");
         }
     } catch(err) {
-        console.warn("Utilisation de la liste des produits statiques avec images :", err);
+        console.warn("Utilisation de la liste des produits statiques locaux :", err);
         allProducts = FALLBACK_PRODUCTS;
     }
     
@@ -133,11 +135,9 @@ async function loadProducts() {
     if(container) {
         renderProducts(allProducts);
         
-        // Update product count
         const countEl = document.querySelector('.products-count');
         if(countEl) countEl.innerText = `(${allProducts.length} produits)`;
         
-        // Auto-filter if a category is passed in the URL
         const urlParams = new URLSearchParams(window.location.search);
         const cat = urlParams.get('cat');
         if (cat) {
@@ -160,13 +160,14 @@ function renderProducts(productsList) {
     
     container.innerHTML = productsList.map(p => {
         const fallbackImg = defaultCategoryImages[p.categorie] || defaultCategoryImages['pain'];
+        const imgSrc = p.image || fallbackImg;
         return `
         <div class="col product-card-wrapper" data-category="${p.categorie}" data-name="${(p.nom || '').toLowerCase()}">
             <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
                 <div class="position-relative overflow-hidden">
-                    <img loading="lazy" src="${p.image}" class="card-img-top product-img" alt="${p.nom}" 
+                    <img loading="lazy" src="${imgSrc}" class="card-img-top product-img" alt="${p.nom}" 
                         style="height:160px;object-fit:cover;transition:transform 0.4s ease;"
-                        onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        onerror="this.onerror=function(){this.src='${svgPlaceholder}';}; this.src='${fallbackImg}';">
                     <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
                         title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
                         <i class="fa-regular fa-heart"></i>
@@ -183,7 +184,7 @@ function renderProducts(productsList) {
                         <span class="fw-bold text-dark" style="font-size:1rem;">${(p.prix || 0).toLocaleString()} <small>FCFA</small></span>
                     </div>
                     <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn"
-                        style="font-size:0.78rem;" onclick="addToCart('${p.nom.replace(/'/g, "\\'")}', ${p.prix}, '${p.image}')">
+                        style="font-size:0.78rem;" onclick="addToCart('${p.nom.replace(/'/g, "\\'")}', ${p.prix}, '${imgSrc}')">
                         <i class="fa-solid fa-cart-plus me-1"></i>AJOUTER
                     </button>
                 </div>

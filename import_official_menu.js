@@ -48,33 +48,34 @@ const menuItems = [
     { nom: "Charaphe au Raisin", prix: 700, categorie: "viennoiserie", image: "assets/charaphe au raisin.png" },
     { nom: "Chausson aux Pommes", prix: 1000, categorie: "viennoiserie", image: "assets/chausson aux pommes.png" },
     { nom: "Choco Suisse", prix: 800, categorie: "viennoiserie", image: "assets/choco suisse.png" },
-    { nom: "Cookies (l'unité)", prix: 200, categorie: "viennoiserie" },
+    { nom: "Cookies (l'unité)", prix: 200, categorie: "viennoiserie", image: "assets/cookies.png" },
     { nom: "Croissant", prix: 500, categorie: "viennoiserie", image: "assets/Croissant.png" },
     { nom: "Escargots", prix: 700, categorie: "viennoiserie" },
     { nom: "Flan", prix: 1000, categorie: "patisserie", image: "assets/Flan.png" },
     { nom: "Quiche", prix: 500, categorie: "snack" },
-    { nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie" },
+    { nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie", image: "assets/cookies.png" },
     { nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie", image: "assets/pain au chocolat.png" },
     { nom: "Pain au Lait", prix: 200, categorie: "viennoiserie" },
-    { nom: "Pain aux Raisins", prix: 700, categorie: "viennoiserie" },
+    { nom: "Pain aux Raisins", prix: 700, categorie: "viennoiserie", image: "assets/pain au raisin.png" },
     { nom: "Pain Évêque", prix: 800, categorie: "viennoiserie" },
     { nom: "Pain Suisse", prix: 800, categorie: "viennoiserie" },
-    { nom: "Palmiers", prix: 200, categorie: "viennoiserie" },
+    { nom: "Palmiers", prix: 200, categorie: "viennoiserie", image: "assets/palmier.png" },
     { nom: "Star Suisse", prix: 800, categorie: "viennoiserie" },
-    { nom: "Torsade", prix: 800, categorie: "viennoiserie" },
+    { nom: "Torsade", prix: 800, categorie: "viennoiserie", image: "assets/torsade.png" },
     { nom: "Croque-Monsieur", prix: 800, categorie: "snack" },
-    { nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie" },
+    { nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie", image: "assets/madeleine unite.png" },
 
     // === GATEAU & CAKE ===
     { nom: "Gâteau (10 000F)", prix: 10000, categorie: "patisserie", image: "assets/Gateau1.png" },
     { nom: "Gâteau (15 000F)", prix: 15000, categorie: "patisserie", image: "assets/Gateau1.1.png" },
     { nom: "Gâteau (20 000F)", prix: 20000, categorie: "patisserie", image: "assets/Gateau1.2.png" },
     { nom: "Gâteau (25 000F)", prix: 25000, categorie: "patisserie", image: "assets/gateau2.png" },
+    { nom: "Gâteau de Mariage", prix: 35000, categorie: "patisserie", image: "assets/gateau de mariiage.png" },
     { nom: "Bûche de Noël (7000F)", prix: 7000, categorie: "patisserie", image: "assets/buche de noel.png" },
     { nom: "Bûche de Noël (5000F)", prix: 5000, categorie: "patisserie", image: "assets/buche de noel.png" },
     { nom: "Moka", prix: 1500, categorie: "patisserie", image: "assets/moka1.png" },
-    { nom: "Lot de Madeleines", prix: 500, categorie: "viennoiserie" },
-    { nom: "Madeleine", prix: 100, categorie: "viennoiserie" },
+    { nom: "Lot de Madeleines", prix: 500, categorie: "viennoiserie", image: "assets/lots de madeleine.png" },
+    { nom: "Madeleine", prix: 100, categorie: "viennoiserie", image: "assets/madeleine unite.png" },
     { nom: "Cup Cake", prix: 500, categorie: "patisserie", image: "assets/moka1.1.png" },
     { nom: "Cake (300F)", prix: 300, categorie: "patisserie", image: "assets/cake.png" },
     { nom: "Cake (700F)", prix: 700, categorie: "patisserie", image: "assets/cake1.png" },
@@ -87,7 +88,7 @@ const menuItems = [
     { nom: "Glace", prix: 1000, categorie: "glace", image: "assets/glace.png" },
 
     // === PAINS SPECIAUX ===
-    { nom: "Pain Cabré", prix: 700, categorie: "pain" },
+    { nom: "Pain Cabré", prix: 700, categorie: "pain", image: "assets/cabre.png" },
     { nom: "Pain Breton", prix: 700, categorie: "pain" },
     { nom: "Pain Délice", prix: 700, categorie: "pain" },
     { nom: "Pain Marbré", prix: 500, categorie: "pain", image: "assets/marbre.png" },
@@ -114,7 +115,7 @@ async function updateDatabase() {
                 [p.nom, p.prix, p.categorie, img]
             );
         }
-        console.log(`${menuItems.length} produits mis à jour avec les Panini & Pizzas dans SQLite !`);
+        console.log(`${menuItems.length} produits mis à jour avec les NOUVELLES PHOTOS (Cabré, Madeleines, Raisin, Palmiers, Caissière2) !`);
     } catch (err) {
         console.error("Erreur :", err);
     }

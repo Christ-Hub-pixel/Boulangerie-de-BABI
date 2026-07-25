@@ -1,4 +1,4 @@
-// Fetch and render products dynamically with clean, elegant cards
+// Fetch and render products dynamically with real photos
 
 const realProductImages = {
     "Chill": "assets/chill.png",
@@ -37,13 +37,22 @@ const realProductImages = {
     "Charaphe au Raisin": "assets/charaphe au raisin.png",
     "Chausson aux Pommes": "assets/chausson aux pommes.png",
     "Choco Suisse": "assets/choco suisse.png",
+    "Cookies (l'unité)": "assets/cookies.png",
+    "Lot de Cookies": "assets/cookies.png",
     "Croissant": "assets/Croissant.png",
     "Flan": "assets/Flan.png",
     "Pain au Chocolat": "assets/pain au chocolat.png",
+    "Pain aux Raisins": "assets/pain au raisin.png",
+    "Palmiers": "assets/palmier.png",
+    "Torsade": "assets/torsade.png",
+    "Madeleine": "assets/madeleine unite.png",
+    "Madeleines (l'unité)": "assets/madeleine unite.png",
+    "Lot de Madeleines": "assets/lots de madeleine.png",
     "Gâteau (10 000F)": "assets/Gateau1.png",
     "Gâteau (15 000F)": "assets/Gateau1.1.png",
     "Gâteau (20 000F)": "assets/Gateau1.2.png",
     "Gâteau (25 000F)": "assets/gateau2.png",
+    "Gâteau de Mariage": "assets/gateau de mariiage.png",
     "Bûche de Noël (7000F)": "assets/buche de noel.png",
     "Bûche de Noël (5000F)": "assets/buche de noel.png",
     "Moka": "assets/moka1.png",
@@ -55,6 +64,7 @@ const realProductImages = {
     "Crêpe Suzette": "assets/Crêpe Suzette.png",
     "Fondant au Chocolat": "assets/Fondant au Chocolat.png",
     "Glace": "assets/glace.png",
+    "Pain Cabré": "assets/cabre.png",
     "Pain Marbré": "assets/marbre.png",
     "Pain de Mie": "assets/pain de mie.png"
 };

@@ -451,6 +451,20 @@ window.filterCat = function(term) {
     renderProductsPage();
 }
 
+window.sortProducts = function(sortType) {
+    if (sortType === 'Prix croissant') {
+        currentFilteredList.sort((a, b) => a.prix - b.prix);
+    } else if (sortType === 'Prix décroissant') {
+        currentFilteredList.sort((a, b) => b.prix - a.prix);
+    } else if (sortType === 'Nouveautés') {
+        currentFilteredList.sort((a, b) => b.id - a.id);
+    } else {
+        currentFilteredList.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
+    }
+    currentPage = 1;
+    renderProductsPage();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
 });

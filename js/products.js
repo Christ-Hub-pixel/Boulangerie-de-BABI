@@ -27,12 +27,8 @@ const realProductImages = {
     "Pain Complet (Grand)": "assets/Pain Complet (Grand).png",
     "Pain Complet (Petit)": "assets/pain complet 2.png",
     "Pain Sans Sel": "assets/pain sans sel.png",
-    "Panini": "assets/Panini.png",
     "Petit Pain (50F)": "assets/pain individuel.png",
     "Petit Pain (100F)": "assets/pain individuel.png",
-    "Mini Pizza": "assets/Pizza.png",
-    "Petit Pizza": "assets/Pizza.png",
-    "Grande Pizza": "assets/Pizza.png",
     "Biscotte": "assets/biscottes.png",
     "Charaphe au Raisin": "assets/charaphe au raisin.png",
     "Chausson aux Pommes": "assets/chausson aux pommes.png",
@@ -76,8 +72,7 @@ const catIcons = {
     'cafe': '☕',
     'jus': '🥤',
     'glace': '🍨',
-    'boisson': '🥤',
-    'snack': '🍕'
+    'boisson': '🥤'
 };
 
 const FALLBACK_PRODUCTS = [
@@ -114,14 +109,8 @@ const FALLBACK_PRODUCTS = [
     { id: 28, nom: "Pain Complet (Grand)", prix: 1000, categorie: "pain" },
     { id: 29, nom: "Pain Complet (Petit)", prix: 500, categorie: "pain" },
     { id: 30, nom: "Pain Sans Sel", prix: 150, categorie: "pain" },
-    { id: 31, nom: "Panini", prix: 100, categorie: "snack" },
     { id: 32, nom: "Petit Pain (50F)", prix: 50, categorie: "pain" },
     { id: 33, nom: "Petit Pain (100F)", prix: 100, categorie: "pain" },
-
-    // === PIZZA ===
-    { id: 34, nom: "Mini Pizza", prix: 1000, categorie: "snack" },
-    { id: 35, nom: "Petit Pizza", prix: 5000, categorie: "snack" },
-    { id: 36, nom: "Grande Pizza", prix: 10000, categorie: "snack" },
 
     // === VIENNOISERIES ===
     { id: 38, nom: "Biscotte", prix: 1000, categorie: "viennoiserie" },
@@ -132,7 +121,6 @@ const FALLBACK_PRODUCTS = [
     { id: 43, nom: "Croissant", prix: 500, categorie: "viennoiserie" },
     { id: 44, nom: "Escargots", prix: 700, categorie: "viennoiserie" },
     { id: 45, nom: "Flan", prix: 1000, categorie: "patisserie" },
-    { id: 46, nom: "Quiche", prix: 500, categorie: "snack" },
     { id: 47, nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie" },
     { id: 48, nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie" },
     { id: 49, nom: "Pain au Lait", prix: 200, categorie: "viennoiserie" },
@@ -142,7 +130,6 @@ const FALLBACK_PRODUCTS = [
     { id: 53, nom: "Palmiers", prix: 200, categorie: "viennoiserie" },
     { id: 54, nom: "Star Suisse", prix: 800, categorie: "viennoiserie" },
     { id: 55, nom: "Torsade", prix: 800, categorie: "viennoiserie" },
-    { id: 56, nom: "Croque-Monsieur", prix: 800, categorie: "snack" },
     { id: 57, nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie" },
 
     // === GATEAU & CAKE ===
@@ -177,9 +164,7 @@ const FALLBACK_PRODUCTS = [
     { id: 82, nom: "Pain Parisien", prix: 300, categorie: "pain" },
     { id: 83, nom: "Pain Viennois (500F)", prix: 500, categorie: "pain" },
     { id: 84, nom: "Pain Viennois (700F)", prix: 700, categorie: "pain" },
-    { id: 85, nom: "Suzette", prix: 300, categorie: "pain" },
-    { id: 86, nom: "Brioche à la Viande", prix: 800, categorie: "snack" },
-    { id: 87, nom: "Feuilleté", prix: 800, categorie: "snack" }
+    { id: 85, nom: "Suzette", prix: 300, categorie: "pain" }
 ];
 
 let allProducts = [];
@@ -310,8 +295,7 @@ function getCatLabel(cat) {
         'cafe': '☕ Café',
         'jus': '🥤 Jus',
         'glace': '🍨 Glace',
-        'boisson': '🥤 Boisson',
-        'snack': '🍕 Snack / Pizza'
+        'boisson': '🥤 Boisson'
     };
     return labels[cat] || cat;
 }

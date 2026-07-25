@@ -34,14 +34,8 @@ const menuItems = [
     { nom: "Pain Complet (Grand)", prix: 1000, categorie: "pain", image: "assets/Pain Complet (Grand).png" },
     { nom: "Pain Complet (Petit)", prix: 500, categorie: "pain", image: "assets/pain complet 2.png" },
     { nom: "Pain Sans Sel", prix: 150, categorie: "pain", image: "assets/pain sans sel.png" },
-    { nom: "Panini", prix: 100, categorie: "snack", image: "assets/Panini.png" },
     { nom: "Petit Pain (50F)", prix: 50, categorie: "pain", image: "assets/pain individuel.png" },
     { nom: "Petit Pain (100F)", prix: 100, categorie: "pain", image: "assets/pain individuel.png" },
-
-    // === PIZZA ===
-    { nom: "Mini Pizza", prix: 1000, categorie: "snack", image: "assets/Pizza.png" },
-    { nom: "Petit Pizza", prix: 5000, categorie: "snack", image: "assets/Pizza.png" },
-    { nom: "Grande Pizza", prix: 10000, categorie: "snack", image: "assets/Pizza.png" },
 
     // === VIENNOISERIES ===
     { nom: "Biscotte", prix: 1000, categorie: "viennoiserie", image: "assets/biscottes.png" },
@@ -52,7 +46,6 @@ const menuItems = [
     { nom: "Croissant", prix: 500, categorie: "viennoiserie", image: "assets/Croissant.png" },
     { nom: "Escargots", prix: 700, categorie: "viennoiserie" },
     { nom: "Flan", prix: 1000, categorie: "patisserie", image: "assets/Flan.png" },
-    { nom: "Quiche", prix: 500, categorie: "snack" },
     { nom: "Lot de Cookies", prix: 1000, categorie: "viennoiserie", image: "assets/cookies.png" },
     { nom: "Pain au Chocolat", prix: 500, categorie: "viennoiserie", image: "assets/pain au chocolat.png" },
     { nom: "Pain au Lait", prix: 200, categorie: "viennoiserie" },
@@ -62,7 +55,6 @@ const menuItems = [
     { nom: "Palmiers", prix: 200, categorie: "viennoiserie", image: "assets/palmier.png" },
     { nom: "Star Suisse", prix: 800, categorie: "viennoiserie" },
     { nom: "Torsade", prix: 800, categorie: "viennoiserie", image: "assets/torsade.png" },
-    { nom: "Croque-Monsieur", prix: 800, categorie: "snack" },
     { nom: "Madeleines (l'unité)", prix: 100, categorie: "viennoiserie", image: "assets/madeleine unite.png" },
 
     // === GATEAU & CAKE ===
@@ -98,9 +90,7 @@ const menuItems = [
     { nom: "Pain Parisien", prix: 300, categorie: "pain", image: "assets/baguette 150.png" },
     { nom: "Pain Viennois (500F)", prix: 500, categorie: "pain" },
     { nom: "Pain Viennois (700F)", prix: 700, categorie: "pain" },
-    { nom: "Suzette", prix: 300, categorie: "pain", image: "assets/pain individuel.png" },
-    { nom: "Brioche à la Viande", prix: 800, categorie: "snack" },
-    { nom: "Feuilleté", prix: 800, categorie: "snack" }
+    { nom: "Suzette", prix: 300, categorie: "pain", image: "assets/pain individuel.png" }
 ];
 
 async function updateDatabase() {
@@ -115,7 +105,7 @@ async function updateDatabase() {
                 [p.nom, p.prix, p.categorie, img]
             );
         }
-        console.log(`${menuItems.length} produits mis à jour avec les NOUVELLES PHOTOS (Cabré, Madeleines, Raisin, Palmiers, Caissière2) !`);
+        console.log(`${menuItems.length} produits mis à jour dans SQLite (sans catégorie snack/pizza) !`);
     } catch (err) {
         console.error("Erreur :", err);
     }

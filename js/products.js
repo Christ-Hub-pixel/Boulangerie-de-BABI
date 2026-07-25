@@ -188,6 +188,8 @@ async function loadProducts() {
         allProducts = FALLBACK_PRODUCTS;
     }
     
+    // Sort all products alphabetically (A-Z) by name
+    allProducts.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
     currentFilteredList = [...allProducts];
     
     // Automatically populate Homepage grid if present
@@ -442,6 +444,7 @@ window.filterCat = function(term) {
         currentFilteredList = allProducts.filter(p => p.categorie.toLowerCase() === term.toLowerCase());
     }
     
+    currentFilteredList.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
     currentPage = 1;
     renderProductsPage();
 }

@@ -182,18 +182,23 @@ body {
     border-radius: 8px;
 }
 
+/* --- PAGE BACKGROUND FOR INDEX --- */
+body {
+    background-color: #fffdf5 !important;
+    background: linear-gradient(180deg, #ffffff 0%, rgba(254, 243, 199, 0.30) 25%, rgba(251, 146, 60, 0.10) 75%, #fffdf5 100%) !important;
+}
+
 /* --- INFINITE SCROLLING MARQUEE BANNER --- */
 .bakery-marquee-wrapper {
-    background: linear-gradient(90deg, rgba(255, 193, 7, 0.15) 0%, rgba(251, 146, 60, 0.20) 50%, rgba(255, 193, 7, 0.15) 100%);
-    color: #2b160c;
+    background: linear-gradient(90deg, #2b160c 0%, #3d2012 50%, #2b160c 100%);
+    color: #ffffff;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    padding: 14px 0;
-    border-top: 2px solid rgba(251, 146, 60, 0.4);
-    border-bottom: 2px solid rgba(251, 146, 60, 0.4);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 2px 10px rgba(251, 146, 60, 0.1);
+    padding: 16px 0;
+    border-top: 3px solid #ffc107;
+    border-bottom: 3px solid #ffc107;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .bakery-marquee-track {
@@ -213,7 +218,7 @@ body {
     gap: 12px;
     font-size: 1.05rem;
     font-weight: 700;
-    color: #2b160c;
+    color: #ffffff;
     letter-spacing: 0.5px;
 }
 
@@ -222,19 +227,19 @@ body {
     width: 38px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid #fb923c;
-    box-shadow: 0 2px 6px rgba(43, 22, 12, 0.15);
+    border: 2px solid #ffc107;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 .marquee-item i {
-    color: #d97706;
+    color: #ffc107;
     font-size: 1.3rem;
 }
 
 .marquee-divider {
-    color: #d97706;
+    color: #ffc107;
     font-size: 1.1rem;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 @keyframes marqueeScroll {

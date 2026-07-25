@@ -1,230 +1,208 @@
+// ================================================================
+// BABI CART PAGE CONTROLLER — Synchronized with Unified Cart Actions
+// ================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    const addButtons = document.querySelectorAll('.btn-add');
-    addButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'AJOUTÉ <i class="fa-solid fa-check"></i>';
-            btn.style.backgroundColor = 'var(--success)';
-            btn.style.color = '#fff';
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.backgroundColor = '';
-                btn.style.color = '';
-            }, 1500);
+    renderCartPage();
+    setupDeliveryListeners();
+    setupPromoCodeListener();
+});
 
-            const card = e.target.closest('.product-card');
-            if (card) {
-                const title = card.querySelector('h4').innerText;
-                const priceText = card.querySelector('.price').innerText;
-                const price = parseInt(priceText.replace(/[^0-9]/g, ''));
-                const img = card.querySelector('img').src;
-                
-                addToCart({ title, price, img, quantity: 1 });
-            }
-        });
-    });
-
-    function addToCart(product) {
-        let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
-        const existing = cart.find(p => p.title === product.title);
-        if (existing) {
-            existing.quantity += 1;
-        } else {
-            cart.push(product);
-        }
-        localStorage.setItem('babi_cart', JSON.stringify(cart));
-        updateCartCount();
-        showNotification(product.title + " a été ajouté au panier !");
-    }
-
-    function showNotification(msg) {
-        let notif = document.createElement('div');
-        notif.style.position = 'fixed';
-        notif.style.bottom = '20px';
-        notif.style.right = '20px';
-        notif.style.backgroundColor = 'var(--primary)';
-        notif.style.color = 'var(--dark)';
-        notif.style.padding = '15px 25px';
-        notif.style.borderRadius = '5px';
-        notif.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
-        notif.style.zIndex = '9999';
-        notif.style.fontWeight = 'bold';
-        notif.innerText = msg;
-        document.body.appendChild(notif);
-
-        setTimeout(() => {
-            notif.style.opacity = '0';
-            notif.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => notif.remove(), 500);
-        }, 3000);
-    }
-
-    function updateCartCount() {
-        let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
-        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const countBadges = document.querySelectorAll('.cart-count');
-        countBadges.forEach(badge => {
-            badge.innerText = count;
-            badge.style.display = count > 0 ? 'flex' : 'none';
-        });
-    }
-
-    updateCartCount();
-
-    if (window.location.pathname.includes('checkout.html') || document.title.includes('Checkout')) {
-        renderCartPage();
-
-        const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
-        deliveryRadios.forEach((radio, idx) => {
-            radio.addEventListener('change', (e) => {
-                document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
-                e.target.closest('.method-card').classList.add('active');
-                renderCartPage();
-            });
-        });
-
-        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('active'));
-                e.target.closest('.payment-card').classList.add('active');
-            });
-        });
-    }
-
-    function renderCartPage() {
-        const cartItemsContainer = document.querySelector('.cart-items');
-        if (!cartItemsContainer) return;
-
-        let cart = JSON.parse(localStorage.getItem('babi_cart')) || [];
-        
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<div style="text-align:center; padding: 20px;"><h4>Votre panier est vide</h4><p>Ajoutez des produits pour continuer.</p></div>';
-            updateSummary(0, 0, 0);
-            return;
-        }
-
-        let html = '';
-        let subtotal = 0;
-        let totalItems = 0;
-
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-            totalItems += item.quantity;
-            html += `
-            <div class="cart-item">
-                <img src="${item.img}" alt="${item.title}">
-                <div class="item-details">
-                    <h4>${item.title}</h4>
-                    <span>${item.price} FCFA</span>
-                </div>
-                <div class="item-qty">
-                    <button class="qty-btn minus" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
-                    <span>${item.quantity}</span>
-                    <button class="qty-btn plus" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                <div class="item-total">${itemTotal} FCFA</div>
-                <button class="item-delete" data-index="${index}"><i class="fa-regular fa-trash-can"></i></button>
-            </div>`;
-        });
-
-        cartItemsContainer.innerHTML = html;
-
-        let deliveryCost = 0;
-        const activeDelivery = document.querySelector('input[name="delivery_method"]:checked');
-        if (activeDelivery) {
-            const title = activeDelivery.closest('.method-card').querySelector('h4').innerText;
-            if (title.includes('domicile')) deliveryCost = 1000;
-        }
-
-        updateSummary(totalItems, subtotal, deliveryCost);
-
-        document.querySelectorAll('.qty-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const btnEl = e.target.closest('.qty-btn');
-                const index = btnEl.getAttribute('data-index');
-                if(btnEl.classList.contains('plus')) {
-                    cart[index].quantity += 1;
-                } else if(btnEl.classList.contains('minus')) {
-                    cart[index].quantity -= 1;
-                    if(cart[index].quantity <= 0) {
-                        cart.splice(index, 1);
-                    }
-                }
-                localStorage.setItem('babi_cart', JSON.stringify(cart));
-                renderCartPage();
-                updateCartCount();
-            });
-        });
-
-        document.querySelectorAll('.item-delete').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const btnEl = e.target.closest('.item-delete');
-                const index = btnEl.getAttribute('data-index');
-                cart.splice(index, 1);
-                localStorage.setItem('babi_cart', JSON.stringify(cart));
-                renderCartPage();
-                updateCartCount();
-            });
-        });
-    }
+function renderCartPage() {
+    const cartContainer = document.getElementById('cartContainer');
+    const summaryBox = document.querySelector('.summary-box');
+    const cartTitle = document.getElementById('cartTitle');
     
-    function updateSummary(totalItems, subtotal, deliveryCost) {
-        const summaryBox = document.querySelector('.summary-box');
-        if(!summaryBox) return;
-        
-        let discount = 250; // Juste pour l'affichage de la fidélité
-        if (subtotal === 0) discount = 0;
-        const total = subtotal + deliveryCost - discount;
+    const items = typeof getCartItems === 'function' ? getCartItems() : JSON.parse(localStorage.getItem('babi_cart') || '[]');
 
-        summaryBox.innerHTML = `
-            <h2><i class="fa-solid fa-bag-shopping"></i> Récapitulatif de la commande</h2>
-            
-            <div class="summary-line">
-                <span>Sous-total (${totalItems} articles)</span>
-                <span>${subtotal} FCFA</span>
-            </div>
-            <div class="summary-line">
-                <span>Frais de livraison</span>
-                <span>${deliveryCost === 0 ? 'Gratuit' : deliveryCost + ' FCFA'}</span>
-            </div>
-            <div class="summary-line discount">
-                <span>Réduction (points fidélité)</span>
-                <span>- ${discount} FCFA</span>
-            </div>
-            
-            <div class="summary-total">
-                <span>Total à payer</span>
-                <span class="total-price">${total > 0 ? total : 0} FCFA</span>
-            </div>
+    // Header Count Update
+    if (typeof updateAllBadges === 'function') {
+        updateAllBadges();
+    }
 
-            <div class="points-earned">
-                <i class="fa-brands fa-pagelines"></i>
-                <div>
-                    <strong>Vous gagnez 27 points fidélité</strong>
-                    <p>Cette commande vous rapporte 27 points.</p>
+    if (!cartContainer) return;
+
+    if (!items || items.length === 0) {
+        cartContainer.innerHTML = `
+            <div class="p-5 text-center my-3">
+                <div class="mb-3" style="font-size: 3.5rem; color: #fb923c;">
+                    <i class="fa-solid fa-basket-shopping"></i>
                 </div>
+                <h4 class="fw-bold mb-2" style="color:#2b160c;">Votre panier est vide</h4>
+                <p class="text-muted mb-4 fs-6">Découvrez nos pains croustillants, viennoiseries dorées et jus frais fait maison !</p>
+                <a href="produits.html" class="btn btn-warning btn-lg fw-bold px-4 py-2 rounded-pill shadow-sm" style="background:#fb923c; border:none; color:#2b160c;">
+                    <i class="fa-solid fa-store me-2"></i>PARCOURIR LE CATALOGUE
+                </a>
             </div>
         `;
+        if (cartTitle) cartTitle.innerText = "Panier (0 article)";
+        updateCartSummary(0, 0, 0, 0);
+        return;
     }
 
-    const btnValidate = document.querySelector('.btn-primary.w-100');
-    if(btnValidate && window.location.pathname.includes('checkout.html')) {
-        // Find it below the payment section, actually in the design it's inside form or somewhere.
-        // Let's bind it correctly if it exists.
-    }
-    // Wait, in commander.html the validate button is at the bottom: 
-    // <button class="btn btn-primary btn-large w-100 mt-4">CONFIRMER ET PAYER <i class="fa-solid fa-check"></i></button>
-    // Let's attach an event listener to it globally in checkout.html
-    document.addEventListener('click', (e) => {
-        if(e.target.closest('.btn-large.w-100') && e.target.innerText.includes('CONFIRMER')) {
-            e.preventDefault();
-            const totalText = document.querySelector('.total-price') ? document.querySelector('.total-price').innerText : '0 FCFA';
-            alert(`Commande de ${totalText} validée avec succès !`);
-            localStorage.removeItem('babi_cart');
-            window.location.href = 'index.html';
-        }
+    const totalQty = items.reduce((s, i) => s + (i.qty || i.quantity || 1), 0);
+    if (cartTitle) cartTitle.innerText = `Panier (${totalQty} article${totalQty > 1 ? 's' : ''})`;
+
+    let html = `<div class="p-3 border-bottom bg-light fw-bold text-muted small d-none d-md-flex align-items-center">
+        <div style="flex: 2;">PRODUIT</div>
+        <div style="flex: 1;" class="text-center">PRIX UNITAIRE</div>
+        <div style="flex: 1;" class="text-center">QUANTITÉ</div>
+        <div style="flex: 1;" class="text-end me-3">TOTAL</div>
+        <div style="width: 40px;"></div>
+    </div>`;
+
+    let subtotal = 0;
+
+    items.forEach((item, index) => {
+        const itemQty = item.qty || item.quantity || 1;
+        const itemPrice = item.price || item.prix || 0;
+        const itemTotal = itemPrice * itemQty;
+        subtotal += itemTotal;
+
+        html += `
+        <div class="cart-item-row p-3 border-bottom d-flex flex-column flex-md-row align-items-md-center gap-3">
+            <div class="d-flex align-items-center gap-3" style="flex: 2;">
+                <img src="${item.image || item.img}" alt="${item.name || item.title}" 
+                    style="width: 65px; height: 65px; object-fit: cover; border-radius: 10px; border: 1px solid #eee;"
+                    onerror="this.src='assets/product_baguette.png'">
+                <div>
+                    <h6 class="fw-bold mb-1" style="color: #2b160c; font-size: 0.95rem;">${item.name || item.title}</h6>
+                    <small class="text-muted d-md-none">Prix : ${itemPrice.toLocaleString()} FCFA</small>
+                </div>
+            </div>
+            
+            <div style="flex: 1;" class="text-center d-none d-md-block fw-semibold text-muted">
+                ${itemPrice.toLocaleString()} FCFA
+            </div>
+            
+            <div style="flex: 1;" class="d-flex align-items-center justify-content-start justify-content-md-center gap-2">
+                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2 py-0" style="width:30px;height:30px;" onclick="handleQtyChange(${index}, ${itemQty - 1})">
+                    <i class="fa-solid fa-minus" style="font-size:0.75rem;"></i>
+                </button>
+                <span class="fw-bold px-2" style="font-size:0.95rem; min-width:25px; text-align:center;">${itemQty}</span>
+                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2 py-0" style="width:30px;height:30px;" onclick="handleQtyChange(${index}, ${itemQty + 1})">
+                    <i class="fa-solid fa-plus" style="font-size:0.75rem;"></i>
+                </button>
+            </div>
+            
+            <div style="flex: 1;" class="text-end fw-bold text-dark pe-md-2">
+                ${itemTotal.toLocaleString()} <small>FCFA</small>
+            </div>
+            
+            <div style="width: 40px;" class="text-end">
+                <button class="btn btn-link text-danger p-0" onclick="handleRemoveItem(${index})" title="Supprimer">
+                    <i class="fa-regular fa-trash-can fs-5"></i>
+                </button>
+            </div>
+        </div>`;
     });
 
-});
+    cartContainer.innerHTML = html;
+
+    // Delivery calculation
+    let deliveryCost = 1000;
+    const deliveryRadio = document.querySelector('input[name="delivery_method"]:checked');
+    if (deliveryRadio && deliveryRadio.value === 'pickup') {
+        deliveryCost = 0;
+    }
+
+    // Promo discount calculation
+    let discount = window.appliedDiscount || 0;
+
+    updateCartSummary(totalQty, subtotal, deliveryCost, discount);
+}
+
+function handleQtyChange(index, newQty) {
+    if (typeof updateQtyInCart === 'function') {
+        updateQtyInCart(index, newQty);
+    } else {
+        let items = JSON.parse(localStorage.getItem('babi_cart') || '[]');
+        if (newQty <= 0) items.splice(index, 1);
+        else items[index].quantity = newQty;
+        localStorage.setItem('babi_cart', JSON.stringify(items));
+    }
+    renderCartPage();
+}
+
+function handleRemoveItem(index) {
+    if (typeof removeFromCart === 'function') {
+        removeFromCart(index);
+    } else {
+        let items = JSON.parse(localStorage.getItem('babi_cart') || '[]');
+        items.splice(index, 1);
+        localStorage.setItem('babi_cart', JSON.stringify(items));
+    }
+    renderCartPage();
+}
+
+function setupDeliveryListeners() {
+    document.querySelectorAll('input[name="delivery_method"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            renderCartPage();
+        });
+    });
+}
+
+function setupPromoCodeListener() {
+    const applyBtn = document.getElementById('applyPromoBtn');
+    const promoInput = document.getElementById('promoInput');
+    if (!applyBtn || !promoInput) return;
+
+    applyBtn.addEventListener('click', () => {
+        const code = promoInput.value.trim().toUpperCase();
+        if (code === 'BABI10' || code === 'BABI') {
+            const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+            window.appliedDiscount = Math.round(subtotal * 0.10);
+            alert(`🎉 Code promo "${code}" appliqué ! Vous bénéficiez de 10% de réduction (-${window.appliedDiscount} FCFA).`);
+            renderCartPage();
+        } else if (code.length > 0) {
+            alert('❌ Code promo invalide ou expiré. Essayez avec le code : BABI10');
+        }
+    });
+}
+
+function updateCartSummary(totalQty, subtotal, deliveryCost, discount) {
+    const summaryBox = document.querySelector('.summary-box');
+    if (!summaryBox) return;
+
+    const grandTotal = Math.max(0, subtotal + deliveryCost - discount);
+
+    summaryBox.innerHTML = `
+        <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color:#2b160c;">
+            <i class="fa-solid fa-receipt me-2 text-warning"></i>Récapitulatif de la commande
+        </h5>
+        
+        <div class="d-flex justify-content-between mb-2 fs-6">
+            <span class="text-muted">Sous-total (${totalQty} article${totalQty > 1 ? 's' : ''})</span>
+            <span class="fw-bold">${subtotal.toLocaleString()} FCFA</span>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-2 fs-6">
+            <span class="text-muted">Frais de livraison</span>
+            <span class="fw-bold ${deliveryCost === 0 ? 'text-success' : ''}">${deliveryCost === 0 ? 'Gratuit' : deliveryCost.toLocaleString() + ' FCFA'}</span>
+        </div>
+        
+        ${discount > 0 ? `
+        <div class="d-flex justify-content-between mb-2 fs-6 text-success fw-bold">
+            <span>Réduction Code Promo</span>
+            <span>- ${discount.toLocaleString()} FCFA</span>
+        </div>
+        ` : ''}
+        
+        <hr class="my-3">
+        
+        <div class="d-flex justify-content-between mb-4">
+            <span class="fw-bold fs-5" style="color:#2b160c;">Total à payer</span>
+            <span class="fw-bold fs-4 text-primary" style="color:#fb923c !important;">${grandTotal.toLocaleString()} FCFA</span>
+        </div>
+        
+        <a href="checkout.html" class="btn btn-warning w-100 fw-bold py-3 fs-6 rounded-pill shadow ${subtotal === 0 ? 'disabled opacity-50' : ''}" 
+            style="background:#fb923c; border:none; color:#2b160c;" id="checkoutBtn">
+            <i class="fa-solid fa-lock me-2"></i>PASSER LA COMMANDE
+        </a>
+        
+        <div class="mt-3 text-center text-muted small">
+            <i class="fa-solid fa-shield-halved me-1 text-success"></i>Paiement sécurisé Mobile Money & Espèces
+        </div>
+    `;
+}

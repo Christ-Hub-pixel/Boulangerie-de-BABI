@@ -181,12 +181,38 @@ window.trackOrder = function() {
     currentInterval = setInterval(fetchOrderStatus, 5000);
 }
 
-// Auto track if phone is in URL parameters
+// Auto track if phone is in URL parameters or if current active order exists in localStorage
 document.addEventListener('DOMContentLoaded', () => {
+    if (typeof initMap === 'function') initMap();
+
     const urlParams = new URLSearchParams(window.location.search);
     const phone = urlParams.get('phone');
-    if(phone) {
+    if (phone) {
         document.getElementById('phone-input').value = phone;
         trackOrder();
+        return;
     }
+
+    try {
+        const currentOrder = JSON.parse(localStorage.getItem('babi_current_order'));
+        if (currentOrder) {
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('tracking-section').style.display = 'block';
+
+            document.getElementById('order-id-display').innerText = '#' + (currentOrder.id || 'BABI-100');
+            document.getElementById('order-total').innerText = (currentOrder.total_price || 0).toLocaleString() + ' FCFA';
+            document.getElementById('order-payment').innerText = currentOrder.payment_method || 'Mobile Money';
+            document.getElementById('order-items').innerText = currentOrder.itemsSummary || 'Produits Boulangerie BABI';
+
+            if (currentOrder.confCode) {
+                const confBox = document.getElementById('confirmation-code-box');
+                const confCodeEl = document.getElementById('order-conf-code');
+                if (confBox) confBox.style.display = 'block';
+                if (confCodeEl) confCodeEl.innerText = currentOrder.confCode;
+            }
+
+            updateTimeline(currentOrder.status || 'En livraison');
+            startDeliveryAnimation();
+        }
+    } catch(e) {}
 });

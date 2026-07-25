@@ -290,7 +290,7 @@ function openReceiptModal(orderId) {
             <div class="text-center mb-4">
                 <img src="assets/logo.png" height="50" class="mb-2">
                 <h5 class="fw-bold">Boulangerie & Pâtisserie de BABI</h5>
-                <small class="text-muted">Abidjan, Côte d'Ivoire - Tél: +225 07 00 00 00 00</small>
+                <small class="text-muted">Abidjan, Côte d'Ivoire - Tél: 07 04 38 92 01</small>
             </div>
             <hr>
             <div class="d-flex justify-content-between fs-sm mb-2">

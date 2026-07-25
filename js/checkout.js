@@ -104,7 +104,7 @@ function submitBabiOrder() {
     // Read form inputs
     const inputs = document.querySelectorAll('#collapseOne input, #collapseOne select');
     const fullName = inputs[0] ? inputs[0].value.trim() : 'Jean Dupont';
-    const phone = inputs[1] ? inputs[1].value.trim() : '+225 07 00 00 00 00';
+    const phone = inputs[1] ? inputs[1].value.trim() : '07 04 38 92 01';
     const communeSelect = document.querySelector('#collapseOne select');
     const commune = communeSelect ? communeSelect.value : 'Cocody';
     const address = inputs[2] ? inputs[2].value.trim() : 'Riviera 2, Abidjan';
@@ -125,7 +125,7 @@ function submitBabiOrder() {
     const newOrder = {
         id: orderId,
         clientName: fullName || 'Client BABI',
-        phone: phone || '+225 07 00 00 00 00',
+        phone: phone || '07 04 38 92 01',
         commune: commune,
         address: address,
         delivery_method: deliveryMethod,

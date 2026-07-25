@@ -181,3 +181,62 @@ body {
     object-fit: cover;
     border-radius: 8px;
 }
+
+/* --- INFINITE SCROLLING MARQUEE BANNER --- */
+.bakery-marquee-wrapper {
+    background: linear-gradient(90deg, #2b160c 0%, #3d2012 50%, #2b160c 100%);
+    color: #ffffff;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    padding: 16px 0;
+    border-top: 3px solid #ffc107;
+    border-bottom: 3px solid #ffc107;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.bakery-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+    animation: marqueeScroll 28s linear infinite;
+}
+
+.bakery-marquee-wrapper:hover .bakery-marquee-track {
+    animation-play-state: paused;
+}
+
+.marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.marquee-item img {
+    height: 38px;
+    width: 38px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffc107;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.marquee-item i {
+    color: #ffc107;
+    font-size: 1.3rem;
+}
+
+.marquee-divider {
+    color: #ffc107;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}

@@ -177,9 +177,19 @@
         "price": 500,
         "category": "Jus",
         "description": "Jus riche en vitamine C et calcium.",
-        "image": "assets/product_jus_bissap.png",
+        "image": "assets/jus de baobab.png",
         "rating": 4.9,
         "reviews": 280
+    },
+    {
+        "id": "b18_petit",
+        "name": "Baobab (Petit)",
+        "price": 300,
+        "category": "Jus",
+        "description": "Petit format de jus de Baobab naturel très frais.",
+        "image": "assets/jus de baobab petit.png",
+        "rating": 4.8,
+        "reviews": 140
     },
     {
         "id": "b19",

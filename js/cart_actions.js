@@ -7,10 +7,12 @@ const LEGACY_CART_KEY = 'babi_cart';
 function getCartItems() {
     try {
         const primary = JSON.parse(localStorage.getItem(CART_KEY));
-        if (Array.isArray(primary) && primary.length > 0) return primary;
+        if (Array.isArray(primary) && primary.length > 0) {
+            return primary.map(normalizeCartItem).filter(Boolean);
+        }
         const legacy = JSON.parse(localStorage.getItem(LEGACY_CART_KEY));
         if (Array.isArray(legacy) && legacy.length > 0) {
-            return legacy.map(normalizeCartItem);
+            return legacy.map(normalizeCartItem).filter(Boolean);
         }
     } catch(e) {}
     return [];
@@ -19,11 +21,19 @@ function getCartItems() {
 function normalizeCartItem(item) {
     if (!item) return null;
     const name = item.name || item.title || 'Produit';
-    const price = typeof item.price === 'number' ? item.price : (typeof item.prix === 'number' ? item.prix : parseInt(item.price || item.prix) || 0);
-    const image = item.image || item.img || item.src || 'assets/product_baguette.png';
+    let priceNum = 0;
+    if (typeof item.price === 'number') {
+        priceNum = item.price;
+    } else if (typeof item.prix === 'number') {
+        priceNum = item.prix;
+    } else {
+        const rawStr = String(item.price || item.prix || '0').replace(/[^0-9.]/g, '');
+        priceNum = parseFloat(rawStr) || 0;
+    }
+    const image = item.image || item.img || item.src || 'assets/baguette 200.png';
     const qty = parseInt(item.qty || item.quantity) || 1;
     const id = item.id || name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
-    return { id, name, title: name, price, prix: price, image, img: image, qty, quantity: qty };
+    return { id, name, title: name, price: priceNum, prix: priceNum, image, img: image, qty, quantity: qty };
 }
 
 function saveCartItems(items) {

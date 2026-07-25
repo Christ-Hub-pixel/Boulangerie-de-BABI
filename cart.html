@@ -126,7 +126,7 @@
                     </div>
                     <div class="d-flex justify-content-between mb-3 fs-sm text-muted">
                         <span>Livraison</span>
-                        <span>Calculée à l'étape suivante</span>
+                        <span class="text-end ms-2">Calculée à l'étape suivante</span>
                     </div>
                     <hr class="my-2">
                     <div class="d-flex justify-content-between mb-3">
@@ -181,8 +181,12 @@
             checkoutBtn.style.pointerEvents = '';
         }
 
-        const totalCount = items.reduce((s, i) => s + i.qty, 0);
-        const totalPrice = items.reduce((s, i) => s + i.price * i.qty, 0);
+        const totalCount = items.reduce((s, i) => s + (parseInt(i.qty || i.quantity) || 1), 0);
+        const totalPrice = items.reduce((s, i) => {
+            const p = typeof i.price === 'number' ? i.price : (parseFloat(String(i.price || i.prix || '0').replace(/[^0-9.]/g, '')) || 0);
+            const q = parseInt(i.qty || i.quantity) || 1;
+            return s + (p * q);
+        }, 0);
 
         titleEl.innerText = `Panier (${totalCount} article${totalCount > 1 ? 's' : ''})`;
         if (subtotalLbl) subtotalLbl.innerText = `Sous-total (${totalCount} article${totalCount > 1 ? 's' : ''})`;

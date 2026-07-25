@@ -220,10 +220,11 @@
                                 class="active"></button>
                             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
                             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
                         </div>
                         <div class="carousel-inner h-100">
                             <div class="carousel-item active h-100"
-                                style="background: linear-gradient(to right, rgba(43,22,12,0.8), rgba(43,22,12,0.2)), url('assets/hero_bakery.png') center/cover;">
+                                style="background: linear-gradient(to right, rgba(43,22,12,0.8), rgba(43,22,12,0.2)), url('assets/carousel_viennoiseries.png') center/cover;">
                                 <div class="d-flex flex-column justify-content-center h-100 p-4 p-lg-5 text-white">
                                     <span class="badge bg-primary mb-2 w-auto align-self-start text-dark fw-bold">OFFRE
                                         DU JOUR</span>
@@ -248,7 +249,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item h-100"
-                                style="background: linear-gradient(to right, rgba(43,22,12,0.8), rgba(43,22,12,0.2)), url('assets/product_entremet.png') center/cover;">
+                                style="background: linear-gradient(to right, rgba(43,22,12,0.8), rgba(43,22,12,0.2)), url('assets/carousel_entremet.png') center/cover;">
                                 <div class="d-flex flex-column justify-content-center h-100 p-4 p-lg-5 text-white">
                                     <span
                                         class="badge bg-primary text-dark mb-2 w-auto align-self-start fw-bold">NOUVEAU</span>
@@ -258,6 +259,18 @@
                                     <a href="produits.html"
                                         class="btn btn-primary text-dark fw-bold px-4 py-2 align-self-start shadow">GOÛTER
                                         <i class="fa-solid fa-cart-shopping ms-2"></i></a>
+                                </div>
+                            </div>
+                            <div class="carousel-item h-100"
+                                style="background: linear-gradient(to right, rgba(43,22,12,0.8), rgba(43,22,12,0.2)), url('assets/carousel_jus_naturels.png') center/cover;">
+                                <div class="d-flex flex-column justify-content-center h-100 p-4 p-lg-5 text-white">
+                                    <span class="badge bg-warning text-dark mb-2 w-auto align-self-start fw-bold">SPÉCIALITÉ BABI</span>
+                                    <h2 class="fw-bold display-5 mb-2" style="font-family: 'Playfair Display', serif;">
+                                        Jus Naturels<br>100% Frais</h2>
+                                    <p class="fs-5 mb-4">Bissap, Baobab, Passion & Gingembre faits maison.</p>
+                                    <a href="produits.html?cat=jus"
+                                        class="btn btn-warning text-dark fw-bold px-4 py-2 align-self-start shadow">COMMANDER
+                                        <i class="fa-solid fa-glass-water ms-2"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -411,7 +424,7 @@
                             <div class="position-relative">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-2">-20%</span>
                                 <img src="assets/product_baguette.png" class="card-img-top rounded"
-                                    alt="Baguette Tradition">
+                                    style="height: 130px; object-fit: cover;" alt="Baguette Tradition">
                             </div>
                             <div class="card-body p-2 text-start">
                                 <h6 class="card-title fs-sm mb-1 text-truncate">Baguette Tradition</h6>
@@ -432,7 +445,7 @@
                             <div class="position-relative">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-2">-15%</span>
                                 <img src="assets/product_croissant.png" class="card-img-top rounded"
-                                    alt="Croissant Pur Beurre">
+                                    style="height: 130px; object-fit: cover;" alt="Croissant Pur Beurre">
                             </div>
                             <div class="card-body p-2 text-start">
                                 <h6 class="card-title fs-sm mb-1 text-truncate">Croissant Pur Beurre</h6>
@@ -453,7 +466,7 @@
                             <div class="position-relative">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-2">-10%</span>
                                 <img src="assets/product_entremet.png" class="card-img-top rounded"
-                                    alt="Entremet Chocolat">
+                                    style="height: 130px; object-fit: cover;" alt="Entremet Chocolat">
                             </div>
                             <div class="card-body p-2 text-start">
                                 <h6 class="card-title fs-sm mb-1 text-truncate">Entremet Chocolat</h6>
@@ -474,7 +487,7 @@
                             <div class="position-relative">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-2">-25%</span>
                                 <img src="assets/product_pain_choc.png" class="card-img-top rounded"
-                                    alt="Pain au Chocolat">
+                                    style="height: 130px; object-fit: cover;" alt="Pain au Chocolat">
                             </div>
                             <div class="card-body p-2 text-start">
                                 <h6 class="card-title fs-sm mb-1 text-truncate">Pain au Chocolat</h6>
@@ -495,7 +508,7 @@
                             <div class="position-relative">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-2">-30%</span>
                                 <img src="assets/product_brioche.png" class="card-img-top rounded"
-                                    alt="Brioche Tressée">
+                                    style="height: 130px; object-fit: cover;" alt="Brioche Tressée">
                             </div>
                             <div class="card-body p-2 text-start">
                                 <h6 class="card-title fs-sm mb-1 text-truncate">Brioche Tressée</h6>
@@ -521,23 +534,18 @@
             <div class="rounded-4 shadow-sm p-4 p-lg-5"
                 style="background: linear-gradient(135deg, #ffffff 0%, #fffcf7 100%); border: 1px solid #f1ece1;">
                 <div class="row align-items-center g-4">
-                    <div class="col-lg-6">
-                        <div class="row g-2">
-                            <div class="col-6">
-                                <div class="position-relative overflow-hidden rounded-3 shadow h-100">
-                                    <img src="assets/caissiere.png" class="img-fluid w-100 h-100" alt="Équipe Caisse 1"
-                                        style="object-fit: cover; object-position: center 20%; min-height: 220px; border-radius: 12px;">
-                                    <span
-                                        class="badge bg-warning text-dark position-absolute bottom-0 start-0 m-2 px-2 py-1 fw-bold shadow-sm"
-                                        style="font-size: 0.65rem;">
-                                        <i class="fa-solid fa-heart text-danger me-1"></i> ACCUEIL
-                                    </span>
-                                </div>
-                            </div>
-
+                    <div class="col-lg-7">
+                        <div class="position-relative overflow-hidden rounded-4 shadow-lg h-100">
+                            <img src="assets/caissiere.png" class="img-fluid w-100 h-100" alt="Équipe Caisse 1"
+                                style="object-fit: cover; object-position: center 20%; min-height: 520px; max-height: 620px; border-radius: 20px;">
+                            <span
+                                class="badge bg-warning text-dark position-absolute bottom-0 start-0 m-4 px-3 py-2 fw-bold shadow-lg"
+                                style="font-size: 0.95rem;">
+                                <i class="fa-solid fa-heart text-danger me-1"></i> ACCUEIL
+                            </span>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <span class="badge bg-primary text-dark fw-bold px-3 py-2 mb-2">BIENVENUE EN BOUTIQUE</span>
                         <h2 class="fw-bold mb-3"
                             style="color: #2b160c; font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem);">
@@ -650,8 +658,8 @@
     </section>
 
     <!-- Process Timeline -->
-    <section class="process">
-        <div class="container">
+    <section class="process py-5" style="padding-bottom: 50px !important; margin-bottom: 60px !important; background: #ffffff;">
+        <div class="container pb-3">
             <h2 class="section-title text-center mb-2">Comment ça marche ?</h2>
             <p class="text-center text-muted mb-5">Commandez vos produits en seulement 4 étapes simples, rapides et
                 sécurisées.</p>
@@ -699,8 +707,8 @@
     </section>
 
     <!-- Mobile App Download Banner Section -->
-    <section class="py-5 text-white"
-        style="background: linear-gradient(135deg, #2b160c 0%, #4a2717 100%); position: relative; overflow: hidden;">
+    <section class="py-5 text-white my-5"
+        style="background: linear-gradient(135deg, #2b160c 0%, #4a2717 100%); position: relative; overflow: hidden; margin-top: 60px !important;">
         <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-center g-4">
                 <div class="col-lg-7 text-center text-lg-start">
@@ -797,7 +805,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="mt-5" style="margin-top: 50px !important;">
         <div class="container footer-fade-in">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4">
                 <div class="col footer-col">

@@ -349,6 +349,8 @@
     gap: 40px;
     color: var(--white);
     flex-wrap: wrap;
+    border-radius: 16px;
+    margin-bottom: 35px;
 }
 
 .engagement {

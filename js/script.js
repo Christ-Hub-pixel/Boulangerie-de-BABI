@@ -53,4 +53,24 @@ document.addEventListener("DOMContentLoaded", function() {
     if (footerElement) {
         footerObserver.observe(footerElement);
     }
+
+    // Live Store Open/Closed Badge Status
+    updateStoreStatusBadge();
 });
+
+function updateStoreStatusBadge() {
+    const statusBadges = document.querySelectorAll('.store-status-badge');
+    const now = new Date();
+    const hours = now.getHours();
+    const isOpen = hours >= 6 && hours < 20;
+
+    statusBadges.forEach(badge => {
+        if (isOpen) {
+            badge.className = "badge bg-success text-white fw-bold px-2 py-1 rounded-pill store-status-badge ms-2";
+            badge.innerHTML = `<i class="fa-solid fa-circle text-light me-1" style="font-size: 0.55rem;"></i> Ouvert (06h - 20h)`;
+        } else {
+            badge.className = "badge bg-warning text-dark fw-bold px-2 py-1 rounded-pill store-status-badge ms-2";
+            badge.innerHTML = `<i class="fa-solid fa-clock me-1"></i> Fermé (Ouvre à 06h)`;
+        }
+    });
+}

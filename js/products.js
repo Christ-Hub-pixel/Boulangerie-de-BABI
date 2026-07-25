@@ -219,15 +219,16 @@ function loadHomepageProducts() {
     
     recommendedContainer.innerHTML = featured.map(p => {
         const imgSrc = realProductImages[p.nom] || p.image;
+        const isFav = typeof isWishlisted === 'function' && isWishlisted(p.nom);
         return `
         <div class="col">
             <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius:12px;">
                 <div class="position-relative overflow-hidden product-img-container" style="height:160px;background:#ffffff;">
                     <img loading="lazy" src="${imgSrc}" class="card-img-top product-img" alt="${p.nom}" 
                         style="height:160px;width:100%;object-fit:cover;transition:transform 0.4s ease;">
-                    <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                        title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
-                        <i class="fa-regular fa-heart"></i>
+                    <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 ${isFav ? 'text-danger' : 'text-muted'}"
+                        title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;" onclick="toggleWishlist('${p.nom.replace(/'/g, "\\'")}')">
+                        <i class="${isFav ? 'fa-solid text-danger' : 'fa-regular'} fa-heart"></i>
                     </button>
                     <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
                 </div>
@@ -284,6 +285,7 @@ function renderProducts(productsList) {
     container.innerHTML = productsList.map(p => {
         const imgSrc = realProductImages[p.nom] || (p.image && p.image !== 'null' ? p.image : null);
         const hasRealImage = !!imgSrc;
+        const isFav = typeof isWishlisted === 'function' && isWishlisted(p.nom);
         
         if (hasRealImage) {
             return `
@@ -293,9 +295,9 @@ function renderProducts(productsList) {
                         <img loading="lazy" src="${imgSrc}" class="card-img-top product-img" alt="${p.nom}" 
                             style="height:160px;width:100%;object-fit:cover;transition:transform 0.4s ease;"
                             onerror="handleImgError(this, '${p.categorie}')">
-                        <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                            title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
-                            <i class="fa-regular fa-heart"></i>
+                        <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 ${isFav ? 'text-danger' : 'text-muted'}"
+                            title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;" onclick="toggleWishlist('${p.nom.replace(/'/g, "\\'")}')">
+                            <i class="${isFav ? 'fa-solid text-danger' : 'fa-regular'} fa-heart"></i>
                         </button>
                         <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
                     </div>

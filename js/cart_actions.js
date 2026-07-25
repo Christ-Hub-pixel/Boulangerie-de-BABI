@@ -1,8 +1,8 @@
 // ================================================================
 // BABI UNIFIED CART & ORDERING SYSTEM — Dual-Storage & Fault-Tolerant
 // ================================================================
-const CART_KEY = 'babi_cart_items';
-const LEGACY_CART_KEY = 'babi_cart';
+var CART_KEY = typeof CART_KEY !== 'undefined' ? CART_KEY : 'babi_cart_items';
+var LEGACY_CART_KEY = typeof LEGACY_CART_KEY !== 'undefined' ? LEGACY_CART_KEY : 'babi_cart';
 
 function getCartItems() {
     try {

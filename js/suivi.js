@@ -216,3 +216,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch(e) {}
 });
+
+
+window.printOfficialReceipt = function() {
+    let order = null;
+    try {
+        order = JSON.parse(localStorage.getItem('babi_current_order'));
+    } catch(e) {}
+    
+    if (!order) {
+        order = {
+            id: '2512',
+            date: new Date().toLocaleString('fr-FR'),
+            total_price: 2000,
+            payment_method: 'Espèces',
+            itemsSummary: 'PAIN AU CHOCOLAT x2, CROISSANT x2'
+        };
+    }
+
+    const recId = document.getElementById('rec-id');
+    const recDate = document.getElementById('rec-date');
+    const recList = document.getElementById('rec-items-list');
+    const recCount = document.getElementById('rec-count');
+    const recTotal = document.getElementById('rec-total');
+    const recPayment = document.getElementById('rec-payment');
+    const recPaid = document.getElementById('rec-paid');
+
+    if (recId) recId.innerText = order.id || '2512';
+    if (recDate) recDate.innerText = order.date || new Date().toLocaleString('fr-FR');
+    if (recPayment) recPayment.innerText = order.payment_method || 'Mobile Money';
+    if (recTotal) recTotal.innerText = 'F ' + (order.total_price || 2000).toLocaleString();
+    if (recPaid) recPaid.innerText = 'F ' + (order.total_price || 2000).toLocaleString();
+
+    if (recList) {
+        let itemsHtml = '';
+        let totalItemsCount = 0;
+        
+        let cartItems = order.cartItems || [];
+        if (cartItems.length === 0 && order.itemsSummary) {
+            itemsHtml = `<div style="display: flex; justify-content: space-between; margin: 3px 0;">
+                <span style="flex: 2;">${order.itemsSummary.toUpperCase()}</span>
+                <span style="flex: 1; text-align: center;">F ${order.total_price}</span>
+                <span style="flex: 1; text-align: center;">x1</span>
+                <span style="flex: 1; text-align: right;">F ${order.total_price}</span>
+            </div>`;
+            totalItemsCount = 1;
+        } else if (cartItems.length > 0) {
+            cartItems.forEach(item => {
+                const q = item.qty || item.quantity || 1;
+                const p = item.price || item.prix || 0;
+                const val = p * q;
+                totalItemsCount += q;
+                itemsHtml += `
+                <div style="display: flex; justify-content: space-between; margin: 3px 0;">
+                    <span style="flex: 2;">${(item.name || item.title || '').toUpperCase()}</span>
+                    <span style="flex: 1; text-align: center;">F ${p}</span>
+                    <span style="flex: 1; text-align: center;">x${q}</span>
+                    <span style="flex: 1; text-align: right;">F ${val.toLocaleString()}</span>
+                </div>`;
+            });
+        }
+        recList.innerHTML = itemsHtml;
+        if (recCount) recCount.innerText = totalItemsCount;
+    }
+
+    window.print();
+};

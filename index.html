@@ -40,8 +40,11 @@
             <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-4" href="index.html">
                 <img src="assets/logo.png" alt="Logo" style="height: 45px; border-radius: 8px; margin-right: 10px;">
                 <div class="d-flex flex-column lh-1">
-                    <span class="fw-bold text-white" style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
-                    <span class="text-primary" style="font-size: clamp(1.2rem, 3.5vw, 1.5rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
+                    <span class="fw-bold text-white"
+                        style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
+                    <span class="text-primary"
+                        style="font-size: clamp(1.2rem, 3.5vw, 1.5rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de
+                        Babi</span>
                 </div>
             </a>
 
@@ -74,53 +77,57 @@
                         <span class="fw-bold mt-2" style="font-size: 0.9rem;">Aide <i
                                 class="fa-solid fa-chevron-down ms-1" style="font-size:0.7rem;"></i></span>
                     </div>
-                <a href="#" class="btn btn-warning btn-sm fw-bold d-none d-xl-flex align-items-center gap-2 rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#downloadAppModal" style="background-color: #fb923c; border: none; color: #2b160c;">
-                    <i class="fa-solid fa-mobile-screen-button fs-5"></i>
-                    <span>Télécharger l'App</span>
-                </a>
-
-                <!-- Cart Dropdown -->
-                <div class="dropdown">
-                    <a href="cart.html"
-                        class="position-relative text-white text-decoration-none d-flex align-items-center gap-2"
-                        id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false"
-                        onclick="event.preventDefault();" style="cursor:pointer;">
-                        <div class="cart-icon-wrapper position-relative d-flex align-items-center justify-content-center"
-                            style="width:42px;height:42px;background:rgba(244,180,0,0.15);border-radius:12px;border:1.5px solid rgba(244,180,0,0.3);transition:all 0.2s;">
-                            <i class="fa-solid fa-cart-shopping fs-5 text-primary"></i>
-                            <span class="position-absolute badge rounded-pill bg-danger cart-badge"
-                                style="font-size:0.6rem;top:-6px;right:-6px;min-width:18px;height:18px;display:none;padding:3px 5px;">0</span>
-                        </div>
-                        <div class="d-none d-lg-flex flex-column lh-1">
-                            <span style="font-size:0.72rem;color:#ccc;">Mon panier</span>
-                            <span class="fw-bold text-primary" style="font-size:0.88rem;">Panier <i
-                                    class="fa-solid fa-chevron-down ms-1" style="font-size:0.65rem;"></i></span>
-                        </div>
+                    <a href="#"
+                        class="btn btn-warning btn-sm fw-bold d-none d-xl-flex align-items-center gap-2 rounded-pill px-3 shadow-sm"
+                        data-bs-toggle="modal" data-bs-target="#downloadAppModal"
+                        style="background-color: #fb923c; border: none; color: #2b160c;">
+                        <i class="fa-solid fa-mobile-screen-button fs-5"></i>
+                        <span>Télécharger l'App</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-0"
-                        style="width:320px;margin-top:12px;border-radius:12px;overflow:hidden;">
-                        <div class="p-3" style="background:#2b160c;">
-                            <h6 class="text-white mb-0 fw-bold"><i
-                                    class="fa-solid fa-cart-shopping me-2 text-primary"></i>Mon Panier</h6>
-                        </div>
-                        <div class="p-3" id="cartDropdownBody">
-                            <div class="text-center py-3" id="cartEmptyMsg">
-                                <i class="fa-solid fa-bag-shopping text-muted" style="font-size:2.5rem;"></i>
-                                <p class="text-muted mt-2 mb-0">Votre panier est vide</p>
-                                <a href="produits.html" class="btn btn-sm btn-primary text-dark fw-bold mt-2">Voir les
-                                    produits</a>
+
+                    <!-- Cart Dropdown -->
+                    <div class="dropdown">
+                        <a href="cart.html"
+                            class="position-relative text-white text-decoration-none d-flex align-items-center gap-2"
+                            id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                            onclick="event.preventDefault();" style="cursor:pointer;">
+                            <div class="cart-icon-wrapper position-relative d-flex align-items-center justify-content-center"
+                                style="width:42px;height:42px;background:rgba(244,180,0,0.15);border-radius:12px;border:1.5px solid rgba(244,180,0,0.3);transition:all 0.2s;">
+                                <i class="fa-solid fa-cart-shopping fs-5 text-primary"></i>
+                                <span class="position-absolute badge rounded-pill bg-danger cart-badge"
+                                    style="font-size:0.6rem;top:-6px;right:-6px;min-width:18px;height:18px;display:none;padding:3px 5px;">0</span>
                             </div>
-                        </div>
-                        <div class="px-3 pb-3" id="cartDropdownFooter" style="display:none;">
-                            <div class="d-flex justify-content-between fw-bold border-top pt-2 mb-2">
-                                <span>Total</span>
-                                <span class="text-primary" id="dropdownTotal">0 FCFA</span>
+                            <div class="d-none d-lg-flex flex-column lh-1">
+                                <span style="font-size:0.72rem;color:#ccc;">Mon panier</span>
+                                <span class="fw-bold text-primary" style="font-size:0.88rem;">Panier <i
+                                        class="fa-solid fa-chevron-down ms-1" style="font-size:0.65rem;"></i></span>
                             </div>
-                            <a href="cart.html" class="btn btn-primary w-100 fw-bold text-dark"><i
-                                    class="fa-solid fa-arrow-right me-1"></i>Voir mon panier</a>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-0"
+                            style="width:320px;margin-top:12px;border-radius:12px;overflow:hidden;">
+                            <div class="p-3" style="background:#2b160c;">
+                                <h6 class="text-white mb-0 fw-bold"><i
+                                        class="fa-solid fa-cart-shopping me-2 text-primary"></i>Mon Panier</h6>
+                            </div>
+                            <div class="p-3" id="cartDropdownBody">
+                                <div class="text-center py-3" id="cartEmptyMsg">
+                                    <i class="fa-solid fa-bag-shopping text-muted" style="font-size:2.5rem;"></i>
+                                    <p class="text-muted mt-2 mb-0">Votre panier est vide</p>
+                                    <a href="produits.html" class="btn btn-sm btn-primary text-dark fw-bold mt-2">Voir
+                                        les
+                                        produits</a>
+                                </div>
+                            </div>
+                            <div class="px-3 pb-3" id="cartDropdownFooter" style="display:none;">
+                                <div class="d-flex justify-content-between fw-bold border-top pt-2 mb-2">
+                                    <span>Total</span>
+                                    <span class="text-primary" id="dropdownTotal">0 FCFA</span>
+                                </div>
+                                <a href="cart.html" class="btn btn-primary w-100 fw-bold text-dark"><i
+                                        class="fa-solid fa-arrow-right me-1"></i>Voir mon panier</a>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -156,7 +163,8 @@
                         class="fa-solid fa-gift me-2"></i> Fidélité</a>
                 <a href="contact.html" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-envelope me-2"></i> Contact</a>
-                <a href="#" class="list-group-item list-group-item-action bg-warning text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#downloadAppModal"><i
+                <a href="#" class="list-group-item list-group-item-action bg-warning text-dark fw-bold"
+                    data-bs-toggle="modal" data-bs-target="#downloadAppModal"><i
                         class="fa-solid fa-mobile-screen-button me-2"></i> Télécharger l'App Mobile</a>
             </div>
         </div>
@@ -170,22 +178,28 @@
                 <!-- Left Sidebar Menu (Desktop only) -->
                 <div class="col-lg-2 d-none d-lg-block">
                     <div class="bg-white rounded shadow-sm h-100 py-2 d-flex flex-column">
-                        <a href="produits.html?cat=pain" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=pain"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-bread-slice me-2" style="width:20px; text-align:center;"></i> Tous
                             les Pains</a>
-                        <a href="produits.html?cat=viennoiserie" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=viennoiserie"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-cookie me-2" style="width:20px; text-align:center;"></i>
                             Viennoiseries</a>
-                        <a href="produits.html?cat=patisserie" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=patisserie"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-cake-candles me-2" style="width:20px; text-align:center;"></i>
                             Pâtisseries</a>
-                        <a href="produits.html?cat=boisson" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=boisson"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-mug-hot me-2" style="width:20px; text-align:center;"></i>
                             Boissons</a>
-                        <a href="produits.html?cat=glace" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=glace"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-ice-cream me-2" style="width:20px; text-align:center;"></i>
                             Glaces</a>
-                        <a href="produits.html?cat=snack" class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
+                        <a href="produits.html?cat=snack"
+                            class="dropdown-item px-3 py-2 text-dark fs-sm hover-primary"><i
                                 class="fa-solid fa-cookie-bite me-2" style="width:20px; text-align:center;"></i>
                             Snacks</a>
                         <div class="mt-auto border-top pt-2">
@@ -340,7 +354,7 @@
                         <span>☕ Cafés</span>
                     </a>
                     <!-- Category 7 - Glaces -->
-                     
+
                     <a href="produits.html?cat=glace" class="category-img-card shadow-sm">
                         <img src="assets/product_glace.png" alt="Glaces"
                             onerror="this.src='https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80'">
@@ -373,7 +387,7 @@
                             <span class="bg-white text-dark fw-bold px-2 py-1 rounded fs-sm" id="oven-minute">30</span>
                         </div>
                         <script>
-                            document.addEventListener("DOMContentLoaded", function() {
+                            document.addEventListener("DOMContentLoaded", function () {
                                 let d = new Date();
                                 d.setMinutes(d.getMinutes() - 25);
                                 let m = (Math.floor(d.getMinutes() / 10) * 10);
@@ -504,21 +518,28 @@
     <!-- Section Notre Équipe & Nos Caissières -->
     <section class="store-team-showcase my-4">
         <div class="container">
-            <div class="rounded-4 shadow-sm p-4 p-lg-5" style="background: linear-gradient(135deg, #ffffff 0%, #fffcf7 100%); border: 1px solid #f1ece1;">
+            <div class="rounded-4 shadow-sm p-4 p-lg-5"
+                style="background: linear-gradient(135deg, #ffffff 0%, #fffcf7 100%); border: 1px solid #f1ece1;">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
                         <div class="position-relative overflow-hidden rounded-3 shadow">
-                            <img src="assets/caissiere.png" class="img-fluid w-100" alt="Nos caissières" style="max-height: 380px; object-fit: cover; border-radius: 12px;">
-                            <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-3 px-3 py-2 fw-bold shadow">
+                            <img src="assets/caissiere.png" class="img-fluid w-100" alt="Nos caissières"
+                                style="max-height: 380px; object-fit: cover; border-radius: 12px;">
+                            <span
+                                class="badge bg-warning text-dark position-absolute top-0 start-0 m-3 px-3 py-2 fw-bold shadow">
                                 <i class="fa-solid fa-heart text-danger me-1"></i> ÉQUIPE DE BABI
                             </span>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <span class="badge bg-primary text-dark fw-bold px-3 py-2 mb-2">BIENVENUE EN BOUTIQUE</span>
-                        <h2 class="fw-bold mb-3" style="color: #2b160c; font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem);">Un Accueil Chaleureux & Le Sourire À Chaque Visite</h2>
+                        <h2 class="fw-bold mb-3"
+                            style="color: #2b160c; font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem);">
+                            Un Accueil Chaleureux & Le Sourire À Chaque Visite</h2>
                         <p class="text-muted fs-6 mb-4">
-                            Notre équipe de caissières et d'hôtes d'accueil vous réserve le meilleur accueil tous les jours à Abidjan. Profitez d'un service ultra-rapide, dynamique et bienveillant pour vos achats de pains, viennoiseries et pâtisseries !
+                            Notre équipe de caissières et d'hôtes d'accueil vous réserve le meilleur accueil tous les
+                            jours à Abidjan. Profitez d'un service ultra-rapide, dynamique et bienveillant pour vos
+                            achats de pains, viennoiseries et pâtisseries !
                         </p>
                         <div class="d-flex flex-wrap gap-3">
                             <a href="apropos.html" class="btn btn-primary text-dark fw-bold px-4 py-2 shadow-sm">
@@ -538,117 +559,6 @@
     <section class="delices mt-3 mb-5">
         <div class="container">
             <div class="bg-white rounded shadow-sm p-3 p-lg-4">
-                <h4 class="mb-4 fw-bold">Recommandé pour vous</h4>
-
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
-
-                    <!-- Product Card 1 -->
-                    <div class="col">
-                        <div
-                            class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img src="assets/product_baguette.png" class="card-img-top product-img"
-                                    alt="Baguette Tradition"
-                                    style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
-                                <button
-                                    class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                                    title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i
-                                        class="fa-regular fa-heart"></i></button>
-                            </div>
-                            <div class="card-body p-2 d-flex flex-column">
-                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Baguette Tradition
-                                </h6>
-                                <div class="d-flex align-items-center gap-1 mb-2">
-                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span
-                                            class="text-muted">★</span></span>
-                                    <span class="text-muted" style="font-size:0.7rem;">(124)</span>
-                                </div>
-                                <div class="d-flex align-items-baseline gap-2 mb-2">
-                                    <span class="fw-bold text-dark" style="font-size:1rem;">200
-                                        <small>FCFA</small></span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn"
-                                    style="font-size:0.78rem;"><i
-                                        class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="col">
-                        <div
-                            class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img src="assets/product_croissant.png" class="card-img-top product-img"
-                                    alt="Croissant Pur Beurre"
-                                    style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
-                                <button
-                                    class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                                    title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i
-                                        class="fa-regular fa-heart"></i></button>
-                            </div>
-                            <div class="card-body p-2 d-flex flex-column">
-                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Croissant Pur Beurre
-                                </h6>
-                                <div class="d-flex align-items-center gap-1 mb-2">
-                                    <span class="text-warning" style="font-size:0.65rem;">★★★★<span
-                                            class="text-muted">★</span></span>
-                                    <span class="text-muted" style="font-size:0.7rem;">(89)</span>
-                                </div>
-                                <div class="d-flex align-items-baseline gap-2 mb-2">
-                                    <span class="fw-bold text-dark" style="font-size:1rem;">850
-                                        <small>FCFA</small></span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn"
-                                    style="font-size:0.78rem;"><i
-                                        class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="col">
-                        <div
-                            class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <span class="badge position-absolute top-0 start-0 m-2"
-                                    style="background:#e74c3c;font-size:0.7rem;">-15%</span>
-                                <img src="assets/product_pain_choc.png" class="card-img-top product-img"
-                                    alt="Pain au Chocolat"
-                                    style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
-                                <button
-                                    class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
-                                    title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i
-                                        class="fa-regular fa-heart"></i></button>
-                            </div>
-                            <div class="card-body p-2 d-flex flex-column">
-                                <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;">Pain au Chocolat</h6>
-                                <div class="d-flex align-items-center gap-1 mb-2">
-                                    <span class="text-warning" style="font-size:0.65rem;">★★★★★</span>
-                                    <span class="text-muted" style="font-size:0.7rem;">(210)</span>
-                                </div>
-                                <div class="d-flex align-items-baseline gap-2 mb-2">
-                                    <span class="fw-bold text-dark" style="font-size:1rem;">500
-                                        <small>FCFA</small></span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn"
-                                    style="font-size:0.78rem;"><i
-                                        class="fa-solid fa-cart-plus me-1"></i>AJOUTER</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="col">
-                        <div
-                            class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <span class="badge position-absolute top-0 start-0 m-2"
-                                    style="background:#f4b400;color:#2b160c;font-size:0.7rem;">NOUVEAU</span>
-                                <img src="assets/product_entremet.png" class="card-img-top product-img"
-                                    alt="Entremet Caramel"
-                                    style="height:160px;object-fit:cover;transition:transform 0.4s ease;">
-                                <button
                                     class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
                                     title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;"><i
                                         class="fa-regular fa-heart"></i></button>
@@ -763,31 +673,42 @@
     </section>
 
     <!-- Mobile App Download Banner Section -->
-    <section class="py-5 text-white" style="background: linear-gradient(135deg, #2b160c 0%, #4a2717 100%); position: relative; overflow: hidden;">
+    <section class="py-5 text-white"
+        style="background: linear-gradient(135deg, #2b160c 0%, #4a2717 100%); position: relative; overflow: hidden;">
         <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-center g-4">
                 <div class="col-lg-7 text-center text-lg-start">
-                    <span class="badge px-3 py-2 rounded-pill mb-3" style="background: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid #fb923c;">
+                    <span class="badge px-3 py-2 rounded-pill mb-3"
+                        style="background: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid #fb923c;">
                         <i class="fa-solid fa-mobile-screen me-1"></i> Application Mobile Officielle
                     </span>
-                    <h2 class="display-6 fw-bold mb-3">Téléchargez l'App <span style="color: #fb923c;">Boulangerie de BABI</span></h2>
-                    <p class="lead mb-4 text-light" style="opacity: 0.9;">Commandez vos pains, pâtisseries et jus frais 2x plus vite, suivez votre livreur en temps réel sur la carte et cumulez des points de fidélité à chaque commande !</p>
-                    
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-3">
-                        <button class="btn btn-warning btn-lg fw-bold rounded-pill px-4 shadow-lg d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#downloadAppModal" style="background: #fb923c; border: none; color: #2b160c;">
+                    <h2 class="display-6 fw-bold mb-3">Téléchargez l'App <span style="color: #fb923c;">Boulangerie de
+                            BABI</span></h2>
+                    <p class="lead mb-4 text-light" style="opacity: 0.9;">Commandez vos pains, pâtisseries et jus frais
+                        2x plus vite, suivez votre livreur en temps réel sur la carte et cumulez des points de fidélité
+                        à chaque commande !</p>
+
+                    <div
+                        class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-3">
+                        <button
+                            class="btn btn-warning btn-lg fw-bold rounded-pill px-4 shadow-lg d-flex align-items-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#downloadAppModal"
+                            style="background: #fb923c; border: none; color: #2b160c;">
                             <i class="fa-solid fa-download fs-4"></i>
                             <div class="text-start lh-1">
                                 <small class="d-block" style="font-size: 0.7rem; font-weight: 500;">TÉLÉCHARGER</small>
                                 <span>L'Application Mobile</span>
                             </div>
                         </button>
-                        
+
                         <div class="d-flex gap-2">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal" class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal"
+                                class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
                                 <i class="fa-brands fa-google-play fs-4"></i>
                                 <span class="small fw-bold">Google Play</span>
                             </a>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal" class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#downloadAppModal"
+                                class="btn btn-outline-light rounded-pill px-3 py-2 d-flex align-items-center gap-2">
                                 <i class="fa-brands fa-apple fs-4"></i>
                                 <span class="small fw-bold">App Store</span>
                             </a>
@@ -795,7 +716,8 @@
                     </div>
                 </div>
                 <div class="col-lg-5 text-center">
-                    <img src="assets/scooter_livraison.png" alt="App Mobile" class="img-fluid rounded-4 shadow-lg" style="max-height: 280px; object-fit: contain; transform: perspective(1000px) rotateY(-5deg);">
+                    <img src="assets/scooter_livraison.png" alt="App Mobile" class="img-fluid rounded-4 shadow-lg"
+                        style="max-height: 280px; object-fit: contain; transform: perspective(1000px) rotateY(-5deg);">
                 </div>
             </div>
         </div>
@@ -809,15 +731,18 @@
                     <h5 class="modal-title fw-bold d-flex align-items-center gap-2">
                         <i class="fa-solid fa-mobile-screen-button text-warning"></i> Application Mobile BABI
                     </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4 text-center">
                     <img src="assets/logo.png" alt="Logo" class="mb-3 rounded-3" style="height: 70px;">
                     <h5 class="fw-bold mb-2">Boulangerie de BABI sur votre Téléphone</h5>
-                    <p class="text-muted small mb-4">Choisissez votre plateforme ci-dessous pour installer l'application officielle et profiter de vos réductions immédiates.</p>
+                    <p class="text-muted small mb-4">Choisissez votre plateforme ci-dessous pour installer l'application
+                        officielle et profiter de vos réductions immédiates.</p>
 
                     <div class="d-grid gap-3">
-                        <a href="assets/processed_products/IMG20260722121307.jpg" download="BoulangerieBabi.apk" class="btn btn-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
+                        <a href="assets/processed_products/IMG20260722121307.jpg" download="BoulangerieBabi.apk"
+                            class="btn btn-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
                             <i class="fa-brands fa-android fs-2 text-success"></i>
                             <div class="text-start">
                                 <div class="fw-bold">Télécharger pour Android (.APK)</div>
@@ -825,7 +750,9 @@
                             </div>
                         </a>
 
-                        <a href="#" onclick="alert('L\'application iOS sera bientôt disponible sur l\'App Store d\'Apple !')" class="btn btn-outline-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
+                        <a href="#"
+                            onclick="alert('L\'application iOS sera bientôt disponible sur l\'App Store d\'Apple !')"
+                            class="btn btn-outline-dark btn-lg rounded-3 d-flex align-items-center justify-content-center gap-3 p-3">
                             <i class="fa-brands fa-apple fs-2 text-dark"></i>
                             <div class="text-start">
                                 <div class="fw-bold">Télécharger pour iPhone (iOS)</div>
@@ -833,7 +760,8 @@
                             </div>
                         </a>
 
-                        <button onclick="window.location.href='index.html'" class="btn btn-light border rounded-3 p-2 small text-muted">
+                        <button onclick="window.location.href='index.html'"
+                            class="btn btn-light border rounded-3 p-2 small text-muted">
                             <i class="fa-solid fa-globe me-1"></i> Continuer sur la version Web Mobile
                         </button>
                     </div>
@@ -848,12 +776,16 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4">
                 <div class="col footer-col">
                     <div class="logo mb-3 d-flex align-items-center">
-                            <img src="assets/logo.png" alt="Logo" style="height: 70px; border-radius: 12px; margin-right: 15px;">
-                            <div class="d-flex flex-column lh-1">
-                                <span class="fw-bold text-white" style="font-size: 1.5rem; font-family: 'Inter', sans-serif;">Boulangerie</span>
-                                <span class="text-primary" style="font-size: 1.8rem; font-family: 'Great Vibes', cursive; margin-top: -5px;">de Babi</span>
-                            </div>
+                        <img src="assets/logo.png" alt="Logo"
+                            style="height: 70px; border-radius: 12px; margin-right: 15px;">
+                        <div class="d-flex flex-column lh-1">
+                            <span class="fw-bold text-white"
+                                style="font-size: 1.5rem; font-family: 'Inter', sans-serif;">Boulangerie</span>
+                            <span class="text-primary"
+                                style="font-size: 1.8rem; font-family: 'Great Vibes', cursive; margin-top: -5px;">de
+                                Babi</span>
                         </div>
+                    </div>
                     <p class="footer-desc">Le goût authentique, la fraîcheur au quotidien. Pains, viennoiseries,
                         pâtisseries et boissons. Faits avec amour et passion.</p>
                     <div class="social-icons">
@@ -916,6 +848,7 @@
     <script src="js/script.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/cart_actions.js"></script>
+    <script src="js/products.js"></script>
     <script src="js/pwa.js"></script>
 </body>
 

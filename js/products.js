@@ -1,4 +1,4 @@
-// Fetch and render products dynamically with real photos & dynamic pagination
+// Fetch and render products dynamically with real photos & dynamic pagination everywhere across the site
 
 const realProductImages = {
     "Chill": "assets/chill.png",
@@ -186,6 +186,10 @@ async function loadProducts() {
     
     currentFilteredList = [...allProducts];
     
+    // Automatically populate Homepage grid if present
+    loadHomepageProducts();
+
+    // Automatically populate Catalog grid if present
     const container = document.getElementById('product-grid');
     if(container) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -196,6 +200,47 @@ async function loadProducts() {
             renderProductsPage();
         }
     }
+}
+
+function loadHomepageProducts() {
+    const recommendedContainer = document.getElementById('index-recommended-grid');
+    if (!recommendedContainer) return;
+    
+    // Automatically pick top 10 products with real photos for the homepage
+    const featured = allProducts.filter(p => realProductImages[p.nom] || (p.image && p.image !== 'null')).slice(0, 10);
+    
+    recommendedContainer.innerHTML = featured.map(p => {
+        const imgSrc = realProductImages[p.nom] || p.image;
+        return `
+        <div class="col">
+            <div class="card premium-product-card h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius:12px;">
+                <div class="position-relative overflow-hidden product-img-container" style="height:160px;background:#ffffff;">
+                    <img loading="lazy" src="${imgSrc}" class="card-img-top product-img" alt="${p.nom}" 
+                        style="height:160px;width:100%;object-fit:cover;transition:transform 0.4s ease;">
+                    <button class="wishlist-btn position-absolute top-0 end-0 m-2 btn btn-sm bg-white rounded-circle shadow-sm border-0 text-danger"
+                        title="Ajouter aux favoris" style="width:32px;height:32px;padding:0;">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <span class="badge position-absolute top-0 start-0 m-2" style="background:rgba(43,22,12,0.85);font-size:0.65rem;">${getCatLabel(p.categorie)}</span>
+                </div>
+                <div class="card-body p-2 d-flex flex-column">
+                    <h6 class="card-title fw-semibold mb-1" style="font-size:0.85rem;color:#2b160c;">${p.nom}</h6>
+                    <div class="d-flex align-items-center gap-1 mb-2">
+                        <span class="text-warning" style="font-size:0.65rem;">★★★★<span class="text-muted">★</span></span>
+                        <span class="text-muted" style="font-size:0.7rem;">(${Math.floor(Math.random()*150)+20})</span>
+                    </div>
+                    <div class="d-flex align-items-baseline gap-2 mb-2">
+                        <span class="fw-bold text-dark" style="font-size:1rem;">${(p.prix || 0).toLocaleString()} <small>FCFA</small></span>
+                    </div>
+                    <button class="btn btn-primary btn-sm w-100 fw-bold text-dark mt-auto add-to-cart-btn"
+                        style="font-size:0.78rem;" onclick="addToCart('${p.nom.replace(/'/g, "\\'")}', ${p.prix}, '${imgSrc || ''}')">
+                        <i class="fa-solid fa-cart-plus me-1"></i>AJOUTER
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
 }
 
 function renderProductsPage() {

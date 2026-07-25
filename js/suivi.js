@@ -9,7 +9,7 @@ let currentPhone = null;
 let currentStatus = null;
 
 // Abidjan coordinates
-const bakeryCoords = [5.3364, -4.0267]; // Plateau
+const bakeryCoords = [5.3772845, -3.9272566]; // Cocody Riviera 2 // Plateau
 const customerCoords = [5.3773, -3.9273]; // Riviera 2
 
 function initMap() {

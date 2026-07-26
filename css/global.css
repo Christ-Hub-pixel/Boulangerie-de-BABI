@@ -485,3 +485,22 @@ table {
     border-bottom-right-radius: 50px !important;
     white-space: nowrap;
 }
+
+/* Footer High-Contrast Bright Text Fix */
+footer {
+    background: linear-gradient(135deg, #1c0d06, #2b160c) !important;
+    color: #ffffff !important;
+}
+footer *, footer p, footer span, footer li, footer div, footer small, footer a, footer .text-muted, footer .text-light {
+    color: #f8fafc !important;
+    opacity: 1 !important;
+}
+footer a:hover {
+    color: #fb923c !important;
+    text-decoration: underline !important;
+}
+footer h4, footer h5, footer .text-warning, footer i.text-warning {
+    color: #fb923c !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+}

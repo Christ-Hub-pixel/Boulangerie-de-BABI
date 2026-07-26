@@ -20,7 +20,138 @@ La plateforme **Boulangerie de BABI** est une application web e-commerce moderne
 
 ---
 
-## 🏗️ 2. Structure & Arborescence du Projet
+## 📐 2. SCHÉMAS VISUELS DE L'ARCHITECTURE (DIAGRAMMES)
+
+### 📊 Schéma 1 : Architecture Globale du Système
+
+```mermaid
+flowchart TB
+    subgraph CLIENT["📱 CLIENT WEB & MOBILE"]
+        UI["🎨 Interface Utilisateur (HTML5 / Bootstrap 5 / CSS3)"]
+        STORE["💾 Dual LocalStorage (Panier, Favoris, Historique)"]
+        SW["⚡ Progressive Web App (PWA Service Worker)"]
+    end
+
+    subgraph LOGIC["⚙️ MODULES JAVASCRIPT FRONTEND"]
+        PRODUCTS["🥖 products.js (Catalogue, Filtres & Tri A-Z/Prix)"]
+        CART["🛒 cart_actions.js (Panier & Sanitisation Prix)"]
+        WISHLIST["❤️ wishlist.js (Favoris & Badges en direct)"]
+        SCHEDULE["⏰ store_schedule.js (Contrôleur Horaires 06h-20h)"]
+        GPS_TRACK["🛵 suivi.js (Animation Livreur & Ticket Thermique)"]
+        CHECKOUT_JS["📋 checkout.js (Formulaire, Mobile Money & PIN)"]
+    end
+
+    subgraph BACKEND["🌐 SERVEUR BACKEND & BDD"]
+        EXPRESS["🚀 Serveur Node.js / Express (server.js)"]
+        SQLITE[("🗄️ Base SQLite3 (database.sqlite)")]
+        JSON_DB["📄 Data Canonique (data/products.json)"]
+    end
+
+    subgraph EXTERNAL["🌍 SERVICES EXTERNES & GPS"]
+        OSM["🗺️ OpenStreetMap / Leaflet Maps Engine"]
+        GMAPS["📍 Google Maps API Embed (Cocody Riviera 2)"]
+        MOMO["💳 Passerelles Mobile Money (Wave, Orange, MTN, Moov)"]
+    end
+
+    UI <--> STORE
+    UI <--> LOGIC
+    PRODUCTS <--> JSON_DB
+    CHECKOUT_JS <--> MOMO
+    GPS_TRACK <--> OSM
+    EXPRESS <--> SQLITE
+    LOGIC <--> EXPRESS
+```
+
+---
+
+### 🔄 Schéma 2 : Diagramme du Cycle de Commande & Contrôle des Horaires (06h - 20h)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor C as Client Abidjan
+    participant W as Interface Web (cart.html / checkout.html)
+    participant S as Contrôleur (store_schedule.js)
+    participant M as Modal Alerte Restriction
+    participant B as Backend Order Engine
+    actor L as Livreur Scooter (livreur.html)
+
+    C->>W: Clique sur "PASSER LA COMMANDE"
+    W->>S: Appel isStoreOpen() (Vérifie Heure d'Abidjan)
+    
+    alt Horaires Fermés (20h00 - 06h00)
+        S-->>W: Retourne false (Store Closed)
+        W->>M: Affiche Pop-up "Boulangerie Fermée - Réouverture à 06h00"
+        M-->>C: Bloque la soumission jusqu me 06h00
+    else Horaires Ouverts (06h00 - 20h00)
+        S-->>W: Retourne true (Store Open)
+        W->>C: Affiche le Formulaire de Caisse (Mobile Money / Cash)
+        C->>W: Valide la commande & Sélectionne le paiement
+        W->>B: Soumet l'ordre & Génère le Code PIN confidentiel
+        B-->>W: Redirige vers suivi.html (Suivi GPS en Direct)
+        B-->>L: Notifie l'App Livreur (livreur.html)
+    end
+```
+
+---
+
+### 🛵 Schéma 3 : Interaction GPS Livreur & Client (Leaflet & Verification Code PIN)
+
+```mermaid
+flowchart LR
+    subgraph DEPART["🥐 POINT DE DEPART"]
+        BAKERY["Boulangerie de BABI\nCocody Riviera 2\n(5.3772845, -3.9272566)"]
+    end
+
+    subgraph TRAJET["🛵 DEPLACEMENT GPS COMPASS"]
+        SCOOTER["Livreur Koffi (Scooter)\nTracé Leaflet Routing Machine\nPosition GPS en temps réel"]
+    end
+
+    subgraph ARRIVEE["📍 DESTINATION CLIENT"]
+        CLIENT_HOME["Adresse Client Abidjan\nEx: Riviera 2 / Angré / Marcory"]
+        PIN["Code Confidentiel (ex: 6005)\nCommunique uniquement à la livraison"]
+    end
+
+    BAKERY -->|Prise du paquet chaud| SCOOTER
+    SCOOTER -->|Navigation Leaflet| CLIENT_HOME
+    CLIENT_HOME -->|Saisie Code PIN dans livreur.html| VERIFY{Code Correct?}
+    VERIFY -->|Oui| SUCCESS["🟢 Statut : LIVRÉ ! Ticket thermique 80mm imprimé"]
+    VERIFY -->|Non| RETRY["🔴 Code Incorrect - Réessayer"]
+```
+
+---
+
+### 🧾 Schéma 4 : Visualisation du Blueprint du Ticket Thermique 80mm
+
+```text
++--------------------------------------------------+
+|              BOULANGERIE DE BABI                 |
+|         TEL: 2722564123 / 0704389201            |
+|                     Recu                         |
+|--------------------------------------------------|
+| Receipt: 2512                                    |
+| Date: 22 juil. 2026 12:07:54                     |
+| Terminal: ONLINE-WEB                             |
+| Caissier(e): CAISSES 1                           |
+|--------------------------------------------------|
+| Article                  Prix     Qte    Valeur  |
+|--------------------------------------------------|
+| PAIN AU CHOCOLAT        F 500     x2     F 1 000 |
+| CROISSANT               F 500     x2     F 1 000 |
+| JUS DE BAOBAB (PETIT)   F 300     x1     F   300 |
+|--------------------------------------------------|
+| Items count: 5                                   |
+| Total TTC                                F 2 300 |
+| Paiement (Mobile Money)                  F 2 300 |
+|--------------------------------------------------|
+|     Merci de votre visite a la Boulangerie       |
+|               de Babi ! A bientot !              |
++--------------------------------------------------+
+```
+
+---
+
+## 🏗️ 3. Structure & Arborescence du Projet
 
 ```text
 Boulangerie de BABI/
@@ -38,7 +169,7 @@ Boulangerie de BABI/
 ├── 📄 inscription.html         # Page de création de compte client
 ├── 📄 admin.html               # Tableau de bord d'administration des commandes et stocks
 ├── 📄 meunu_officiel.md        # Document officiel des produits et tarifs de la boulangerie
-├── 📄 ARCHITECTURE.md          # Présente architecture technique du projet
+├── 📄 ARCHITECTURE.md          # Présente architecture technique & schémas du projet
 │
 ├── 📁 assets/                  # Photos HD des produits réels, logos & bannières
 │   ├── logo.png                # Logo officiel BB (Le Pain de Babi)
@@ -75,22 +206,7 @@ Boulangerie de BABI/
 
 ---
 
-## 🌐 3. Modules Applicatifs & Fonctionnalités Clés
-
-```mermaid
-graph TD
-    A[Client Web / Smartphone] --> B[Navbar & Recherche]
-    B --> C[Page Produits & Filtrage A-Z/Prix]
-    C --> D[Système de Favoris / wishlist.js]
-    C --> E[Panier Unifié / cart_actions.js]
-    E --> F[Vérification Horaires Store / store_schedule.js]
-    F -->|Boutique Ouverte 06h-20h| G[Page Checkout & Mobile Money]
-    F -->|Boutique Fermée| H[Modal Alerte Restriction 06h00]
-    G --> I[Génération Code PIN & Commande]
-    I --> J[Suivi GPS Livreur / suivi.html]
-    J --> K[Ticket Thermique 80mm Officiel]
-    I --> L[Cockpit Livreur / livreur.html]
-```
+## 🌐 4. Modules Applicatifs & Fonctionnalités Clés
 
 ### 🥖 A. Catalogue & Recherche Intelligente (`js/products.js`)
 - **Tri Alphabétique & Par Prix :** Tri par défaut de A à Z, dynamique par prix croissant/décroissant et nouveautés.
@@ -120,7 +236,7 @@ graph TD
 
 ---
 
-## 📞 4. Coordonnées & Données Métier Officielles
+## 📞 5. Coordonnées & Données Métier Officielles
 
 - **Raison Sociale :** Boulangerie de BABI
 - **Adresse Physiques :** Cocody Riviera 2, Abidjan - Côte d'Ivoire (GPS : `5.3772845, -3.9272566`)
@@ -133,4 +249,4 @@ graph TD
   - **Dimanche :** `07h00 – 18h00`
 
 ---
-*Document généré automatiquement pour le projet Boulangerie de BABI.*
+*Document avec Schémas Visuels généré pour le projet Boulangerie de BABI.*

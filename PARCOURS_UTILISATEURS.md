@@ -25,13 +25,11 @@ flowchart TD
     G --> H{"Choix du Mode de Paiement"}
     H -->|Wave Mobile Money| I1["🌊 Transaction Wave"]
     H -->|Orange Money| I2["🍊 Transaction Orange Money"]
-    H -->|MTN / Moov| I3["🟡 Transaction MTN / Moov"]
-    H -->|Espèces| I4["💵 Paiement Cash à la Livraison"]
+    H -->|Espèces| I3["💵 Paiement Cash à la Livraison"]
     
     I1 --> J["🔒 Génération de la Commande & Code PIN à 4 chiffres\n(ex: #BABI-CMD-884920 | PIN: 6005)"]
     I2 --> J
     I3 --> J
-    I4 --> J
     
     J --> K["🛵 Redirection vers suivi.html\n(Suivi GPS en Direct + Reçu Thermique 80mm)"]
 ```
@@ -100,11 +98,9 @@ flowchart LR
         MONTANT["Montant Produits + Frais Livraison Express (1 000 FCFA)"]
     end
 
-    subgraph OPTIONS["💳 OPTIONS DE PAIEMENT"]
+    subgraph OPTIONS["💳 OPTIONS DE PAIEMENT ACCEPTEES"]
         WAVE["🌊 Wave Mobile Money"]
         OM["🍊 Orange Money"]
-        MTN["🟡 MTN Mobile Money"]
-        MOOV["🔵 Moov Money"]
         CASH["💵 Espèces à la Livraison"]
     end
 

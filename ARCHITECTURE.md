@@ -50,7 +50,7 @@ flowchart TB
     subgraph EXTERNAL["🌍 SERVICES EXTERNES & GPS"]
         OSM["🗺️ OpenStreetMap / Leaflet Maps Engine"]
         GMAPS["📍 Google Maps API Embed (Cocody Riviera 2)"]
-        MOMO["💳 Passerelles Mobile Money (Wave, Orange, MTN, Moov)"]
+        MOMO["💳 Passerelles Mobile Money (Wave & Orange Money)"]
     end
 
     UI <--> STORE

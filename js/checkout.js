@@ -119,7 +119,7 @@ function submitBabiOrder() {
     const deliveryCost = getSelectedDeliveryCost();
 
     const paymentRadio = document.querySelector('input[name="payment"]:checked');
-    const paymentMethod = paymentRadio && paymentRadio.id === 'p_cash' ? 'Paiement à la livraison' : 'Mobile Money (Wave / OM / MTN)';
+    const paymentMethod = paymentRadio && paymentRadio.id === 'p_cash' ? 'Paiement à la livraison' : 'Mobile Money (Wave / Orange Money)';
 
     const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
     const grandTotal = subtotal + deliveryCost;

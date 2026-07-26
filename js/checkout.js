@@ -95,6 +95,11 @@ function setupCheckoutFormEvents() {
 }
 
 function submitBabiOrder() {
+    if (typeof isStoreOpen === 'function' && !isStoreOpen()) {
+        showStoreClosedModal();
+        return;
+    }
+
     const items = typeof getCartItems === 'function' ? getCartItems() : [];
     if (!items || items.length === 0) {
         alert('Votre panier est vide.');

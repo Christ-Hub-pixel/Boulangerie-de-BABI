@@ -37,32 +37,32 @@
             </button>
 
             <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-4" href="index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none me-auto me-lg-3" href="index.html">
                 <img src="assets/logo.png" alt="Logo" style="height: 45px; border-radius: 8px; margin-right: 10px;">
-                <div class="d-flex flex-column lh-1">
+                <div class="d-flex flex-column lh-1 me-2">
                     <span class="fw-bold text-white"
                         style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-family: 'Inter', sans-serif;">Boulangerie</span>
                     <span class="text-primary"
                         style="font-size: clamp(1.2rem, 3.5vw, 1.5rem); font-family: 'Great Vibes', cursive; margin-top: -5px;">de
                         Babi</span>
                 </div>
+                <span class="store-status-badge d-none d-md-inline-block"></span>
             </a>
 
             <!-- Search Bar (Desktop) -->
-            <div class="d-none d-lg-flex flex-grow-1 mx-4">
+            <div class="d-none d-lg-flex flex-grow-1 header-search-container mx-3">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-0"><i
                             class="fa-solid fa-search text-muted"></i></span>
                     <input type="text" class="form-control border-0 shadow-none py-2"
                         placeholder="Cherchez un produit, une pâtisserie...">
-                    <button class="btn btn-primary px-4 fw-bold">CHERCHER</button>
+                    <button class="btn btn-primary px-3 fw-bold">CHERCHER</button>
                 </div>
             </div>
 
             <!-- Icons (Desktop & Mobile) -->
-            <div class="d-flex align-items-center gap-3 gap-lg-4">
-                <span class="store-status-badge"></span>
-                <a href="favoris.html" class="text-white text-decoration-none d-flex align-items-center gap-1 position-relative" title="Mes Favoris">
+            <div class="d-flex align-items-center gap-3">
+                <a href="favoris.html" class="text-white text-decoration-none d-flex align-items-center gap-1 position-relative me-1" title="Mes Favoris">
                     <i class="fa-solid fa-heart fs-4 text-danger"></i>
                     <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle wishlist-count-badge" style="font-size:0.6rem; display:none;">0</span>
                 </a>

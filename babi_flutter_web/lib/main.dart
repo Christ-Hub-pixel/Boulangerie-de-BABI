@@ -83,8 +83,11 @@ class _BabiHomeScreenState extends State<BabiHomeScreen> {
   ];
 
   bool isStoreOpen() {
-    final hour = DateTime.now().hour;
-    return hour >= 6 && hour < 20;
+    final now = DateTime.now();
+    final currentMinutes = now.hour * 60 + now.minute;
+    final openMinutes = 5 * 60 + 45; // 05h45
+    final closeMinutes = 23 * 60; // 23h00
+    return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
   }
 
   void showStoreClosedDialog() {

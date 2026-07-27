@@ -401,6 +401,32 @@ footer {
     }
 }
 
+/* Responsive Image Styling for Store Team Showcase */
+.team-showcase-img {
+    object-fit: cover;
+    object-position: center 20%;
+    border-radius: 20px;
+    height: 480px;
+    max-height: 520px;
+    width: 100%;
+}
+
+@media (max-width: 991.98px) {
+    .team-showcase-img {
+        height: 340px;
+        max-height: 380px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .team-showcase-img {
+        height: 230px;
+        max-height: 250px;
+        border-radius: 14px;
+    }
+}
+
 
 /* Forms & Tables Responsiveness */
 form input, form textarea, form select {

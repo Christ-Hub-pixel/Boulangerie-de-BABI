@@ -419,11 +419,47 @@ footer {
     }
 }
 
-@media (max-width: 575.98px) {
+    @media (max-width: 575.98px) {
     .team-showcase-img {
         height: 230px;
         max-height: 250px;
         border-radius: 14px;
+    }
+}
+
+/* Responsive Product Cards for Mobile Devices */
+@media (max-width: 575.98px) {
+    .premium-product-card, .product-card {
+        border-radius: 12px !important;
+    }
+    .premium-product-card .product-img-container,
+    .premium-product-card .product-img,
+    .product-card .product-img {
+        height: 130px !important;
+    }
+    .premium-product-card .card-body,
+    .product-card .card-body {
+        padding: 0.55rem !important;
+    }
+    .premium-product-card .card-title,
+    .product-card .card-title {
+        font-size: 0.78rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.25rem !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2rem;
+    }
+    .premium-product-card .add-to-cart-btn,
+    .product-card .add-to-cart-btn {
+        font-size: 0.72rem !important;
+        padding: 0.35rem 0.3rem !important;
+    }
+    .wishlist-btn {
+        opacity: 1 !important;
+        transform: scale(0.85) !important;
     }
 }
 

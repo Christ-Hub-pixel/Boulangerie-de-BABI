@@ -471,6 +471,39 @@ footer {
         opacity: 1 !important;
         transform: scale(0.75) !important;
     }
+
+    /* Hero Carousels & Banners on Mobile */
+    .main-hero-carousel,
+    .main-hero-carousel .carousel-item,
+    .main-hero-carousel .carousel-item img,
+    .carousel-item img {
+        height: 200px !important;
+        max-height: 220px !important;
+        object-fit: cover !important;
+    }
+
+    /* Section Images & Story Banners (A propos, Galerie, Fidelite, Contact) */
+    .about-story-img,
+    .gallery-item img,
+    .feature-card img,
+    .promo-banner img {
+        height: 180px !important;
+        max-height: 200px !important;
+        object-fit: cover !important;
+        border-radius: 12px !important;
+    }
+
+    /* Mobile Headings & Typography */
+    h1, .h1 { font-size: 1.35rem !important; }
+    h2, .h2 { font-size: 1.2rem !important; }
+    h3, .h3 { font-size: 1.05rem !important; }
+    h4, .h4 { font-size: 0.95rem !important; }
+
+    /* Mobile Container Spacing */
+    section {
+        padding-top: 0.8rem !important;
+        padding-bottom: 0.8rem !important;
+    }
 }
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const BabiBakeryApp());
@@ -22,7 +23,7 @@ class BabiBakeryApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xFFFAF7F2),
       ),
-      home: const BabiHomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -28,6 +28,10 @@ async function initDB() {
             items TEXT,
             total_price INTEGER,
             payment_method TEXT,
+            payment_status TEXT DEFAULT 'en_attente',
+            refund_status TEXT DEFAULT 'aucun',
+            support_message TEXT,
+            delivery_notes TEXT,
             status TEXT DEFAULT 'nouveau',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
@@ -38,6 +42,18 @@ async function initDB() {
             prix INTEGER,
             categorie TEXT,
             image TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS ratings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            order_id TEXT,
+            client_rating INTEGER,
+            client_tags TEXT,
+            client_comment TEXT,
+            driver_rating INTEGER,
+            driver_tags TEXT,
+            driver_notes TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
     `);
 

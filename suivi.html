@@ -203,6 +203,35 @@
                 </div>
             </div>
 
+            <!-- Support Message Alert Box -->
+            <div id="support-banner-box" class="card border-0 rounded-4 p-4 mt-4 text-white shadow-lg" style="background: linear-gradient(135deg, #1e293b, #334155); display: none;">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="bg-warning text-dark rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                        <i class="fa-solid fa-headset fs-5"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-warning">SERVICE CLIENT & ASSISTANCE BABI</h6>
+                        <small class="text-light" id="support-banner-time">Support en cours</small>
+                    </div>
+                </div>
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary mt-2" id="support-banner-text">
+                    "Notre service client traite actuellement votre dossier. Un conseiller étudie votre commande."
+                </div>
+            </div>
+
+            <!-- 5-Minute Express Cancel & Auto Refund Box -->
+            <div id="express-cancel-box" class="card border-0 rounded-4 p-3 mt-4 bg-white shadow-sm border-start border-4 border-danger">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1"><i class="fa-solid fa-clock-rotate-left text-danger me-2"></i> Annulation Express (< 5 min)</h6>
+                        <small class="text-muted">Remboursement automatique 100% sans frais sur votre Wave / Orange Money.</small>
+                    </div>
+                    <button class="btn btn-outline-danger fw-bold rounded-pill px-3 py-2 btn-sm" onclick="triggerCustomerAutoCancel()">
+                        <i class="fa-solid fa-ban me-1"></i> Annuler & Rembourser
+                    </button>
+                </div>
+            </div>
+
             <!-- Confirmation Code Box -->
             <div id="confirmation-code-box" class="card shadow-sm border-0 rounded-4 p-4 mt-4 text-center bg-white" style="display: none;">
                 <h6 class="fw-bold text-muted mb-2"><i class="fa-solid fa-lock text-warning me-2"></i> CODE DE LIVRAISON CONFIDENTIEL</h6>
@@ -213,13 +242,68 @@
             <div class="card shadow-sm border-0 rounded-4 p-4 mt-4 bg-white">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-bold mb-0" style="color: var(--babi-chocolate);"><i class="fa-solid fa-basket-shopping text-warning me-2"></i> Contenu de la commande</h5>
-                    <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold" onclick="printOfficialReceipt()">
-                        <i class="fa-solid fa-print me-1 text-warning"></i> Imprimer le Reçu Officiel
-                    </button>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-warning btn-sm rounded-pill px-3 fw-bold text-dark" onclick="openRatingModal()">
+                            <i class="fa-solid fa-star me-1"></i> Donnez votre avis
+                        </button>
+                        <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold" onclick="printOfficialReceipt()">
+                            <i class="fa-solid fa-print me-1 text-warning"></i> Reçu Officiel
+                        </button>
+                    </div>
                 </div>
                 <p id="order-items" class="mb-0 text-muted fs-6"></p>
             </div>
             
+        </div>
+    </div>
+
+    <!-- Rating Modal (Client Avis & Quick Tags) -->
+    <div class="modal fade" id="ratingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header text-white border-0 py-3" style="background: var(--babi-chocolate);">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-star text-warning me-2"></i>Votre avis sur votre Commande</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted text-center small mb-3">Sélectionnez votre note et vos commentaires rapides en 1 clic :</p>
+
+                    <!-- Star Rating -->
+                    <div class="d-flex justify-content-center gap-2 fs-2 text-warning mb-4" id="starContainer">
+                        <i class="fa-solid fa-star star-btn" data-val="1" style="cursor:pointer;"></i>
+                        <i class="fa-solid fa-star star-btn" data-val="2" style="cursor:pointer;"></i>
+                        <i class="fa-solid fa-star star-btn" data-val="3" style="cursor:pointer;"></i>
+                        <i class="fa-solid fa-star star-btn" data-val="4" style="cursor:pointer;"></i>
+                        <i class="fa-solid fa-star star-btn" data-val="5" style="cursor:pointer;"></i>
+                    </div>
+
+                    <!-- Positive Quick Tags -->
+                    <h6 class="fw-bold small text-success mb-2"><i class="fa-solid fa-thumbs-up me-1"></i> Ce que vous avez aimé (Positif) :</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Pain chaud & croustillant" style="cursor:pointer;">🥖 Pain chaud & croustillant</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Livraison ultra rapide" style="cursor:pointer;">⚡ Livraison ultra rapide</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Livreur courtois" style="cursor:pointer;">🤝 Livreur courtois</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Emballage soigné" style="cursor:pointer;">🧁 Emballage soigné</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Pâtisseries délicieuses" style="cursor:pointer;">😋 Pâtisseries délicieuses</span>
+                    </div>
+
+                    <!-- Negative Quick Tags -->
+                    <h6 class="fw-bold small text-danger mb-2"><i class="fa-solid fa-triangle-exclamation me-1"></i> Points d'amélioration (Négatif) :</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Retard de livraison" style="cursor:pointer;">⏳ Retard de livraison</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Produit refroidi" style="cursor:pointer;">❄️ Produit refroidi</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Emballage abîmé" style="cursor:pointer;">📦 Emballage abîmé</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Article manquant" style="cursor:pointer;">❌ Article manquant</span>
+                        <span class="badge bg-light text-dark border p-2 tag-chip" data-tag="Livreur difficile à joindre" style="cursor:pointer;">📱 Livreur difficile à joindre</span>
+                    </div>
+
+                    <textarea class="form-select border shadow-none p-3" id="clientCommentText" rows="2" placeholder="Ajouter une remarque personnelle (optionnel)..."></textarea>
+
+                    <button class="btn btn-warning w-100 fw-bold text-dark mt-3 py-2 rounded-pill shadow-sm" style="background:#fb923c; border:none;" onclick="submitClientRating()">
+                        ENREGISTRER MON AVIS
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -319,10 +403,10 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-warning mb-3">HORAIRES DU FOUR</h5>
-                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Lundi - Samedi : 06h00 - 20h00</p>
-                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Dimanche : 07h00 - 18h00</p>
-                    <p class="text-white small mt-2"><i class="fa-solid fa-fire-burner text-warning me-2"></i> Pain chaud croustillant toutes les 30 minutes !</p>
+                    <h5 class="fw-bold text-warning mb-3">HORAIRES DE LA BOUTIQUE</h5>
+                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Lundi - Dimanche : 05h45 - 23h00</p>
+                    <h6 class="fw-bold text-warning mt-3 mb-2" style="font-size:0.9rem;">SORTIES DE PAIN CHAUDS</h6>
+                    <p class="text-white small mb-1">06h00 • 09h00 • 14h00 • 17h00 • 18h00</p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">

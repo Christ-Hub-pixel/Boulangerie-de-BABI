@@ -118,7 +118,7 @@
 
             <!-- Right Column: Cart Summary -->
             <div class="col-lg-3">
-                <div class="bg-white rounded shadow-sm p-3 sticky-top" style="top: 120px;">
+                <div class="bg-white rounded shadow-sm p-3 sticky-top summary-box" style="top: 120px;">
                     <h6 class="fw-bold border-bottom pb-2 mb-3">RÉSUMÉ DU PANIER</h6>
                     <div class="d-flex justify-content-between mb-2 fs-sm">
                         <span class="subtotal-label">Sous-total</span>
@@ -141,112 +141,7 @@
     </div>
 
     <script src="js/cart_actions.js"></script>
-    <!-- Cart Page Script -->
-    <script>
-    // All cart logic is in js/cart_actions.js — here we just render the page
-
-    function renderCartPage() {
-        const items = getCartItems();
-        const listEl = document.getElementById('cartItemsList');
-        const emptyEl = document.getElementById('cartEmptyState');
-        const titleEl = document.getElementById('cartTitle');
-        const clearBtn = document.getElementById('clearCartBtn');
-        const totalValEl = document.querySelector('.total-val');
-        const grandTotalEl = document.querySelector('.grand-total-val');
-        const subtotalLbl = document.querySelector('.subtotal-label');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-
-        if (!listEl) return;
-
-        listEl.innerHTML = '';
-
-        if (items.length === 0) {
-            emptyEl.style.display = '';
-            clearBtn.style.display = 'none';
-            titleEl.innerText = 'Panier';
-            if (totalValEl) totalValEl.innerText = '0 FCFA';
-            if (grandTotalEl) grandTotalEl.innerText = '0 FCFA';
-            if (subtotalLbl) subtotalLbl.innerText = 'Sous-total';
-            if (checkoutBtn) {
-                checkoutBtn.style.opacity = '0.5';
-                checkoutBtn.style.pointerEvents = 'none';
-            }
-            return;
-        }
-
-        emptyEl.style.display = 'none';
-        clearBtn.style.display = '';
-        if (checkoutBtn) {
-            checkoutBtn.style.opacity = '';
-            checkoutBtn.style.pointerEvents = '';
-        }
-
-        const totalCount = items.reduce((s, i) => s + (parseInt(i.qty || i.quantity) || 1), 0);
-        const totalPrice = items.reduce((s, i) => {
-            const p = typeof i.price === 'number' ? i.price : (parseFloat(String(i.price || i.prix || '0').replace(/[^0-9.]/g, '')) || 0);
-            const q = parseInt(i.qty || i.quantity) || 1;
-            return s + (p * q);
-        }, 0);
-
-        titleEl.innerText = `Panier (${totalCount} article${totalCount > 1 ? 's' : ''})`;
-        if (subtotalLbl) subtotalLbl.innerText = `Sous-total (${totalCount} article${totalCount > 1 ? 's' : ''})`;
-        if (totalValEl) totalValEl.innerText = totalPrice.toLocaleString() + ' FCFA';
-        if (grandTotalEl) grandTotalEl.innerText = totalPrice.toLocaleString() + ' FCFA';
-
-        items.forEach((item, idx) => {
-            const isLast = idx === items.length - 1;
-            const el = document.createElement('div');
-            el.className = `p-3 d-flex flex-column flex-md-row gap-3 cart-item${isLast ? '' : ' border-bottom'}`;
-            el.dataset.productId = item.id;
-            el.innerHTML = `
-                <img src="${item.image}" class="rounded border" style="width:100px;height:100px;object-fit:cover;flex-shrink:0;" alt="${item.name}" onerror="this.src='assets/baguette 200.png'">
-                <div class="flex-grow-1">
-                    <h6 class="fw-bold mb-1">${item.name}</h6>
-                    <p class="text-muted mb-1" style="font-size:0.8rem;">Vendeur: <span class="text-primary">Boulangerie de Babi</span></p>
-                    <span class="text-success" style="font-size:0.8rem;"><i class="fa-solid fa-check"></i> En stock</span>
-                    <div class="text-muted mt-1" style="font-size:0.77rem;">Prix unitaire: ${item.price.toLocaleString()} FCFA</div>
-                </div>
-                <div class="text-md-end d-flex flex-column justify-content-between">
-                    <div class="fs-5 fw-bold text-dark mb-2 item-price" data-price="${item.price}">${(item.price * item.qty).toLocaleString()} FCFA</div>
-                    <div class="d-flex align-items-center justify-content-md-end gap-3 mt-auto">
-                        <button class="btn btn-sm btn-outline-danger border-0 px-2" onclick="cartPageRemove('${item.id}')">
-                            <i class="fa-solid fa-trash-can"></i> Retirer
-                        </button>
-                        <div class="d-flex align-items-center border rounded">
-                            <button class="btn btn-sm btn-light border-0 px-3 fw-bold" onclick="cartPageUpdateQty('${item.id}', ${item.qty - 1})">-</button>
-                            <span class="px-3 fw-bold qty-val">${item.qty}</span>
-                            <button class="btn btn-sm btn-light border-0 px-3 fw-bold text-primary" onclick="cartPageUpdateQty('${item.id}', ${item.qty + 1})">+</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            listEl.appendChild(el);
-        });
-    }
-
-    function cartPageRemove(productId) {
-        removeFromCart(productId);
-        updateAllBadges();
-        renderCartPage();
-    }
-
-    function cartPageUpdateQty(productId, newQty) {
-        updateQtyInCart(productId, newQty);
-        updateAllBadges();
-        renderCartPage();
-    }
-
-    function clearCart() {
-        localStorage.removeItem('babi_cart_items');
-        updateAllBadges();
-        renderCartPage();
-    }
-
-    // Wait for cart_actions.js to load, then render
-    document.addEventListener('DOMContentLoaded', () => {
-        renderCartPage();
-    });
-    </script>
+    <script src="js/cart.js"></script>
 
 
 <!-- Footer -->
@@ -282,10 +177,10 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-warning mb-3">HORAIRES DU FOUR</h5>
-                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Lundi - Samedi : 06h00 - 20h00</p>
-                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Dimanche : 07h00 - 18h00</p>
-                    <p class="text-white small mt-2"><i class="fa-solid fa-fire-burner text-warning me-2"></i> Pain chaud croustillant toutes les 30 minutes !</p>
+                    <h5 class="fw-bold text-warning mb-3">HORAIRES DE LA BOUTIQUE</h5>
+                    <p class="text-white small mb-1"><i class="fa-solid fa-clock text-warning me-2"></i> Lundi - Dimanche : 05h45 - 23h00</p>
+                    <h6 class="fw-bold text-warning mt-3 mb-2" style="font-size:0.9rem;">SORTIES DE PAIN CHAUDS</h6>
+                    <p class="text-white small mb-1">06h00 • 09h00 • 14h00 • 17h00 • 18h00</p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -308,13 +203,8 @@
 <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="js/cart_actions.js"></script>
-    <script src="js/cart.js"></script>
     <script src="js/store_schedule.js"></script>
     <script src="js/script.js"></script>
     <script src="js/auth.js"></script>
-    </body>
-</html>
-
-    </body>
+</body>
 </html>

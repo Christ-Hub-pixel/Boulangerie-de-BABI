@@ -55,7 +55,7 @@ function renderCartPage() {
 
     items.forEach((item, index) => {
         const itemQty = item.qty || item.quantity || 1;
-        const itemPrice = item.price || item.prix || 0;
+        const itemPrice = typeof parsePriceFromItem === 'function' ? parsePriceFromItem(item) : (item.price || item.prix || 0);
         const itemTotal = itemPrice * itemQty;
         subtotal += itemTotal;
 
@@ -162,47 +162,68 @@ function setupPromoCodeListener() {
 }
 
 function updateCartSummary(totalQty, subtotal, deliveryCost, discount) {
-    const summaryBox = document.querySelector('.summary-box');
-    if (!summaryBox) return;
+    const totalValEl = document.querySelector('.total-val');
+    const grandTotalEl = document.querySelector('.grand-total-val');
+    const subtotalLbl = document.querySelector('.subtotal-label');
+    const checkoutBtn = document.getElementById('checkoutBtn');
 
     const grandTotal = Math.max(0, subtotal + deliveryCost - discount);
 
-    summaryBox.innerHTML = `
-        <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color:#2b160c;">
-            <i class="fa-solid fa-receipt me-2 text-warning"></i>Récapitulatif de la commande
-        </h5>
-        
-        <div class="d-flex justify-content-between mb-2 fs-6">
-            <span class="text-muted">Sous-total (${totalQty} article${totalQty > 1 ? 's' : ''})</span>
-            <span class="fw-bold">${subtotal.toLocaleString()} FCFA</span>
-        </div>
-        
-        <div class="d-flex justify-content-between mb-2 fs-6">
-            <span class="text-muted">Frais de livraison</span>
-            <span class="fw-bold ${deliveryCost === 0 ? 'text-success' : ''}">${deliveryCost === 0 ? 'Gratuit' : deliveryCost.toLocaleString() + ' FCFA'}</span>
-        </div>
-        
-        ${discount > 0 ? `
-        <div class="d-flex justify-content-between mb-2 fs-6 text-success fw-bold">
-            <span>Réduction Code Promo</span>
-            <span>- ${discount.toLocaleString()} FCFA</span>
-        </div>
-        ` : ''}
-        
-        <hr class="my-3">
-        
-        <div class="d-flex justify-content-between mb-4">
-            <span class="fw-bold fs-5" style="color:#2b160c;">Total à payer</span>
-            <span class="fw-bold fs-4 text-primary" style="color:#fb923c !important;">${grandTotal.toLocaleString()} FCFA</span>
-        </div>
-        
-        <a href="checkout.html" class="btn btn-warning w-100 fw-bold py-3 fs-6 rounded-pill shadow ${subtotal === 0 ? 'disabled opacity-50' : ''}" 
-            style="background:#fb923c; border:none; color:#2b160c;" id="checkoutBtn">
-            <i class="fa-solid fa-lock me-2"></i>PASSER LA COMMANDE
-        </a>
-        
-        <div class="mt-3 text-center text-muted small">
-            <i class="fa-solid fa-shield-halved me-1 text-success"></i>Paiement sécurisé Mobile Money & Espèces
-        </div>
-    `;
+    if (totalValEl) totalValEl.innerText = subtotal.toLocaleString() + ' FCFA';
+    if (grandTotalEl) grandTotalEl.innerText = grandTotal.toLocaleString() + ' FCFA';
+    if (subtotalLbl) subtotalLbl.innerText = `Sous-total (${totalQty} article${totalQty > 1 ? 's' : ''})`;
+
+    if (checkoutBtn) {
+        if (subtotal === 0) {
+            checkoutBtn.style.opacity = '0.5';
+            checkoutBtn.style.pointerEvents = 'none';
+            checkoutBtn.classList.add('disabled');
+        } else {
+            checkoutBtn.style.opacity = '1';
+            checkoutBtn.style.pointerEvents = 'auto';
+            checkoutBtn.classList.remove('disabled');
+        }
+    }
+
+    const summaryBox = document.querySelector('.summary-box');
+    if (summaryBox) {
+        summaryBox.innerHTML = `
+            <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color:#2b160c;">
+                <i class="fa-solid fa-receipt me-2 text-warning"></i>RÉSUMÉ DU PANIER
+            </h5>
+            
+            <div class="d-flex justify-content-between mb-2 fs-6">
+                <span class="text-muted">Sous-total (${totalQty} article${totalQty > 1 ? 's' : ''})</span>
+                <span class="fw-bold text-dark">${subtotal.toLocaleString()} FCFA</span>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-2 fs-6 text-muted">
+                <span>Livraison</span>
+                <span class="fw-bold ${deliveryCost === 0 ? 'text-success' : ''}">${deliveryCost === 0 ? 'Calculée à l\'étape suivante' : deliveryCost.toLocaleString() + ' FCFA'}</span>
+            </div>
+            
+            ${discount > 0 ? `
+            <div class="d-flex justify-content-between mb-2 fs-6 text-success fw-bold">
+                <span>Réduction Code Promo</span>
+                <span>- ${discount.toLocaleString()} FCFA</span>
+            </div>
+            ` : ''}
+            
+            <hr class="my-3">
+            
+            <div class="d-flex justify-content-between mb-4">
+                <span class="fw-bold fs-5" style="color:#2b160c;">Total</span>
+                <span class="fw-bold fs-4 text-primary" style="color:#fb923c !important;">${grandTotal.toLocaleString()} FCFA</span>
+            </div>
+            
+            <a href="checkout.html" class="btn btn-warning w-100 fw-bold py-3 fs-6 rounded-pill shadow ${subtotal === 0 ? 'disabled opacity-50' : ''}" 
+                style="background:#fb923c; border:none; color:#2b160c;" id="checkoutBtn">
+                <i class="fa-solid fa-lock me-2"></i>PASSER LA COMMANDE
+            </a>
+            
+            <div class="mt-3 text-center text-muted small">
+                <i class="fa-solid fa-shield-halved me-1 text-success"></i>Paiement sécurisé Mobile Money & Espèces
+            </div>
+        `;
+    }
 }

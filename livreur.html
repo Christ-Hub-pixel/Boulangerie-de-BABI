@@ -351,18 +351,96 @@
                 return;
             }
 
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Validation...';
-            
-            setTimeout(() => {
+            // Open Driver Rating & Annotation Modal before completing
+            const driverModalEl = document.getElementById('driverAnnotationModal');
+            if (driverModalEl && typeof bootstrap !== 'undefined') {
+                const bsModal = new bootstrap.Modal(driverModalEl);
+                bsModal.show();
+            } else {
+                finishDriverDelivery();
+            }
+        }
+
+        window.submitDriverAnnotation = function() {
+            const notes = document.getElementById('driverNotesInput') ? document.getElementById('driverNotesInput').value : '';
+            const selectedTags = Array.from(document.querySelectorAll('.driver-tag-chip.active')).map(c => c.getAttribute('data-tag'));
+
+            fetch(`/api/orders/${currentOrderId}/rate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    driver_rating: 5,
+                    driver_tags: selectedTags,
+                    driver_notes: notes
+                })
+            }).catch(() => {});
+
+            finishDriverDelivery();
+        };
+
+        function finishDriverDelivery() {
+            const btn = document.querySelector('.btn-validate');
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Validation...';
                 btn.classList.replace('btn-validate', 'btn-success');
                 btn.style.background = '#22c55e';
-                btn.innerHTML = '<i class="fa-solid fa-check-double me-2"></i> LIVRAISON EFFECTUEE AVEC SUCCES !';
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            }, 1000);
+                btn.innerHTML = '<i class="fa-solid fa-check-double me-2"></i> LIVRAISON EFFECTUÉE AVEC SUCCÈS !';
+            }
+            setTimeout(() => {
+                window.location.reload();
+            }, 1800);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.driver-tag-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                    if (chip.classList.contains('active')) {
+                        chip.classList.add('bg-warning', 'text-dark', 'fw-bold');
+                        chip.classList.remove('bg-light');
+                    } else {
+                        chip.classList.remove('bg-warning', 'text-dark', 'fw-bold');
+                        chip.classList.add('bg-light');
+                    }
+                });
+            });
+        });
     </script>
+
+    <!-- Driver Annotation Modal -->
+    <div class="modal fade" id="driverAnnotationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header text-white border-0 py-3" style="background: #2b160c;">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-clipboard-check text-warning me-2"></i>Annotation & Confirmation Livreur</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-3">Sélectionnez les caractéristiques de la livraison pour la prochaine fois :</p>
+
+                    <h6 class="fw-bold small text-success mb-2"><i class="fa-solid fa-thumbs-up me-1"></i> Remarques Positives :</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Adresse facile à trouver" style="cursor:pointer;">📍 Adresse facile à trouver</span>
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Client réactif" style="cursor:pointer;">📞 Client réactif au téléphone</span>
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Gardien disponible" style="cursor:pointer;">🏢 Gardien disponible à l'entrée</span>
+                    </div>
+
+                    <h6 class="fw-bold small text-danger mb-2"><i class="fa-solid fa-triangle-exclamation me-1"></i> Difficultés rencontrées :</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Adresse incomplète" style="cursor:pointer;">📍 Adresse incomplète / erronée</span>
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Client injoignable" style="cursor:pointer;">📵 Client injoignable</span>
+                        <span class="badge bg-light text-dark border p-2 driver-tag-chip" data-tag="Attente trop longue" style="cursor:pointer;">⏳ Attente trop longue</span>
+                    </div>
+
+                    <textarea class="form-control border p-3" id="driverNotesInput" rows="2" placeholder="Ex: Portail bleu, sonner 2 fois à l'interphone B..."></textarea>
+
+                    <button class="btn btn-warning w-100 fw-bold text-dark mt-3 py-2 rounded-pill shadow-sm" style="background:#fb923c; border:none;" onclick="submitDriverAnnotation()">
+                        VALIDER ET TERMINER LA COURSE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/store_schedule.js"></script>
 </body>
 </html>

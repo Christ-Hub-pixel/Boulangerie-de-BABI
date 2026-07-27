@@ -396,30 +396,49 @@
         <div class="container">
             <div class="rounded shadow-sm overflow-hidden" style="background: var(--dark);">
                 <div
-                    class="d-flex justify-content-between align-items-center p-3 text-white border-bottom border-secondary">
-                    <div class="d-flex align-items-center gap-3">
+                    class="d-flex flex-column flex-md-row justify-content-between align-items-md-center p-3 text-white border-bottom border-secondary gap-2">
+                    <div class="d-flex flex-wrap align-items-center gap-3">
                         <h4 class="mb-0 fw-bold d-flex align-items-center gap-2" style="color: var(--primary);">
-                            <i class="fa-solid fa-temperature-arrow-up text-danger"></i> Sorties récentes
+                            <i class="fa-solid fa-temperature-arrow-up text-danger"></i> Sorties de Pain Chauds
                         </h4>
-                        <div class="d-none d-sm-flex align-items-center gap-2">
-                            <span class="fs-sm">Sorti du four à:</span>
-                            <span class="bg-white text-dark fw-bold px-2 py-1 rounded fs-sm" id="oven-hour">07</span> h
-                            <span class="bg-white text-dark fw-bold px-2 py-1 rounded fs-sm" id="oven-minute">30</span>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="fs-sm text-warning fw-bold"><i class="fa-solid fa-fire me-1"></i>Fournées :</span>
+                            <span class="badge rounded-pill bg-dark border border-warning text-warning px-2 py-1 bake-time-badge" data-hour="6">06h00</span>
+                            <span class="badge rounded-pill bg-dark border border-warning text-warning px-2 py-1 bake-time-badge" data-hour="9">09h00</span>
+                            <span class="badge rounded-pill bg-dark border border-warning text-warning px-2 py-1 bake-time-badge" data-hour="14">14h00</span>
+                            <span class="badge rounded-pill bg-dark border border-warning text-warning px-2 py-1 bake-time-badge" data-hour="17">17h00</span>
+                            <span class="badge rounded-pill bg-dark border border-warning text-warning px-2 py-1 bake-time-badge" data-hour="18">18h00</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 ms-md-2">
+                            <span class="fs-sm text-light">Dernière sortie :</span>
+                            <span class="bg-warning text-dark fw-bold px-2 py-1 rounded fs-sm" id="oven-last-release">06h00</span>
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
-                                let d = new Date();
-                                d.setMinutes(d.getMinutes() - 25);
-                                let m = (Math.floor(d.getMinutes() / 10) * 10);
-                                if (m === 0) m = 10; // Avoid exactly :00 if it feels too artificial, but :00 is fine.
-                                let h = d.getHours().toString().padStart(2, '0');
-                                let min = m.toString().padStart(2, '0');
-                                document.getElementById('oven-hour').textContent = h;
-                                document.getElementById('oven-minute').textContent = min;
+                                const bakeHours = [6, 9, 14, 17, 18];
+                                const now = new Date();
+                                const currentHour = now.getHours();
+                                let activeHour = bakeHours[0];
+                                for (let i = 0; i < bakeHours.length; i++) {
+                                    if (currentHour >= bakeHours[i]) {
+                                        activeHour = bakeHours[i];
+                                    }
+                                }
+                                const hourStr = activeHour.toString().padStart(2, '0') + "h00";
+                                const lastReleaseEl = document.getElementById('oven-last-release');
+                                if (lastReleaseEl) lastReleaseEl.textContent = hourStr;
+
+                                document.querySelectorAll('.bake-time-badge').forEach(badge => {
+                                    const h = parseInt(badge.getAttribute('data-hour'), 10);
+                                    if (h === activeHour) {
+                                        badge.className = 'badge rounded-pill bg-warning text-dark fw-bold px-3 py-1 shadow-sm';
+                                        badge.innerHTML = '🔥 ' + h.toString().padStart(2, '0') + 'h00 (En cours)';
+                                    }
+                                });
                             });
                         </script>
                     </div>
-                    <a href="produits.html" class="text-white text-decoration-none fs-sm fw-bold hover-primary">VOIR
+                    <a href="produits.html" class="text-white text-decoration-none fs-sm fw-bold hover-primary align-self-end align-self-md-center">VOIR
                         TOUT <i class="fa-solid fa-chevron-right ms-1"></i></a>
                 </div>
 
@@ -969,9 +988,9 @@
                 </div>
                 <div class="col footer-col">
                     <h4>HEURES D'OUVERTURE</h4>
-                    <p>Lundi - Samedi : 06h00 - 20h00</p>
-                    <p>Dimanche : 07h00 - 18h00</p>
-                    <p class="mt-2">Nous sommes à votre service<br>chaque jour !</p>
+                    <p class="mb-1"><i class="fa-solid fa-clock text-warning me-1"></i> Lundi - Dimanche : 05h45 - 23h00</p>
+                    <p class="mb-1 mt-2 text-warning fw-bold"><i class="fa-solid fa-fire me-1"></i> Sorties de pain :</p>
+                    <p class="small">06h00 • 09h00 • 14h00 • 17h00 • 18h00</p>
                 </div>
                 <div class="col footer-col">
                     <h4>CONTACTEZ-NOUS</h4>

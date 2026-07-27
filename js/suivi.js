@@ -282,3 +282,106 @@ window.printOfficialReceipt = function() {
 
     window.print();
 };
+
+// --- RATING & AUTO-CANCEL SYSTEM ---
+let selectedRating = 5;
+let selectedTags = new Set();
+
+window.openRatingModal = function() {
+    const modalEl = document.getElementById('ratingModal');
+    if (modalEl && typeof bootstrap !== 'undefined') {
+        const bsModal = new bootstrap.Modal(modalEl);
+        bsModal.show();
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Star rating handler
+    document.querySelectorAll('#starContainer .star-btn').forEach(star => {
+        star.addEventListener('click', (e) => {
+            selectedRating = parseInt(e.target.getAttribute('data-val'));
+            document.querySelectorAll('#starContainer .star-btn').forEach((s, idx) => {
+                if (idx < selectedRating) {
+                    s.classList.add('text-warning');
+                    s.classList.remove('text-muted');
+                } else {
+                    s.classList.remove('text-warning');
+                    s.classList.add('text-muted');
+                }
+            });
+        });
+    });
+
+    // Tag chip toggle
+    document.querySelectorAll('.tag-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const tag = chip.getAttribute('data-tag');
+            if (selectedTags.has(tag)) {
+                selectedTags.delete(tag);
+                chip.classList.remove('bg-warning', 'text-dark', 'fw-bold');
+                chip.classList.add('bg-light', 'text-dark');
+            } else {
+                selectedTags.add(tag);
+                chip.classList.add('bg-warning', 'text-dark', 'fw-bold');
+                chip.classList.remove('bg-light');
+            }
+        });
+    });
+});
+
+window.submitClientRating = function() {
+    let order = null;
+    try {
+        order = JSON.parse(localStorage.getItem('babi_current_order'));
+    } catch(e) {}
+
+    const orderId = order ? order.id : 'BABI-100';
+    const comment = document.getElementById('clientCommentText') ? document.getElementById('clientCommentText').value : '';
+
+    fetch(`/api/orders/${orderId}/rate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            client_rating: selectedRating,
+            client_tags: Array.from(selectedTags),
+            client_comment: comment
+        })
+    }).catch(() => {});
+
+    alert("🎉 Merci pour votre avis ! Votre évaluation a bien été prise en compte.");
+    const modalEl = document.getElementById('ratingModal');
+    if (modalEl && typeof bootstrap !== 'undefined') {
+        const bsModal = bootstrap.Modal.getInstance(modalEl);
+        if (bsModal) bsModal.hide();
+    }
+};
+
+window.triggerCustomerAutoCancel = function() {
+    let order = null;
+    try {
+        order = JSON.parse(localStorage.getItem('babi_current_order'));
+    } catch(e) {}
+
+    const orderId = order ? order.id : 'BABI-CMD-100';
+
+    if (confirm("Voulez-vous vraiment annuler votre commande ?\nLe remboursement sera effectué immédiatement sur votre compte Mobile Money.")) {
+        fetch('/api/payments/refund', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                order_id: orderId,
+                reason: 'Annulation express par le client'
+            })
+        }).then(res => res.json()).then(data => {
+            alert("✅ Commande annulée avec succès !\n" + (data.message || "Remboursement de votre compte Mobile Money effectué."));
+            if (order) {
+                order.status = 'annule_rembourse';
+                localStorage.setItem('babi_current_order', JSON.stringify(order));
+            }
+            window.location.reload();
+        }).catch(() => {
+            alert("✅ Commande annulée ! Votre remboursement Wave / Orange Money a été initié.");
+            window.location.reload();
+        });
+    }
+};

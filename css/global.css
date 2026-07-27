@@ -504,3 +504,63 @@ footer h4, footer h5, footer .text-warning, footer i.text-warning {
     font-weight: 700 !important;
     letter-spacing: 0.5px;
 }
+
+/* Operator Cards in Checkout - Clean White & Dynamic Tint Backgrounds */
+.operator-card {
+    background-color: #ffffff !important;
+    border: 2px solid #e5e7eb !important;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.operator-card:hover {
+    border-color: #fb923c !important;
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.15) !important;
+    transform: translateY(-2px);
+    background-color: #fffaf5 !important;
+}
+.operator-card.active-operator#op_wave {
+    border-color: #1dc4e9 !important;
+    background-color: #f0fbfd !important;
+    box-shadow: 0 4px 12px rgba(29, 196, 233, 0.2) !important;
+}
+.operator-card.active-operator#op_orange {
+    border-color: #FF7900 !important;
+    background-color: #fff7f0 !important;
+    box-shadow: 0 4px 12px rgba(255, 121, 0, 0.25) !important;
+}
+.operator-card.active-operator#op_mtn {
+    border-color: #eab308 !important;
+    background-color: #fffdf0 !important;
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2) !important;
+}
+.operator-card.active-operator#op_moov {
+    border-color: #0284c7 !important;
+    background-color: #f0f7ff !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2) !important;
+}
+
+/* Ensure paymentModal content always has clean, crisp dark text without overriding syntax or buttons */
+#paymentModal .modal-body {
+    color: #1e293b !important;
+}
+#paymentModal .modal-body label,
+#paymentModal .modal-body p,
+#paymentModal .modal-body span:not(.badge):not(.text-warning):not(.text-info):not(.text-primary):not(.text-success),
+#paymentModal .modal-body small:not(.text-muted) {
+    color: #1e293b !important;
+    opacity: 1 !important;
+}
+#paymentModal .modal-body .text-muted,
+#paymentModal .modal-body small.text-muted {
+    color: #475569 !important;
+}
+#paymentModal .modal-body h4 {
+    color: #0f172a !important;
+}
+#paymentModal .modal-body .btn,
+#paymentModal .modal-body .btn * {
+    color: #ffffff !important;
+}
+#paymentModal .modal-header * {
+    color: #ffffff !important;
+}

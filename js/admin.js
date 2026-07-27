@@ -82,15 +82,39 @@ async function loadStats() {
     }
 }
 
+let lastOrderCount = 0;
+
 // Load orders table
 async function loadOrders() {
     try {
         const res = await fetch('/api/orders');
-        allOrders = await res.json();
+        const orders = await res.json();
+        
+        if (lastOrderCount > 0 && orders.length > lastOrderCount) {
+            playAudioBeepAlert();
+        }
+        lastOrderCount = orders.length;
+
+        allOrders = orders;
         renderOrdersTable(allOrders);
     } catch (err) {
         console.error("Erreur orders:", err);
     }
+}
+
+function playAudioBeepAlert() {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime); // A5 note
+        gain.gain.setValueAtTime(0.5, ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.6);
+    } catch (e) {}
 }
 
 function renderOrdersTable(orders) {
@@ -127,6 +151,9 @@ function renderOrdersTable(orders) {
                         <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'en preparation')">🟠 En préparation</a></li>
                         <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'en livraison')">🔵 En livraison</a></li>
                         <li><a class="dropdown-item" href="#" onclick="updateStatus(${o.id}, 'livre')">🟢 Livré</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-warning fw-bold" href="#" onclick="triggerAdminSupport(${o.id})"><i class="fa-solid fa-headset me-2"></i> 💬 Prise en charge (Support)</a></li>
+                        <li><a class="dropdown-item text-danger fw-bold" href="#" onclick="triggerAdminRefund(${o.id})"><i class="fa-solid fa-rotate-left me-2"></i> 💸 Annuler & Rembourser</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-primary" href="#" onclick="openReceiptModal(${o.id})"><i class="fa-solid fa-receipt me-2"></i> Voir Reçu</a></li>
                     </ul>
@@ -357,5 +384,41 @@ function renderCharts(stats) {
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
         });
+    }
+}
+
+async function triggerAdminSupport(orderId) {
+    const defaultMsg = "Notre service client traite actuellement votre dossier. Un conseiller étudie votre cas et vous contactera très rapidement.";
+    const customMsg = prompt("Entrez le message à transmettre au client :", defaultMsg);
+    if (customMsg !== null) {
+        try {
+            await fetch(`/api/orders/${orderId}/support-message`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: customMsg, status: 'support_en_cours' })
+            });
+            alert("💬 Message du service client enregistré et affiché sur la page du client !");
+            fetchAdminData();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+
+async function triggerAdminRefund(orderId) {
+    const reason = prompt("Indiquez la raison du remboursement (ex: Rupture de stock, Problème de livraison) :", "Rupture de stock / Annulation admin");
+    if (reason !== null) {
+        try {
+            const res = await fetch('/api/payments/refund', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderId, reason: reason })
+            });
+            const data = await res.json();
+            alert("💸 " + (data.message || "Remboursement de la commande effectué avec succès !"));
+            fetchAdminData();
+        } catch (e) {
+            console.error(e);
+        }
     }
 }

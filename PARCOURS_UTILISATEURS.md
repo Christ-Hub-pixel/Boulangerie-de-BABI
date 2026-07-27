@@ -12,15 +12,15 @@ Ce schéma détaille chaque étape franchie par un client abidjanais, depuis son
 
 ```mermaid
 flowchart TD
-    A["🌐 Arrivée sur index.html\n(Vitrine, Slogans HD & Four en direct)"] --> B{"Boutique Ouverte ?\n(06h00 - 20h00 Abidjan)"}
+    A["🌐 Arrivée sur index.html\n(Vitrine, Slogans HD & Four en direct)"] --> B{"Boutique Ouverte ?\n(05h45 - 23h00 Abidjan)"}
     
-    B -->|Non (20h00 - 06h00)| C["🥐 Pop-up d'Alerte : Ouverture à 06h00\n(Commande bloquée temporairement)"]
-    B -->|Oui (06h00 - 20h00)| D["🔍 Navigation & Recherche Produit\n(A-Z, Filtrage Catégories, Tri par Prix)"]
+    B -->|Non (23h00 - 05h45)| C["🥐 Pop-up d'Alerte : Ouverture à 05h45\n(Commande bloquée temporairement)"]
+    B -->|Oui (05h45 - 23h00)| D["🔍 Navigation & Recherche Produit\n(A-Z, Filtrage Catégories, Tri par Prix)"]
     
     D --> E["❤️ Ajout aux Favoris (favoris.html)"]
     D --> F["🛒 Ajout au Panier Unifié (cart.html)"]
     
-    F --> G["📋 Saisie Adresse & Commune à Abidjan\n(Cocody, Marcory, Yopougon, Riviera...)"]
+    F --> G["📋 Saisie Adresse & Commune à Abidjan\n(Calcul Algorithmique des Frais km dès 500 FCFA : 0-3km=500F, 3-5km=1000F...)"]
     
     G --> H{"Choix du Mode de Paiement"}
     H -->|Wave Mobile Money| I1["🌊 Transaction Wave"]

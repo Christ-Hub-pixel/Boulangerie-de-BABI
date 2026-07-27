@@ -1,12 +1,17 @@
 // ================================================================
 // BOULANGERIE DE BABI — STORE HOURS & ORDER RESTRICTION CONTROLLER
-// Store Hours: 06h00 to 20h00 (Abidjan Local Time)
+// Store Hours: 05h45 to 23h00 (Abidjan Local Time)
+// Programmes de sortie de pain : 06h00, 09h00, 14h00, 17h00, 18h00
 // ================================================================
 
 function isStoreOpen() {
     const now = new Date();
     const hours = now.getHours();
-    return hours >= 6 && hours < 20;
+    const minutes = now.getMinutes();
+    const timeInMinutes = hours * 60 + minutes;
+    const openInMinutes = 5 * 60 + 45;  // 05:45 = 345 min
+    const closeInMinutes = 23 * 60;     // 23:00 = 1380 min
+    return timeInMinutes >= openInMinutes && timeInMinutes < closeInMinutes;
 }
 
 function getStoreOpeningMessage() {
@@ -14,13 +19,13 @@ function getStoreOpeningMessage() {
         return {
             open: true,
             title: "☀️ La Boulangerie de BABI est Ouverte !",
-            message: "Nos fours tournent à plein régime ! Passez vos commandes de pains et viennoiseries chauds."
+            message: "Nos fours tournent à plein régime ! Sorties de pain chauds : 06h00, 09h00, 14h00, 17h00 et 18h00."
         };
     } else {
         return {
             open: false,
-            title: "🥐 La Boulangerie est actuellement fermée (06h00 - 20h00)",
-            message: "Nos fours se préparent pour vous accueillir dès 06h00 du matin ! Les commandes en ligne sont temporairement suspendues et réouvriront à 06h00."
+            title: "🥐 La Boulangerie est actuellement fermée (05h45 - 23h00)",
+            message: "Nos fours se préparent pour vous accueillir dès 05h45 du matin ! Les commandes en ligne sont temporairement suspendues et réouvriront à 05h45."
         };
     }
 }
@@ -42,7 +47,7 @@ function showStoreClosedModal() {
                         </div>
                         <div>
                             <h5 class="modal-title fw-bold mb-0" style="font-family:'Playfair Display', serif;">Boulangerie Fermée</h5>
-                            <small class="text-warning">Horaires : 06h00 - 20h00</small>
+                            <small class="text-warning">Horaires : 05h45 - 23h00</small>
                         </div>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -51,12 +56,13 @@ function showStoreClosedModal() {
                     <div class="mb-3 text-warning display-4">
                         <i class="fa-solid fa-clock"></i>
                     </div>
-                    <h5 class="fw-bold mb-2" style="color: #2b160c;">Les commandes en ligne réouvrent à 06h00 !</h5>
-                    <p class="text-muted small mb-3">Nos boulangers préparent la pâte fraîche et allument les fours dès l'aube. Vous pourrez valider votre panier dès 06h00 du matin.</p>
+                    <h5 class="fw-bold mb-2" style="color: #2b160c;">Les commandes en ligne réouvrent à 05h45 !</h5>
+                    <p class="text-muted small mb-3">Nos boulangers préparent la pâte fraîche et allument les fours dès l'aube. Vous pourrez valider votre panier dès 05h45 du matin.</p>
                     <div class="p-3 bg-light rounded-3 text-start small border mb-3">
                         <div class="fw-bold text-dark"><i class="fa-solid fa-circle-info text-warning me-1"></i> Horaires de la boutique :</div>
-                        <div class="text-muted ms-3">• Lundi à Samedi : 06h00 – 20h00</div>
-                        <div class="text-muted ms-3">• Dimanche : 07h00 – 18h00</div>
+                        <div class="text-muted ms-3">• Lundi à Dimanche : 05h45 – 23h00</div>
+                        <div class="fw-bold text-dark mt-2"><i class="fa-solid fa-fire text-danger me-1"></i> Sorties de pain chauds :</div>
+                        <div class="text-muted ms-3">• 06h00 • 09h00 • 14h00 • 17h00 • 18h00</div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 p-3 bg-light">

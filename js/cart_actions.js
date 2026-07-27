@@ -18,18 +18,28 @@ function getCartItems() {
     return [];
 }
 
+function parsePriceFromItem(item) {
+    if (!item) return 0;
+    if (typeof item.price === 'number' && !isNaN(item.price) && item.price > 0) return item.price;
+    if (typeof item.prix === 'number' && !isNaN(item.prix) && item.prix > 0) return item.prix;
+    
+    const rawStr = String(item.price || item.prix || '').replace(/[^0-9]/g, '');
+    let p = parseInt(rawStr);
+    if (!isNaN(p) && p > 0) return p;
+
+    const title = String(item.name || item.title || '');
+    const titleMatch = title.match(/\((\d+)\s*F?\)/i) || title.match(/(\d+)\s*FCFA/i) || title.match(/(\d+)\s*F/i);
+    if (titleMatch && titleMatch[1]) {
+        p = parseInt(titleMatch[1]);
+        if (!isNaN(p) && p > 0) return p;
+    }
+    return 0;
+}
+
 function normalizeCartItem(item) {
     if (!item) return null;
     const name = item.name || item.title || 'Produit';
-    let priceNum = 0;
-    if (typeof item.price === 'number') {
-        priceNum = item.price;
-    } else if (typeof item.prix === 'number') {
-        priceNum = item.prix;
-    } else {
-        const rawStr = String(item.price || item.prix || '0').replace(/[^0-9.]/g, '');
-        priceNum = parseFloat(rawStr) || 0;
-    }
+    const priceNum = parsePriceFromItem(item);
     const image = item.image || item.img || item.src || 'assets/baguette 200.png';
     const qty = parseInt(item.qty || item.quantity) || 1;
     const id = item.id || name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');

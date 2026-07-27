@@ -79,11 +79,11 @@ sequenceDiagram
     C->>W: Clique sur "PASSER LA COMMANDE"
     W->>S: Appel isStoreOpen() (Vérifie Heure d'Abidjan)
     
-    alt Horaires Fermés (20h00 - 06h00)
+    alt Horaires Fermés (23h00 - 05h45)
         S-->>W: Retourne false (Store Closed)
-        W->>M: Affiche Pop-up "Boulangerie Fermée - Réouverture à 06h00"
-        M-->>C: Bloque la soumission jusqu me 06h00
-    else Horaires Ouverts (06h00 - 20h00)
+        W->>M: Affiche Pop-up "Boulangerie Fermée - Réouverture à 05h45"
+        M-->>C: Bloque la soumission jusqu'à 05h45
+    else Horaires Ouverts (05h45 - 23h00)
         S-->>W: Retourne true (Store Open)
         W->>C: Affiche le Formulaire de Caisse (Mobile Money / Cash)
         C->>W: Valide la commande & Sélectionne le paiement
@@ -223,8 +223,9 @@ Boulangerie de BABI/
 - **Page Galerie Dédiée (`favoris.html`) :** Vue synthétique des coups de cœur avec bouton d'ajout direct au panier.
 
 ### ⏰ D. Contrôleur des Horaires Boutique (`js/store_schedule.js`)
-- **Plage d'Ouverture :** `06h00` à `20h00` (Heure d'Abidjan).
-- **Restriction Automatique :** En dehors de cette plage, le passage de commande est bloqué et déclenche une fenêtre pop-up explicative (*"Les commandes réouvrent à 06h00"*).
+- **Plage d'Ouverture :** `05h45` à `23h00` (Heure d'Abidjan).
+- **Programmes de Sortie de Pain :** `06h00`, `09h00`, `14h00`, `17h00`, `18h00`.
+- **Restriction Automatique :** En dehors de cette plage, le passage de commande est bloqué et déclenche une fenêtre pop-up explicative (*"Les commandes réouvrent à 05h45"*).
 
 ### 🛵 E. Suivi GPS Livreur & Reçu Thermique (`suivi.html` & `js/suivi.js`)
 - **Animation de Scooter en Direct :** Déplacement du livreur de **Cocody Riviera 2** vers l'adresse du client sur carte OpenStreetMap.
@@ -233,6 +234,15 @@ Boulangerie de BABI/
 
 ### 📱 F. Cockpit GPS Livreur (`livreur.html`)
 - **Interface Style Uber Driver :** Guidage d'itinéraire Leaflet Routing, affichage des coordonnées client, bouton d'appel direct et validation par code PIN.
+
+### 📦 G. Algorithme Kilométrique de Livraison & Barème (`checkout.html` & `js/checkout.js`)
+- **Calculateur Kilométrique Officiel (`calculateDeliveryFeeByKm(km)`) :** Calcul automatique des kilomètres depuis la boulangerie (Cocody Riviera 2 : `5.37728, -3.92726`) à partir de 500 FCFA :
+  - `km <= 3.0 km` : **500 FCFA** (Tarif de base / proximité : Riviera 2, Palmeraie, Anono... — *"3 km est égal à 500"*)
+  - `3.0 km < km <= 5.0 km` : **1 000 FCFA** (Cocody étendu : Deux-Plateaux, Angré...)
+  - `5.0 km < km <= 8.0 km` : **1 500 FCFA** (Plateau, Adjamé, Marcory Zone 4...)
+  - `8.0 km < km <= 12.0 km` : **2 000 FCFA** (Koumassi, Treichville, Bingerville, Attécoubé...)
+  - `km > 12.0 km` : **2 500 FCFA** (Yopougon, Abobo, Port-Bouët...)
+- **Formule GPS Haversine :** Calcul mathématique exact en kilomètres (`computeHaversineDistance()`) lors de la capture GPS Porte-à-Porte.
 
 ---
 
@@ -245,8 +255,9 @@ Boulangerie de BABI/
   - 📱 **Mobile 1 :** `07 04 38 92 01`
   - 📱 **Mobile 2 :** `07 06 81 79 77`
 - **Horaires d'Ouverture Boutique :**
-  - **Lundi à Samedi :** `06h00 – 20h00`
-  - **Dimanche :** `07h00 – 18h00`
+  - **Lundi à Dimanche :** `05h45 – 23h00`
+- **Programmes de Sortie de Pain :**
+  - `06h00` • `09h00` • `14h00` • `17h00` • `18h00`
 
 ---
 *Document avec Schémas Visuels généré pour le projet Boulangerie de BABI.*
